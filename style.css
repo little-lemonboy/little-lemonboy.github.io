@@ -11,7 +11,7 @@ body {
 
 .desktop-window {
     width: 900px;
-    height: 600px;
+    height: 500px;
     background-color: #a4ddf2; /* Light blue window background */
     border: 2px solid #000;
     border-radius: 8px;
@@ -40,28 +40,42 @@ body {
 
 .nav-tabs {
     display: flex;
-    background-color: #7abfe5; /* Slightly darker blue for tabs */
+    background-color: #7abfe5; /* Revert to slightly darker blue for tabs */
     padding: 5px 10px;
-    border-bottom: 2px solid #000;
+    border-bottom: 1px solid #000; /* Add back bottom border for the tab bar */
 }
 
 .nav-tabs .tab {
     text-decoration: none;
     color: #000;
     padding: 5px 15px;
-    margin-right: 5px;
+    margin-right: 2px; /* Add some space between tabs */
     border: 1px solid #000;
-    border-bottom: none;
+    border-bottom: 1px solid #000; /* Ensure bottom border is present */
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     background-color: #a4ddf2; /* Light blue for tab background */
     font-weight: bold;
 }
 
+.nav-tabs .tab.active {
+    border-bottom: none;
+    margin-bottom: -1px; /* Connects the tab to the content below */
+    background-color: #a4ddf2; /* Ensure active tab background matches content */
+}
+
+.nav-tabs .tab:first-child {
+    margin-left: 0; /* Remove margin-left for the first tab */
+}
+
+.nav-tabs .tab:last-child {
+    border-right: 1px solid #000; /* Ensure last tab has right border */
+}
+
 .window-content {
     display: flex;
     flex: 1;
-    padding: 15px;
+    padding: 15px 15px 15px 15px; /* Adjust padding to match tab alignment */
     gap: 15px; /* Space between sections */
     overflow-y: auto; /* Enable scrolling for content if needed */
 }
