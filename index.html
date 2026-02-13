@@ -285,7 +285,22 @@
                                     </a>
                                  </li>
                               </ul>
-                              <p id="text96" class="text-component instance-96 style-2"><span class="p">im 22 years old and i am transmasculine nonbinary!<br> i identify with xenogenders and use neopronouns :3<br> i don't label my xenogenders beyond the things they're based on!!!</span></p>
+                              <p id="text96" class="text-component instance-96 style-2"><span class="p">im <span id="age"></span> years old and i am transmasculine nonbinary!<br> i identify with xenogenders and use neopronouns :3<br> i don't label my xenogenders beyond the things they're based on!!!</span></p>
+                              <script>
+  const birthDate = new Date(2003, 11, 5); // year, month (0 = Jan), day — replace with your birthday
+  const today = new Date();
+
+  let age = today.getFullYear() - birthDate.getFullYear();
+
+  // If birthday hasn't happened yet this year, subtract 1
+  const hasBirthdayPassed = (today.getMonth() > birthDate.getMonth()) ||
+                            (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
+  if (!hasBirthdayPassed) {
+    age -= 1;
+  }
+
+  document.getElementById('age').textContent = age;
+</script>
                               <div id="table03" class="table-component instance-3" style="opacity: 0; transform: scale(1.05625);">
                                  <div class="inner">
                                     <table>
@@ -1329,6 +1344,7 @@
       </div>
    </body>
 </html>
+
 
 
 
