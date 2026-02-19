@@ -1,0 +1,440 @@
+/* --- RESET & FONTS --- */
+:root {
+    --bg-teal: #008080;
+    --win-gray: #c0c0c0;
+    --win-text: #000000;
+    --win-dark-shadow: #808080;
+    --win-light-shadow: #ffffff;
+    --win-darker-shadow: #404040;
+    --win-title-blue: #000080;
+    --win-title-light-blue: #1084d0;
+}
+
+body {
+    background-color: var(--bg-teal);
+    font-family: 'MS Sans Serif', 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100vh;
+    font-size: 11px;
+    background-image: radial-gradient(#444 1px, transparent 1px);
+    background-size: 20px 20px;
+    user-select: none;
+}
+
+/* --- DESKTOP ICONS --- */
+.desktop-icons {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 1;
+}
+
+.icon {
+    width: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    color: white;
+}
+
+.icon img {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 5px;
+}
+
+.icon span {
+    background: transparent;
+    padding: 2px;
+    border: 1px dotted transparent;
+}
+
+.icon:hover span {
+    background: var(--win-title-blue);
+    border: 1px dotted var(--win-light-shadow);
+}
+
+/* --- WINDOW COMPONENT --- */
+.window {
+    position: absolute;
+    background: var(--win-gray);
+    border: 2px solid;
+    border-color: var(--win-light-shadow) var(--win-darker-shadow) var(--win-darker-shadow) var(--win-light-shadow);
+    box-shadow: 1px 1px 0 black;
+    padding: 3px;
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+}
+
+/* --- TITLE BAR --- */
+.title-bar {
+    background: linear-gradient(90deg, var(--win-dark-shadow), #b0b0b0);
+    padding: 3px 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--win-gray);
+    font-weight: bold;
+    cursor: default;
+}
+
+.title-bar.active-bar {
+    background: linear-gradient(90deg, var(--win-title-blue), var(--win-title-light-blue));
+    color: white;
+}
+
+.title-bar-controls button {
+    width: 16px;
+    height: 14px;
+    background: var(--win-gray);
+    border: 1px outset white;
+    box-shadow: inset -1px -1px var(--win-darker-shadow), inset 1px 1px white;
+    font-weight: bold;
+    font-size: 8px;
+    margin-left: 2px;
+    padding: 0;
+    line-height: 10px;
+}
+
+.title-bar-controls button:active {
+    border: 1px inset white;
+    padding-top: 2px;
+}
+
+/* --- WINDOW BODY --- */
+.window-body {
+    padding: 10px;
+    color: black;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.inset-box {
+    background: white;
+    border: 2px solid;
+    border-color: var(--win-dark-shadow) var(--win-light-shadow) var(--win-light-shadow) var(--win-dark-shadow);
+    padding: 10px;
+    overflow-y: auto;
+    max-height: 300px;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid var(--win-dark-shadow);
+    border-bottom: 1px solid white;
+    margin: 10px 0;
+}
+
+/* --- BUTTONS --- */
+button {
+    font-family: inherit;
+    background: var(--win-gray);
+    color: black;
+    border: 2px solid;
+    border-color: white var(--win-darker-shadow) var(--win-darker-shadow) white;
+    padding: 4px 10px;
+    cursor: pointer;
+}
+
+button:active {
+    border-color: var(--win-darker-shadow) white white var(--win-darker-shadow);
+    transform: translate(1px, 1px);
+}
+
+/* --- PROFILE SPECIFIC --- */
+.profile-header {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+}
+
+.pfp {
+    width: 80px;
+    height: 80px;
+    border: 2px solid;
+    border-color: var(--win-dark-shadow) var(--win-light-shadow) var(--win-light-shadow) var(--win-dark-shadow);
+}
+
+.profile-info h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.pronouns {
+    color: #555;
+    margin: 5px 0;
+    font-style: italic;
+}
+
+/* --- TOS & COMMS --- */
+.menubar {
+    list-style: none;
+    padding: 0 0 5px 0;
+    margin: 0;
+    display: flex;
+    gap: 10px;
+}
+
+.menubar li:hover {
+    background: var(--win-title-blue);
+    color: white;
+}
+
+.notepad-area {
+    font-family: 'Courier New', monospace;
+    background: white;
+}
+
+.tos-list {
+    list-style: none;
+    padding: 0;
+}
+
+.tos-list li {
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+/* --- LINKS --- */
+.address-bar {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.address-bar input {
+    flex: 1;
+    border: 2px inset white;
+    padding: 2px;
+    font-family: inherit;
+}
+
+.link-item {
+    display: block;
+    margin-bottom: 8px;
+    text-decoration: none;
+    color: blue;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.link-item:hover {
+    text-decoration: underline;
+}
+
+/* --- TASKBAR --- */
+.taskbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 28px;
+    background: var(--win-gray);
+    border-top: 2px solid var(--win-light-shadow);
+    display: flex;
+    align-items: center;
+    padding: 2px;
+    z-index: 2000;
+}
+
+.start-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: bold;
+    padding: 2px 6px;
+    margin-right: 5px;
+}
+
+.start-btn.active {
+     border-color: var(--win-darker-shadow) white white var(--win-darker-shadow);
+     background: #dcdcdc;
+}
+
+.divider {
+    width: 2px;
+    height: 20px;
+    background: var(--win-dark-shadow);
+    border-right: 1px solid white;
+    margin: 0 5px;
+}
+
+.task-button {
+    min-width: 120px;
+    max-width: 150px;
+    height: 22px;
+    background: var(--win-gray);
+    border: 2px solid;
+    border-color: white var(--win-darker-shadow) var(--win-darker-shadow) white;
+    display: none; 
+    align-items: center;
+    padding-left: 5px;
+    margin-right: 3px;
+    font-size: 11px;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.task-button.active {
+    background: #e6e6e6;
+    border-color: var(--win-darker-shadow) white white var(--win-darker-shadow);
+    font-weight: bold;
+    background: repeating-linear-gradient(45deg, #c0c0c0, #c0c0c0 2px, #fff 2px, #fff 4px);
+}
+
+.task-button img {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+}
+
+.tray {
+    margin-left: auto;
+    border: 2px inset white;
+    padding: 2px 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-right: 2px;
+    background: var(--win-gray);
+}
+
+.tray-icon {
+    width: 16px;
+    height: 16px;
+}
+
+/* --- START MENU --- */
+.start-menu {
+    position: fixed;
+    bottom: 32px;
+    left: 2px;
+    width: 180px;
+    background: var(--win-gray);
+    border: 2px solid;
+    border-color: var(--win-light-shadow) var(--win-darker-shadow) var(--win-darker-shadow) var(--win-light-shadow);
+    display: none; 
+    flex-direction: row;
+    z-index: 2001;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+}
+
+.start-side {
+    width: 25px;
+    background: linear-gradient(to bottom, #000080, #1084d0);
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 5px;
+}
+
+.start-side span {
+    color: white;
+    transform: rotate(-90deg);
+    white-space: nowrap;
+    font-weight: bold;
+    font-size: 14px;
+    margin-left: 2px;
+}
+
+.start-items {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 2px;
+}
+
+.start-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+    color: black;
+}
+
+.start-item:hover {
+    background: var(--win-title-blue);
+    color: white;
+}
+
+.start-item img {
+    width: 24px;
+    height: 24px;
+}
+
+.start-line {
+    border-top: 1px solid var(--win-dark-shadow);
+    border-bottom: 1px solid white;
+    margin: 2px 0;
+}
+
+/* --- MESSENGER WINDOW SPECIFIC --- */
+.messenger-body {
+    background: white;
+    border: 2px inset white;
+    padding: 5px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.msn-header {
+    background: #eef;
+    border-bottom: 1px solid #aad;
+    padding: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.msn-pfp {
+    width: 32px;
+    height: 32px;
+    border: 1px solid gray;
+}
+
+.friend-group {
+    font-weight: bold;
+    color: #444;
+    margin-top: 10px;
+    margin-bottom: 2px;
+    cursor: pointer;
+}
+
+.friend-item {
+    padding: 2px 0 2px 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.friend-item:hover {
+    background: #eef;
+    border: 1px dotted #aad;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: green;
+    border-radius: 50%;
+    border: 1px solid darkgreen;
+}
+
+.status-busy { background: red; }
+.status-away { background: orange; }
