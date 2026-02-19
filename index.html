@@ -29,6 +29,10 @@
             <img src="https://win98icons.alexmeub.com/icons/png/msagent-1.png" alt="Messenger">
             <span>Messenger</span>
         </div>
+        <div class="icon" onclick="openWindow('win-paint')">
+            <img src="https://win98icons.alexmeub.com/icons/png/paint-4.png" alt="Paint">
+            <span>Paint</span>
+        </div>
     </div>
 
     <div id="start-menu" class="start-menu">
@@ -48,19 +52,11 @@
                 <img src="https://win98icons.alexmeub.com/icons/png/msagent-1.png">
                 <span>Messenger</span>
             </div>
+            <div class="start-item" onclick="openWindow('win-paint'); toggleStartMenu(event);">
+                <img src="https://win98icons.alexmeub.com/icons/png/paint-4.png">
+                <span>Paint</span>
+            </div>
             <div class="start-line"></div>
-            <div class="start-item">
-                <img src="https://win98icons.alexmeub.com/icons/png/settings_gear-4.png">
-                <span>Settings</span>
-            </div>
-            <div class="start-item">
-                <img src="https://win98icons.alexmeub.com/icons/png/find_file-3.png">
-                <span>Find</span>
-            </div>
-            <div class="start-item">
-                <img src="https://win98icons.alexmeub.com/icons/png/help_book_big-4.png">
-                <span>Help</span>
-            </div>
             <div class="start-item">
                 <img src="https://win98icons.alexmeub.com/icons/png/shut_down_cool-4.png">
                 <span>Shut Down...</span>
@@ -68,7 +64,7 @@
         </div>
     </div>
 
-    <div id="win-me" class="window" style="top: 50px; left: 50px; width: 400px; display: flex; z-index: 20;">
+    <div id="win-me" class="window" style="top: 50%; left: 50%; transform: translate(-50%, -50%); width: 400px; display: flex; z-index: 20;">
         <div class="title-bar active-bar" onmousedown="startDrag(event, 'win-me')">
             <div class="title-bar-text">Welcome to c4tling</div>
             <div class="title-bar-controls">
@@ -131,7 +127,7 @@
         </div>
     </div>
 
-    <div id="win-comms" class="window" style="top: 40px; left: 300px; width: 450px; display: none; z-index: 10;">
+    <div id="win-comms" class="window" style="top: 40px; left: 300px; width: 500px; display: none; z-index: 10;">
         <div class="title-bar" onmousedown="startDrag(event, 'win-comms')">
             <div class="title-bar-text">Comms Info - Paint</div>
             <div class="title-bar-controls">
@@ -142,30 +138,45 @@
         </div>
         <div class="window-body">
             <p>Current Status: <strong>OPEN</strong></p>
-            <div class="inset-box" style="background: #fff;">
-                <h4 style="margin-top:0;">PRICING SHEET</h4>
-                <table style="width: 100%; text-align: left; border-collapse: collapse;">
-                    <tr style="border-bottom: 1px dotted #888;">
-                        <td style="padding: 5px;"><strong>Sketch</strong></td>
-                        <td style="padding: 5px;">$15 - $25</td>
-                    </tr>
-                    <tr style="border-bottom: 1px dotted #888;">
-                        <td style="padding: 5px;"><strong>Flat Color</strong></td>
-                        <td style="padding: 5px;">$35 - $45</td>
-                    </tr>
-                    <tr style="border-bottom: 1px dotted #888;">
-                        <td style="padding: 5px;"><strong>Full Render</strong></td>
-                        <td style="padding: 5px;">$60 - $80</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 5px;"><strong>Ref Sheet</strong></td>
-                        <td style="padding: 5px;">$100+</td>
-                    </tr>
-                </table>
-                <br>
-                <p style="font-size: 0.9em; color: red;">* Complex designs may increase price.</p>
+            
+            <div class="tabs">
+                <div class="tab active-tab" onclick="switchTab('tab-sketch', this)">Sketch</div>
+                <div class="tab" onclick="switchTab('tab-flat', this)">Flat Color</div>
+                <div class="tab" onclick="switchTab('tab-render', this)">Full Render</div>
+            </div>
+
+            <div class="inset-box" style="background: #fff; height: 300px;">
+                
+                <div id="tab-sketch" class="tab-content active-content">
+                    <h4>SKETCH COMMISSION - $15-$25</h4>
+                    <p>Loose lines, basic shading optionally. Good for concepts.</p>
+                    <div class="gallery-grid">
+                        <div class="gallery-item">Example 1</div>
+                        <div class="gallery-item">Example 2</div>
+                        <div class="gallery-item">Example 3</div>
+                    </div>
+                </div>
+
+                <div id="tab-flat" class="tab-content">
+                    <h4>FLAT COLOR - $35-$45</h4>
+                    <p>Clean lines, solid colors, no shading.</p>
+                    <div class="gallery-grid">
+                         <div class="gallery-item" style="background:#bbf;">Example 1</div>
+                         <div class="gallery-item" style="background:#bbf;">Example 2</div>
+                    </div>
+                </div>
+
+                <div id="tab-render" class="tab-content">
+                    <h4>FULL RENDER - $60-$80</h4>
+                    <p>Fully shaded, highlighted, detailed background.</p>
+                     <div class="gallery-grid">
+                         <div class="gallery-item" style="background:#fbb;">Example 1</div>
+                         <div class="gallery-item" style="background:#fbb;">Example 2</div>
+                    </div>
+                </div>
+
                 <hr>
-                <p><strong>To Order:</strong> DM me on Discord with your ref sheet and paypal email.</p>
+                <p style="font-size: 0.9em;"><strong>To Order:</strong> DM me on Discord with your ref sheet and paypal email.</p>
             </div>
         </div>
     </div>
@@ -244,6 +255,40 @@
         </div>
     </div>
 
+    <div id="win-paint" class="window" style="top: 10%; left: 10%; width: 500px; display: none; z-index: 10;">
+        <div class="title-bar" onmousedown="startDrag(event, 'win-paint')">
+            <div class="title-bar-text">untitled - Paint</div>
+            <div class="title-bar-controls">
+                <button aria-label="Minimize" onclick="minimizeWindow('win-paint')">_</button>
+                <button aria-label="Maximize">□</button>
+                <button aria-label="Close" onclick="closeWindow('win-paint')">X</button>
+            </div>
+        </div>
+        <div class="window-body">
+            <ul class="menubar">
+                <li><u>F</u>ile</li>
+                <li><u>E</u>dit</li>
+                <li><u>V</u>iew</li>
+                <li><u>I</u>mage</li>
+                <li><u>C</u>olors</li>
+                <li><u>H</u>elp</li>
+            </ul>
+            <div class="paint-toolbar">
+                <div class="color-box active-color" style="background:black;" onclick="setColor('black', this)"></div>
+                <div class="color-box" style="background:white;" onclick="setColor('white', this)"></div>
+                <div class="color-box" style="background:gray;" onclick="setColor('gray', this)"></div>
+                <div class="color-box" style="background:red;" onclick="setColor('red', this)"></div>
+                <div class="color-box" style="background:green;" onclick="setColor('green', this)"></div>
+                <div class="color-box" style="background:blue;" onclick="setColor('blue', this)"></div>
+                <div class="color-box" style="background:yellow;" onclick="setColor('yellow', this)"></div>
+                <button onclick="clearCanvas()" style="margin-left:auto;">Clear</button>
+            </div>
+            <div class="inset-box" style="background: #808080; padding: 10px; flex:1;">
+                <canvas id="paintCanvas" width="450" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+
     <div class="taskbar">
         <button id="start-btn" class="start-btn" onclick="toggleStartMenu(event)">
             <img src="https://win98icons.alexmeub.com/icons/png/windows-0.png" alt="start">
@@ -251,20 +296,23 @@
         </button>
         <div class="divider"></div>
         
-        <div id="task-win-me" class="task-button active" onclick="openWindow('win-me')">
+        <div id="task-win-me" class="task-button active" onclick="toggleWindow('win-me')">
             <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png"> Welcome to c4tling
         </div>
-        <div id="task-win-tos" class="task-button" onclick="openWindow('win-tos')">
+        <div id="task-win-tos" class="task-button" onclick="toggleWindow('win-tos')">
             <img src="https://win98icons.alexmeub.com/icons/png/notepad-5.png"> T.O.S.txt
         </div>
-        <div id="task-win-comms" class="task-button" onclick="openWindow('win-comms')">
+        <div id="task-win-comms" class="task-button" onclick="toggleWindow('win-comms')">
             <img src="https://win98icons.alexmeub.com/icons/png/paint_file-2.png"> Comms Info
         </div>
-        <div id="task-win-links" class="task-button" onclick="openWindow('win-links')">
+        <div id="task-win-links" class="task-button" onclick="toggleWindow('win-links')">
             <img src="https://win98icons.alexmeub.com/icons/png/world-3.png"> Internet Explorer
         </div>
-        <div id="task-win-messenger" class="task-button" onclick="openWindow('win-messenger')">
+        <div id="task-win-messenger" class="task-button" onclick="toggleWindow('win-messenger')">
             <img src="https://win98icons.alexmeub.com/icons/png/msagent-1.png"> Messenger
+        </div>
+        <div id="task-win-paint" class="task-button" onclick="toggleWindow('win-paint')">
+            <img src="https://win98icons.alexmeub.com/icons/png/paint-4.png"> Paint
         </div>
 
         <div class="tray">
