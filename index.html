@@ -73,12 +73,13 @@
             <div class="title-bar-text">Welcome to c4tling</div>
             <div class="title-bar-controls">
                 <button onclick="minimizeWindow('win-me')">_</button>
+                <button>□</button>
                 <button onclick="closeWindow('win-me')">X</button>
             </div>
         </div>
         <div class="window-body">
             <div style="display:flex; gap:10px;">
-                <img src="https://c4tl.ing/assets/images/salem.jpg?v=dae0871c" style="width:80px; height:80px; border:2px inset white;">
+                <img src="https://win98icons.alexmeub.com/icons/png/cat-0.png" style="width:80px; height:80px; border:2px inset white; background: white;" alt="PFP">
                 <div>
                     <h2 style="margin:0">c4tling</h2>
                     <p>he/him • trans man</p>
@@ -94,6 +95,7 @@
             <div class="title-bar-text">T.O.S.txt - Notepad</div>
             <div class="title-bar-controls">
                 <button onclick="minimizeWindow('win-tos')">_</button>
+                <button>□</button>
                 <button onclick="closeWindow('win-tos')">X</button>
             </div>
         </div>
@@ -124,6 +126,7 @@
             <div class="title-bar-text">Internet Explorer</div>
             <div class="title-bar-controls">
                 <button onclick="minimizeWindow('win-links')">_</button>
+                <button>□</button>
                 <button onclick="closeWindow('win-links')">X</button>
             </div>
         </div>
@@ -151,12 +154,13 @@
             <div class="title-bar-text">Messenger</div>
             <div class="title-bar-controls">
                 <button onclick="minimizeWindow('win-messenger')">_</button>
+                <button>□</button>
                 <button onclick="closeWindow('win-messenger')">X</button>
             </div>
         </div>
         <div class="window-body" style="background:#f0f0f0; padding:2px;">
             <div class="msn-header">
-                <img src="https://c4tl.ing/assets/images/salem.jpg?v=dae0871c" class="msn-pfp">
+                <img src="https://win98icons.alexmeub.com/icons/png/cat-0.png" class="msn-pfp" style="background: white;" alt="PFP">
                 <div>
                     <strong>c4tling</strong><br>
                     <span style="color:green; font-size: 0.9em;">(Online)</span>
@@ -190,6 +194,7 @@
             <div class="title-bar-text">Comms Info - Gallery</div>
             <div class="title-bar-controls">
                 <button onclick="minimizeWindow('win-comms')">_</button>
+                <button>□</button>
                 <button onclick="closeWindow('win-comms')">X</button>
             </div>
         </div>
@@ -221,6 +226,7 @@
             <div class="title-bar-text">untitled - Paint</div>
             <div class="title-bar-controls">
                 <button onclick="minimizeWindow('win-paint')">_</button>
+                <button>□</button>
                 <button onclick="closeWindow('win-paint')">X</button>
             </div>
         </div>
@@ -248,12 +254,24 @@
             <img src="https://win98icons.alexmeub.com/icons/png/windows-0.png" width="16">
             <b>Start</b>
         </button>
-        <div id="task-win-me" class="task-button" onclick="toggleWindow('win-me')">About Me</div>
-        <div id="task-win-tos" class="task-button" onclick="toggleWindow('win-tos')">T.O.S.</div>
-        <div id="task-win-links" class="task-button" onclick="toggleWindow('win-links')">Links</div>
-        <div id="task-win-messenger" class="task-button" onclick="toggleWindow('win-messenger')">Messenger</div>
-        <div id="task-win-comms" class="task-button" onclick="toggleWindow('win-comms')">Comms</div>
-        <div id="task-win-paint" class="task-button" onclick="toggleWindow('win-paint')">Paint</div>
+        <div id="task-win-me" class="task-button" onclick="toggleWindow('win-me')">
+            <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png" width="16" style="margin-right:5px;"> About Me
+        </div>
+        <div id="task-win-tos" class="task-button" onclick="toggleWindow('win-tos')">
+            <img src="https://win98icons.alexmeub.com/icons/png/notepad-5.png" width="16" style="margin-right:5px;"> T.O.S.
+        </div>
+        <div id="task-win-links" class="task-button" onclick="toggleWindow('win-links')">
+            <img src="https://win98icons.alexmeub.com/icons/png/world-3.png" width="16" style="margin-right:5px;"> Links
+        </div>
+        <div id="task-win-messenger" class="task-button" onclick="toggleWindow('win-messenger')">
+            <img src="https://win98icons.alexmeub.com/icons/png/msagent-1.png" width="16" style="margin-right:5px;"> Messenger
+        </div>
+        <div id="task-win-comms" class="task-button" onclick="toggleWindow('win-comms')">
+            <img src="https://win98icons.alexmeub.com/icons/png/paint_file-2.png" width="16" style="margin-right:5px;"> Comms
+        </div>
+        <div id="task-win-paint" class="task-button" onclick="toggleWindow('win-paint')">
+            <img src="https://win98icons.alexmeub.com/icons/png/paint-4.png" width="16" style="margin-right:5px;"> Paint
+        </div>
         
         <div class="tray" style="margin-left:auto; border:2px inset white; padding:2px 5px;">
             <span id="clock">12:00 PM</span>
