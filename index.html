@@ -52,6 +52,10 @@
                 <img src="https://win98icons.alexmeub.com/icons/png/notepad-5.png">
                 <span>TOS</span>
             </div>
+            <div class="start-item" onclick="openWindow('win-links'); toggleStartMenu(event);">
+                <img src="https://win98icons.alexmeub.com/icons/png/world-3.png">
+                <span>Links</span>
+            </div>
             <div class="start-item" onclick="openWindow('win-paint'); toggleStartMenu(event);">
                 <img src="https://win98icons.alexmeub.com/icons/png/paint-4.png">
                 <span>Paint</span>
@@ -82,6 +86,54 @@
             </div>
             <hr>
             <p>Welcome to the desktop. Click around or try the Paint app.</p>
+        </div>
+    </div>
+
+    <div id="win-tos" class="window" style="top: 80px; left: 150px; width: 500px; display: none; z-index: 10;">
+        <div class="title-bar" onmousedown="startDrag(event, 'win-tos')">
+            <div class="title-bar-text">T.O.S.txt - Notepad</div>
+            <div class="title-bar-controls">
+                <button onclick="minimizeWindow('win-tos')">_</button>
+                <button onclick="closeWindow('win-tos')">X</button>
+            </div>
+        </div>
+        <div class="window-body">
+            <div class="inset-box" style="height:250px; background:white;">
+                <p>1. Don't rush me.</p>
+                <p>2. Payment via PayPal.</p>
+                <p>3. No refunds on finished work.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="win-links" class="window" style="top: 150px; left: 150px; width: 300px; display: none; z-index: 10;">
+        <div class="title-bar" onmousedown="startDrag(event, 'win-links')">
+            <div class="title-bar-text">Links</div>
+            <div class="title-bar-controls">
+                <button onclick="minimizeWindow('win-links')">_</button>
+                <button onclick="closeWindow('win-links')">X</button>
+            </div>
+        </div>
+        <div class="window-body">
+            <p>My Socials:</p>
+            <ul>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Bluesky</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="win-messenger" class="window" style="top: 100px; left: 400px; width: 250px; height: 400px; display: none; z-index: 10;">
+        <div class="title-bar" onmousedown="startDrag(event, 'win-messenger')">
+            <div class="title-bar-text">Messenger</div>
+            <div class="title-bar-controls">
+                <button onclick="minimizeWindow('win-messenger')">_</button>
+                <button onclick="closeWindow('win-messenger')">X</button>
+            </div>
+        </div>
+        <div class="window-body" style="background:#f0f0f0;">
+            <p><strong>Contacts</strong></p>
+            <p>Bestie (Online)</p>
         </div>
     </div>
 
@@ -126,9 +178,15 @@
         </div>
         <div class="window-body" style="padding:0;">
             <div class="paint-toolbar" style="padding:5px;">
-                <div class="color-box active-color" style="background:black;" onclick="setColor('black', this)"></div>
-                <div class="color-box" style="background:red;" onclick="setColor('red', this)"></div>
-                <div class="color-box" style="background:blue;" onclick="setColor('blue', this)"></div>
+                <div class="color-box active-color" style="background:black;" title="Black" onclick="setColor('black', this)"></div>
+                <div class="color-box" style="background:gray;" title="Gray" onclick="setColor('gray', this)"></div>
+                <div class="color-box" style="background:red;" title="Red" onclick="setColor('red', this)"></div>
+                <div class="color-box" style="background:lime;" title="Green" onclick="setColor('lime', this)"></div>
+                <div class="color-box" style="background:blue;" title="Blue" onclick="setColor('blue', this)"></div>
+                <div class="color-box" style="background:cyan;" title="Cyan" onclick="setColor('cyan', this)"></div>
+                <div class="color-box" style="background:magenta;" title="Magenta" onclick="setColor('magenta', this)"></div>
+                <div class="color-box" style="background:yellow;" title="Yellow" onclick="setColor('yellow', this)"></div>
+                <div class="color-box" style="background:white;" title="Eraser" onclick="setColor('white', this)"></div>
                 <button onclick="clearCanvas()" style="margin-left:auto;">Clear</button>
             </div>
             <div class="paint-canvas-container">
@@ -143,8 +201,12 @@
             <b>Start</b>
         </button>
         <div id="task-win-me" class="task-button" onclick="toggleWindow('win-me')">About Me</div>
+        <div id="task-win-tos" class="task-button" onclick="toggleWindow('win-tos')">T.O.S.</div>
+        <div id="task-win-links" class="task-button" onclick="toggleWindow('win-links')">Links</div>
+        <div id="task-win-messenger" class="task-button" onclick="toggleWindow('win-messenger')">Messenger</div>
         <div id="task-win-comms" class="task-button" onclick="toggleWindow('win-comms')">Comms</div>
         <div id="task-win-paint" class="task-button" onclick="toggleWindow('win-paint')">Paint</div>
+        
         <div class="tray" style="margin-left:auto; border:2px inset white; padding:2px 5px;">
             <span id="clock">12:00 PM</span>
         </div>
