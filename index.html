@@ -8,6 +8,10 @@
 </head>
 <body>
 
+    <div id="shutdown-overlay" onclick="reboot()">
+        <div class="tv-line"></div>
+    </div>
+
     <div class="desktop-icons">
         <div class="icon" onclick="openWindow('win-me')">
             <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png" alt="My Computer">
@@ -48,16 +52,12 @@
                 <img src="https://win98icons.alexmeub.com/icons/png/notepad-5.png">
                 <span>TOS</span>
             </div>
-             <div class="start-item" onclick="openWindow('win-messenger'); toggleStartMenu(event);">
-                <img src="https://win98icons.alexmeub.com/icons/png/msagent-1.png">
-                <span>Messenger</span>
-            </div>
             <div class="start-item" onclick="openWindow('win-paint'); toggleStartMenu(event);">
                 <img src="https://win98icons.alexmeub.com/icons/png/paint-4.png">
                 <span>Paint</span>
             </div>
-            <div class="start-line"></div>
-            <div class="start-item">
+            <div style="border-top:1px solid gray; margin: 2px 0;"></div>
+            <div class="start-item" onclick="tvShutdown()">
                 <img src="https://win98icons.alexmeub.com/icons/png/shut_down_cool-4.png">
                 <span>Shut Down...</span>
             </div>
@@ -68,255 +68,84 @@
         <div class="title-bar active-bar" onmousedown="startDrag(event, 'win-me')">
             <div class="title-bar-text">Welcome to c4tling</div>
             <div class="title-bar-controls">
-                <button aria-label="Minimize" onclick="minimizeWindow('win-me')">_</button>
-                <button aria-label="Maximize">□</button>
-                <button aria-label="Close" onclick="closeWindow('win-me')">X</button>
+                <button onclick="minimizeWindow('win-me')">_</button>
+                <button onclick="closeWindow('win-me')">X</button>
             </div>
         </div>
         <div class="window-body">
-            <div class="profile-header">
-                <img src="https://c4tl.ing/assets/images/salem.jpg?v=dae0871c" class="pfp" alt="profile picture">
-                <div class="profile-info">
-                    <h2>c4tling</h2>
-                    <p class="pronouns">he/him • 🏳️‍⚧️ trans man</p>
-                    <p class="bio">im a cat and this is my website :3</p>
+            <div style="display:flex; gap:10px;">
+                <img src="https://c4tl.ing/assets/images/salem.jpg?v=dae0871c" style="width:80px; height:80px; border:2px inset white;">
+                <div>
+                    <h2 style="margin:0">c4tling</h2>
+                    <p>he/him • trans man</p>
                 </div>
             </div>
             <hr>
-            <p>Welcome to my personal archive. Navigate via the icons or the taskbar.</p>
-            <div style="display: flex; justify-content: flex-end; gap: 5px; margin-top: 10px;">
-                <button onclick="openWindow('win-tos')">Read TOS</button>
-                <button onclick="openWindow('win-comms')">Prices</button>
-            </div>
+            <p>Welcome to the desktop. Click around or try the Paint app.</p>
         </div>
     </div>
 
-    <div id="win-tos" class="window" style="top: 80px; left: 150px; width: 500px; display: none; z-index: 10;">
-        <div class="title-bar" onmousedown="startDrag(event, 'win-tos')">
-            <div class="title-bar-text">T.O.S.txt - Notepad</div>
-            <div class="title-bar-controls">
-                <button aria-label="Minimize" onclick="minimizeWindow('win-tos')">_</button>
-                <button aria-label="Maximize">□</button>
-                <button aria-label="Close" onclick="closeWindow('win-tos')">X</button>
-            </div>
-        </div>
-        <div class="window-body">
-            <ul class="menubar">
-                <li><u>F</u>ile</li>
-                <li><u>E</u>dit</li>
-                <li><u>H</u>elp</li>
-            </ul>
-            <div class="notepad-area inset-box">
-                <h3>COMMISSION TERMS OF SERVICE</h3>
-                <ul class="tos-list">
-                    <li><strong>01.</strong> I have the right to decline a commission request for any reason.</li>
-                    <li><strong>02.</strong> Do not rush me. I work at my own pace.</li>
-                    <li><strong>03.</strong> I will provide WIPs (work in progress) at sketch and lineart stages.</li>
-                    <li><strong>04.</strong> Major changes can only be made during the sketch phase.</li>
-                    <li><strong>05.</strong> I track available vs. pending funds carefully.</li>
-                    <li><strong>06.</strong> All art created by me can be used for portfolio purposes unless stated otherwise.</li>
-                    <li><strong>07.</strong> Payment is acquired via PayPal or Ko-Fi.</li>
-                    <li><strong>08.</strong> No time limits of less than 2 days currently.</li>
-                    <li><strong>09.</strong> Commissioning me is only paying for my labour; I retain copyright.</li>
-                    <li><strong>10.</strong> Malicious use of my art results in a blacklist.</li>
-                    <li><strong>11.</strong> Unsatisfied art is NOT grounds for a refund.</li>
-                    <li><strong>12.</strong> Designs cannot be resold for more than purchased price unless art is added.</li>
-                    <li><strong>13.</strong> All art usage must follow these Terms of Service.</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div id="win-comms" class="window" style="top: 40px; left: 300px; width: 500px; display: none; z-index: 10;">
+    <div id="win-comms" class="window" style="top: 100px; left: 100px; width: 500px; display: none; z-index: 10;">
         <div class="title-bar" onmousedown="startDrag(event, 'win-comms')">
-            <div class="title-bar-text">Comms Info - Paint</div>
+            <div class="title-bar-text">Comms Info - Gallery</div>
             <div class="title-bar-controls">
-                <button aria-label="Minimize" onclick="minimizeWindow('win-comms')">_</button>
-                <button aria-label="Maximize">□</button>
-                <button aria-label="Close" onclick="closeWindow('win-comms')">X</button>
+                <button onclick="minimizeWindow('win-comms')">_</button>
+                <button onclick="closeWindow('win-comms')">X</button>
             </div>
         </div>
         <div class="window-body">
-            <p>Current Status: <strong>OPEN</strong></p>
-            
             <div class="tabs">
                 <div class="tab active-tab" onclick="switchTab('tab-sketch', this)">Sketch</div>
-                <div class="tab" onclick="switchTab('tab-flat', this)">Flat Color</div>
-                <div class="tab" onclick="switchTab('tab-render', this)">Full Render</div>
+                <div class="tab" onclick="switchTab('tab-flat', this)">Flat</div>
+                <div class="tab" onclick="switchTab('tab-render', this)">Render</div>
             </div>
-
-            <div class="inset-box" style="background: #fff; height: 300px;">
-                
+            <div class="inset-box" style="height:250px; padding:10px;">
                 <div id="tab-sketch" class="tab-content active-content">
-                    <h4>SKETCH COMMISSION - $15-$25</h4>
-                    <p>Loose lines, basic shading optionally. Good for concepts.</p>
+                    <h4>Sketches ($15-$25)</h4>
                     <div class="gallery-grid">
-                        <div class="gallery-item">Example 1</div>
-                        <div class="gallery-item">Example 2</div>
-                        <div class="gallery-item">Example 3</div>
+                        <div class="gallery-item">Art 1</div><div class="gallery-item">Art 2</div>
                     </div>
                 </div>
-
                 <div id="tab-flat" class="tab-content">
-                    <h4>FLAT COLOR - $35-$45</h4>
-                    <p>Clean lines, solid colors, no shading.</p>
-                    <div class="gallery-grid">
-                         <div class="gallery-item" style="background:#bbf;">Example 1</div>
-                         <div class="gallery-item" style="background:#bbf;">Example 2</div>
-                    </div>
+                    <h4>Flat Color ($35-$45)</h4>
                 </div>
-
                 <div id="tab-render" class="tab-content">
-                    <h4>FULL RENDER - $60-$80</h4>
-                    <p>Fully shaded, highlighted, detailed background.</p>
-                     <div class="gallery-grid">
-                         <div class="gallery-item" style="background:#fbb;">Example 1</div>
-                         <div class="gallery-item" style="background:#fbb;">Example 2</div>
-                    </div>
-                </div>
-
-                <hr>
-                <p style="font-size: 0.9em;"><strong>To Order:</strong> DM me on Discord with your ref sheet and paypal email.</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="win-links" class="window" style="top: 200px; left: 200px; width: 300px; display: none; z-index: 10;">
-        <div class="title-bar" onmousedown="startDrag(event, 'win-links')">
-            <div class="title-bar-text">Internet Explorer</div>
-            <div class="title-bar-controls">
-                <button aria-label="Minimize" onclick="minimizeWindow('win-links')">_</button>
-                <button aria-label="Maximize">□</button>
-                <button aria-label="Close" onclick="closeWindow('win-links')">X</button>
-            </div>
-        </div>
-        <div class="window-body">
-            <div class="address-bar">
-                <span>Address:</span>
-                <input type="text" value="https://c4tl.ing/links" readonly>
-            </div>
-            <div class="links-list inset-box">
-                <a href="#" class="link-item">
-                    <img src="https://win98icons.alexmeub.com/icons/png/world-3.png" width="16" alt="icon"> Namemc
-                </a>
-                <a href="#" class="link-item">
-                    <img src="https://win98icons.alexmeub.com/icons/png/msagent-1.png" width="16" alt="icon"> Discord
-                </a>
-                <a href="#" class="link-item">
-                    <img src="https://win98icons.alexmeub.com/icons/png/camera-2.png" width="16" alt="icon"> Pinterest
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div id="win-messenger" class="window" style="top: 100px; left: 400px; width: 250px; height: 400px; display: none; z-index: 10;">
-        <div class="title-bar" onmousedown="startDrag(event, 'win-messenger')">
-            <div class="title-bar-text">Messenger</div>
-            <div class="title-bar-controls">
-                <button aria-label="Minimize" onclick="minimizeWindow('win-messenger')">_</button>
-                <button aria-label="Maximize">□</button>
-                <button aria-label="Close" onclick="closeWindow('win-messenger')">X</button>
-            </div>
-        </div>
-        <div class="window-body" style="background: #f0f0f0; padding: 2px;">
-            <div class="msn-header">
-                <img src="https://c4tl.ing/assets/images/salem.jpg?v=dae0871c" class="msn-pfp">
-                <div>
-                    <strong>c4tling</strong><br>
-                    <span style="color:green; font-size: 0.9em;">(Online)</span>
-                </div>
-            </div>
-            
-            <div class="messenger-body inset-box">
-                <div class="friend-group">▼ Favorites</div>
-                <div class="friend-item">
-                    <div class="status-dot"></div>
-                    <span>Bestie One</span>
-                </div>
-                <div class="friend-item">
-                    <div class="status-dot status-busy"></div>
-                    <span>Partner (Busy)</span>
-                </div>
-
-                <div class="friend-group">▼ Friends</div>
-                <div class="friend-item">
-                    <div class="status-dot status-away"></div>
-                    <span>Cool Artist</span>
-                </div>
-                <div class="friend-item">
-                    <div class="status-dot"></div>
-                    <span>Gamer Pal</span>
-                </div>
-                 <div class="friend-item">
-                    <div class="status-dot" style="background:gray"></div>
-                    <span style="color:gray;">Offline Fren</span>
+                    <h4>Full Render ($60+)</h4>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="win-paint" class="window" style="top: 10%; left: 10%; width: 500px; display: none; z-index: 10;">
+    <div id="win-paint" class="window" style="top: 20%; left: 20%; width: 520px; display: none; z-index: 10;">
         <div class="title-bar" onmousedown="startDrag(event, 'win-paint')">
             <div class="title-bar-text">untitled - Paint</div>
             <div class="title-bar-controls">
-                <button aria-label="Minimize" onclick="minimizeWindow('win-paint')">_</button>
-                <button aria-label="Maximize">□</button>
-                <button aria-label="Close" onclick="closeWindow('win-paint')">X</button>
+                <button onclick="minimizeWindow('win-paint')">_</button>
+                <button onclick="closeWindow('win-paint')">X</button>
             </div>
         </div>
-        <div class="window-body">
-            <ul class="menubar">
-                <li><u>F</u>ile</li>
-                <li><u>E</u>dit</li>
-                <li><u>V</u>iew</li>
-                <li><u>I</u>mage</li>
-                <li><u>C</u>olors</li>
-                <li><u>H</u>elp</li>
-            </ul>
-            <div class="paint-toolbar">
+        <div class="window-body" style="padding:0;">
+            <div class="paint-toolbar" style="padding:5px;">
                 <div class="color-box active-color" style="background:black;" onclick="setColor('black', this)"></div>
-                <div class="color-box" style="background:white;" onclick="setColor('white', this)"></div>
-                <div class="color-box" style="background:gray;" onclick="setColor('gray', this)"></div>
                 <div class="color-box" style="background:red;" onclick="setColor('red', this)"></div>
-                <div class="color-box" style="background:green;" onclick="setColor('green', this)"></div>
                 <div class="color-box" style="background:blue;" onclick="setColor('blue', this)"></div>
-                <div class="color-box" style="background:yellow;" onclick="setColor('yellow', this)"></div>
                 <button onclick="clearCanvas()" style="margin-left:auto;">Clear</button>
             </div>
-            <div class="inset-box" style="background: #808080; padding: 10px; flex:1;">
-                <canvas id="paintCanvas" width="450" height="300"></canvas>
+            <div class="paint-canvas-container">
+                <canvas id="paintCanvas" width="480" height="320"></canvas>
             </div>
         </div>
     </div>
 
     <div class="taskbar">
         <button id="start-btn" class="start-btn" onclick="toggleStartMenu(event)">
-            <img src="https://win98icons.alexmeub.com/icons/png/windows-0.png" alt="start">
+            <img src="https://win98icons.alexmeub.com/icons/png/windows-0.png" width="16">
             <b>Start</b>
         </button>
-        <div class="divider"></div>
-        
-        <div id="task-win-me" class="task-button active" onclick="toggleWindow('win-me')">
-            <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png"> Welcome to c4tling
-        </div>
-        <div id="task-win-tos" class="task-button" onclick="toggleWindow('win-tos')">
-            <img src="https://win98icons.alexmeub.com/icons/png/notepad-5.png"> T.O.S.txt
-        </div>
-        <div id="task-win-comms" class="task-button" onclick="toggleWindow('win-comms')">
-            <img src="https://win98icons.alexmeub.com/icons/png/paint_file-2.png"> Comms Info
-        </div>
-        <div id="task-win-links" class="task-button" onclick="toggleWindow('win-links')">
-            <img src="https://win98icons.alexmeub.com/icons/png/world-3.png"> Internet Explorer
-        </div>
-        <div id="task-win-messenger" class="task-button" onclick="toggleWindow('win-messenger')">
-            <img src="https://win98icons.alexmeub.com/icons/png/msagent-1.png"> Messenger
-        </div>
-        <div id="task-win-paint" class="task-button" onclick="toggleWindow('win-paint')">
-            <img src="https://win98icons.alexmeub.com/icons/png/paint-4.png"> Paint
-        </div>
-
-        <div class="tray">
-            <img src="https://win98icons.alexmeub.com/icons/png/loudspeaker_rays-0.png" class="tray-icon" alt="sound">
+        <div id="task-win-me" class="task-button" onclick="toggleWindow('win-me')">About Me</div>
+        <div id="task-win-comms" class="task-button" onclick="toggleWindow('win-comms')">Comms</div>
+        <div id="task-win-paint" class="task-button" onclick="toggleWindow('win-paint')">Paint</div>
+        <div class="tray" style="margin-left:auto; border:2px inset white; padding:2px 5px;">
             <span id="clock">12:00 PM</span>
         </div>
     </div>
