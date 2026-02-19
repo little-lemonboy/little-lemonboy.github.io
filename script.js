@@ -23,15 +23,26 @@ document.addEventListener('click', function() { closeStartMenu(); });
 /* --- WINDOWS --- */
 function openWindow(id) {
     var win = document.getElementById(id);
+    if (!win) return;
+    
     win.style.display = 'flex';
-    document.getElementById('task-' + id).style.display = 'flex';
+    
+    // Safety check for taskbar button
+    var taskBtn = document.getElementById('task-' + id);
+    if (taskBtn) taskBtn.style.display = 'flex';
+    
     bringToFront(id);
 }
+
 function closeWindow(id) {
     document.getElementById(id).style.display = 'none';
-    document.getElementById('task-' + id).style.display = 'none';
+    var taskBtn = document.getElementById('task-' + id);
+    if (taskBtn) taskBtn.style.display = 'none';
 }
-function minimizeWindow(id) { document.getElementById(id).style.display = 'none'; }
+
+function minimizeWindow(id) { 
+    document.getElementById(id).style.display = 'none'; 
+}
 
 function toggleWindow(id) {
     var win = document.getElementById(id);
@@ -41,7 +52,8 @@ function toggleWindow(id) {
 
 function bringToFront(id) {
     highestZ++;
-    document.getElementById(id).style.zIndex = highestZ;
+    var win = document.getElementById(id);
+    if (win) win.style.zIndex = highestZ;
 }
 
 /* --- DRAG --- */
@@ -56,7 +68,7 @@ document.addEventListener('mousemove', function(e) {
     if (isDragging && currentWindow) {
         currentWindow.style.left = (e.clientX - initialX) + "px";
         currentWindow.style.top = (e.clientY - initialY) + "px";
-        currentWindow.style.transform = "none"; // Kill the centering transform once dragged
+        currentWindow.style.transform = "none"; 
     }
 });
 document.addEventListener('mouseup', function() { isDragging = false; currentWindow = null; });
@@ -72,27 +84,30 @@ function clearCanvas() { ctx.fillStyle = "white"; ctx.fillRect(0, 0, canvas.widt
 /* --- INIT --- */
 window.onload = function() {
     canvas = document.getElementById('paintCanvas');
-    ctx = canvas.getContext('2d');
-    clearCanvas();
-    ctx.lineWidth = 3;
-    ctx.lineCap = 'round';
+    if (canvas) {
+        ctx = canvas.getContext('2d');
+        clearCanvas();
+        ctx.lineWidth = 3;
+        ctx.lineCap = 'round';
 
-    canvas.onmousedown = function(e) { painting = true; ctx.beginPath(); ctx.moveTo(e.clientX - canvas.getBoundingClientRect().left, e.clientY - canvas.getBoundingClientRect().top); };
-    canvas.onmousemove = function(e) {
-        if (painting) {
-            ctx.strokeStyle = currentColor;
-            ctx.lineTo(e.clientX - canvas.getBoundingClientRect().left, e.clientY - canvas.getBoundingClientRect().top);
-            ctx.stroke();
-        }
-    };
-    canvas.onmouseup = function() { painting = false; };
+        canvas.onmousedown = function(e) { painting = true; ctx.beginPath(); ctx.moveTo(e.clientX - canvas.getBoundingClientRect().left, e.clientY - canvas.getBoundingClientRect().top); };
+        canvas.onmousemove = function(e) {
+            if (painting) {
+                ctx.strokeStyle = currentColor;
+                ctx.lineTo(e.clientX - canvas.getBoundingClientRect().left, e.clientY - canvas.getBoundingClientRect().top);
+                ctx.stroke();
+            }
+        };
+        canvas.onmouseup = function() { painting = false; };
+    }
 
     setInterval(function() {
         var now = new Date();
         document.getElementById('clock').innerText = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
     }, 1000);
     
-    openWindow('win-me');
+    // Open default window
+    if (document.getElementById('win-me')) openWindow('win-me');
 };
 
 function switchTab(tabId, tabElement) {
