@@ -98,28 +98,51 @@
             </div>
         </div>
         <div class="window-body">
-            <div class="inset-box" style="height:250px; background:white;">
-                <p>1. Don't rush me.</p>
-                <p>2. Payment via PayPal.</p>
-                <p>3. No refunds on finished work.</p>
+            <ul class="menubar">
+                <li><u>F</u>ile</li>
+                <li><u>E</u>dit</li>
+                <li><u>H</u>elp</li>
+            </ul>
+            <div class="notepad-area inset-box" style="height:250px;">
+                <h3>COMMISSION TERMS OF SERVICE</h3>
+                <ul class="tos-list">
+                    <li><strong>01.</strong> I have the right to decline a commission request for any reason.</li>
+                    <li><strong>02.</strong> Do not rush me. I work at my own pace.</li>
+                    <li><strong>03.</strong> I will provide WIPs at sketch and lineart stages.</li>
+                    <li><strong>04.</strong> Major changes can only be made during the sketch phase.</li>
+                    <li><strong>05.</strong> I track available vs. pending funds carefully.</li>
+                    <li><strong>06.</strong> Payment is acquired via PayPal or Ko-Fi.</li>
+                    <li><strong>07.</strong> Commissioning me is only paying for my labour; I retain copyright.</li>
+                    <li><strong>08.</strong> Unsatisfied art is NOT grounds for a refund.</li>
+                </ul>
             </div>
         </div>
     </div>
 
     <div id="win-links" class="window" style="top: 150px; left: 150px; width: 300px; display: none; z-index: 10;">
         <div class="title-bar" onmousedown="startDrag(event, 'win-links')">
-            <div class="title-bar-text">Links</div>
+            <div class="title-bar-text">Internet Explorer</div>
             <div class="title-bar-controls">
                 <button onclick="minimizeWindow('win-links')">_</button>
                 <button onclick="closeWindow('win-links')">X</button>
             </div>
         </div>
         <div class="window-body">
-            <p>My Socials:</p>
-            <ul>
-                <li><a href="#">Twitter</a></li>
-                <li><a href="#">Bluesky</a></li>
-            </ul>
+            <div class="address-bar">
+                <span>Address:</span>
+                <input type="text" value="https://c4tl.ing/links" readonly>
+            </div>
+            <div class="links-list inset-box">
+                <a href="#" class="link-item">
+                    <img src="https://win98icons.alexmeub.com/icons/png/world-3.png" width="16" alt="icon"> Namemc
+                </a>
+                <a href="#" class="link-item">
+                    <img src="https://win98icons.alexmeub.com/icons/png/msagent-1.png" width="16" alt="icon"> Discord
+                </a>
+                <a href="#" class="link-item">
+                    <img src="https://win98icons.alexmeub.com/icons/png/camera-2.png" width="16" alt="icon"> Pinterest
+                </a>
+            </div>
         </div>
     </div>
 
@@ -131,9 +154,34 @@
                 <button onclick="closeWindow('win-messenger')">X</button>
             </div>
         </div>
-        <div class="window-body" style="background:#f0f0f0;">
-            <p><strong>Contacts</strong></p>
-            <p>Bestie (Online)</p>
+        <div class="window-body" style="background:#f0f0f0; padding:2px;">
+            <div class="msn-header">
+                <img src="https://c4tl.ing/assets/images/salem.jpg?v=dae0871c" class="msn-pfp">
+                <div>
+                    <strong>c4tling</strong><br>
+                    <span style="color:green; font-size: 0.9em;">(Online)</span>
+                </div>
+            </div>
+            <div class="messenger-body inset-box">
+                <div class="friend-group">▼ Favorites</div>
+                <div class="friend-item">
+                    <div class="status-dot"></div>
+                    <span>Bestie One</span>
+                </div>
+                <div class="friend-item">
+                    <div class="status-dot status-busy"></div>
+                    <span>Partner (Busy)</span>
+                </div>
+                <div class="friend-group">▼ Friends</div>
+                <div class="friend-item">
+                    <div class="status-dot status-away"></div>
+                    <span>Cool Artist</span>
+                </div>
+                <div class="friend-item">
+                    <div class="status-dot" style="background:gray"></div>
+                    <span style="color:gray;">Offline Fren</span>
+                </div>
+            </div>
         </div>
     </div>
 
