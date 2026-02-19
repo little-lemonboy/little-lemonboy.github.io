@@ -42,18 +42,44 @@ function closeWindow(id) {
 
 function minimizeWindow(id) { 
     document.getElementById(id).style.display = 'none'; 
+    // Un-press the taskbar button
+    var taskBtn = document.getElementById('task-' + id);
+    if (taskBtn) taskBtn.classList.remove('active');
 }
 
 function toggleWindow(id) {
     var win = document.getElementById(id);
-    if (win.style.display === 'none') { openWindow(id); } 
-    else { minimizeWindow(id); }
+    if (win.style.display === 'none') { 
+        openWindow(id); 
+    } else {
+        // If it's already active, minimize it. Otherwise, bring it to the front.
+        var titleBar = win.querySelector('.title-bar');
+        if (titleBar && titleBar.classList.contains('active-bar')) {
+            minimizeWindow(id);
+        } else {
+            bringToFront(id);
+        }
+    }
 }
 
 function bringToFront(id) {
     highestZ++;
     var win = document.getElementById(id);
-    if (win) win.style.zIndex = highestZ;
+    if (win) {
+        win.style.zIndex = highestZ;
+        
+        // Remove active state from ALL title bars
+        document.querySelectorAll('.title-bar').forEach(tb => tb.classList.remove('active-bar'));
+        // Add active state to THIS title bar
+        var titleBar = win.querySelector('.title-bar');
+        if (titleBar) titleBar.classList.add('active-bar');
+
+        // Remove active state from ALL taskbar buttons
+        document.querySelectorAll('.task-button').forEach(btn => btn.classList.remove('active'));
+        // Add active state to THIS taskbar button
+        var taskBtn = document.getElementById('task-' + id);
+        if (taskBtn) taskBtn.classList.add('active');
+    }
 }
 
 /* --- DRAG --- */
@@ -84,6 +110,7 @@ document.addEventListener('mouseup', function() {
     isDragging = false; 
     currentWindow = null; 
 });
+
 /* --- PAINT --- */
 function setColor(color, element) {
     currentColor = color;
@@ -110,6 +137,7 @@ window.onload = function() {
             }
         };
         canvas.onmouseup = function() { painting = false; };
+        canvas.onmouseleave = function() { painting = false; }; // Stops drawing if mouse leaves canvas
     }
 
     setInterval(function() {
