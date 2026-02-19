@@ -60,19 +60,30 @@ function bringToFront(id) {
 function startDrag(e, id) {
     bringToFront(id);
     currentWindow = document.getElementById(id);
-    initialX = e.clientX - currentWindow.offsetLeft;
-    initialY = e.clientY - currentWindow.offsetTop;
+    
+    // Lock in the exact current pixel position and kill the transform BEFORE calculating offsets
+    var rect = currentWindow.getBoundingClientRect();
+    currentWindow.style.transform = "none";
+    currentWindow.style.left = rect.left + "px";
+    currentWindow.style.top = rect.top + "px";
+
+    initialX = e.clientX - rect.left;
+    initialY = e.clientY - rect.top;
     isDragging = true;
 }
+
 document.addEventListener('mousemove', function(e) {
     if (isDragging && currentWindow) {
+        e.preventDefault(); // Stops text from highlighting while you drag
         currentWindow.style.left = (e.clientX - initialX) + "px";
         currentWindow.style.top = (e.clientY - initialY) + "px";
-        currentWindow.style.transform = "none"; 
     }
 });
-document.addEventListener('mouseup', function() { isDragging = false; currentWindow = null; });
 
+document.addEventListener('mouseup', function() { 
+    isDragging = false; 
+    currentWindow = null; 
+});
 /* --- PAINT --- */
 function setColor(color, element) {
     currentColor = color;
