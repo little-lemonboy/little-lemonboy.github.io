@@ -174,7 +174,7 @@ body {
 /* --- PAINT APP --- */
 .paint-canvas-container { background: #808080; padding: 10px; flex: 1; display: flex; justify-content: center; align-items: center; overflow: auto; }
 canvas#paintCanvas { background: white; border: 2px inset white; cursor: crosshair; }
-.paint-toolbar { display: flex; gap: 5px; margin-bottom: 5px; padding: 2px; }
+.paint-toolbar { display: flex; gap: 5px; margin-bottom: 5px; padding: 2px; flex-wrap: wrap;}
 .color-box { width: 20px; height: 20px; border: 2px inset white; cursor: pointer; }
 .color-box.active-color { border: 2px solid black; }
 
@@ -204,6 +204,7 @@ canvas#paintCanvas { background: white; border: 2px inset white; cursor: crossha
     align-items: center;
     padding-left: 5px;
     margin-right: 3px;
+    cursor: pointer;
 }
 .task-button.active { background: repeating-linear-gradient(45deg, #c0c0c0, #c0c0c0 2px, #fff 2px, #fff 4px); font-weight: bold; border-color: var(--win-darker-shadow) white white var(--win-darker-shadow); }
 
