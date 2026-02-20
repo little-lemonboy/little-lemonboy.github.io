@@ -189,12 +189,10 @@ document.addEventListener('mouseup', function() {
     isDragging = false; 
     currentWindow = null; 
     
-    // Grid Snapping Logic!
     if (isDraggingIcon && currentIcon) {
         var currentX = parseInt(currentIcon.style.left) || 0;
         var currentY = parseInt(currentIcon.style.top) || 0;
         
-        // Mathematically rounds the position to the nearest 90px cell, with a 10px offset margin
         var snappedX = Math.max(10, Math.round((currentX - 10) / 90) * 90 + 10);
         var snappedY = Math.max(10, Math.round((currentY - 10) / 90) * 90 + 10);
         
@@ -210,6 +208,12 @@ document.addEventListener('mouseup', function() {
         selBox.style.display = 'none';
     }
 });
+
+/* --- COMMS GATEKEEPER --- */
+function acceptCommsWarning() {
+    document.getElementById('comms-warning').style.display = 'none';
+    document.getElementById('comms-content').style.display = 'flex';
+}
 
 /* --- PAINT --- */
 function setColor(color, element) {
