@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light">
     <title>c4tling - desktop</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -52,17 +53,9 @@
                 <img src="https://win98icons.alexmeub.com/icons/png/notepad-5.png">
                 <span>TOS</span>
             </div>
-            <div class="start-item" onclick="openWindow('win-comms'); toggleStartMenu(event);">
-                <img src="https://win98icons.alexmeub.com/icons/png/paint_file-2.png">
-                <span>Comms Info</span>
-            </div>
             <div class="start-item" onclick="openWindow('win-links'); toggleStartMenu(event);">
                 <img src="https://win98icons.alexmeub.com/icons/png/world-3.png">
                 <span>Links</span>
-            </div>
-            <div class="start-item" onclick="openWindow('win-messenger'); toggleStartMenu(event);">
-                <img src="https://win98icons.alexmeub.com/icons/png/msn3-3.png">
-                <span>Messenger</span>
             </div>
             <div class="start-item" onclick="openWindow('win-paint'); toggleStartMenu(event);">
                 <img src="https://win98icons.alexmeub.com/icons/png/paint_old-0.png">
@@ -94,7 +87,24 @@
                 </div>
             </div>
             <hr>
-            <p>Welcome to the desktop. Click around or try the Paint app.</p>
+            
+            <div class="tabs">
+                <div class="tab active-tab" onclick="switchTab('about-intro', this)">Intro</div>
+                <div class="tab" onclick="switchTab('about-details', this)">Details</div>
+            </div>
+            <div class="inset-box" style="height: 100px; padding: 10px;">
+                <div id="about-intro" class="tab-content active-content">
+                    <p>Welcome to the desktop. Click around or try the Paint app.</p>
+                    <div style="display: flex; justify-content: flex-end; gap: 5px; margin-top: 15px;">
+                        <button onclick="openWindow('win-tos')">Read TOS</button>
+                        <button onclick="openWindow('win-comms')">Prices</button>
+                    </div>
+                </div>
+                <div id="about-details" class="tab-content">
+                    <p>im a cat and this is my website :3</p>
+                    <p>This is where you can add extra text that you didn't have room for before.</p>
+                </div>
+            </div>
         </div>
     </div>
 
