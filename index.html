@@ -34,6 +34,9 @@
         <div class="icon" id="icon-paint" style="top: 460px; left: 10px;" onclick="handleIconClick('win-paint')" onmousedown="startIconDrag(event, 'icon-paint')">
             <img src="https://win98icons.alexmeub.com/icons/png/paint_old-0.png"><span>Paint</span>
         </div>
+        <div class="icon" id="icon-recycle" style="top: 10px; right: 10px;" onclick="handleIconClick('win-blacklist')" onmousedown="startIconDrag(event, 'icon-recycle')">
+            <img src="https://win98icons.alexmeub.com/icons/png/recycle_bin_full-4.png"><span>Recycle Bin</span>
+        </div>
     </div>
 
     <div id="start-menu" class="start-menu">
@@ -187,6 +190,27 @@
         </div>
     </div>
 
+<div id="win-blacklist" class="window" style="top: 100px; left: 300px; width: 450px; display: none; z-index: 10;">
+    <div class="title-bar" onmousedown="startDrag(event, 'win-blacklist')">
+        <div class="title-bar-text">Blacklist.txt - Notepad</div>
+        <div class="title-bar-controls">
+            <button onclick="minimizeWindow('win-blacklist')">_</button><button>□</button><button onclick="closeWindow('win-blacklist')">X</button>
+        </div>
+    </div>
+    <div class="window-body">
+        <ul class="menubar"><li><u>F</u>ile</li><li><u>E</u>dit</li><li><u>H</u>elp</li></ul>
+        <div class="notepad-area inset-box" style="height:250px;">
+            <h3>BLACKLIST</h3>
+            <p>The following users are prohibited from interacting with me or my work:</p>
+            <ul class="tos-list">
+                <li><strong>Username1</strong> - Reason for block (optional)</li>
+                <li><strong>Username2</strong> - Reason for block (optional)</li>
+                <li><strong>Username3</strong> - Reason for block (optional)</li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
     <div id="win-links" class="window" style="top: 150px; left: 150px; width: 300px; display: none; z-index: 10;">
         <div class="title-bar" onmousedown="startDrag(event, 'win-links')">
             <div class="title-bar-text">Internet Explorer</div>
@@ -411,12 +435,15 @@
         <div id="task-win-messenger" class="task-button" onclick="toggleWindow('win-messenger')"><img src="https://win98icons.alexmeub.com/icons/png/msn3-3.png" width="16" style="margin-right:5px;"> Messenger</div>
         <div id="task-win-comms" class="task-button" onclick="toggleWindow('win-comms')"><img src="https://win98icons.alexmeub.com/icons/png/paint_file-2.png" width="16" style="margin-right:5px;"> Comms</div>
         <div id="task-win-paint" class="task-button" onclick="toggleWindow('win-paint')"><img src="https://win98icons.alexmeub.com/icons/png/paint_old-0.png" width="16" style="margin-right:5px;"> Paint</div>
+        <div id="task-win-blacklist" class="task-button" onclick="toggleWindow('win-blacklist')"><img src="https://win98icons.alexmeub.com/icons/png/recycle_bin_full-4.png" width="16" style="margin-right:5px;"> Blacklist
+</div>
         <div class="tray" style="margin-left:auto; border:2px inset white; padding:2px 5px;"><span id="clock">12:00 PM</span></div>
     </div>
 
     <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
