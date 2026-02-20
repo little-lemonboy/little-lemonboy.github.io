@@ -177,13 +177,15 @@ document.addEventListener('mouseup', function() {
     isDragging = false; currentWindow = null; 
     
     if (isDraggingIcon && currentIcon) {
-        var currentX = currentIcon.offsetLeft;
-        var currentY = currentIcon.offsetTop;
-        
-        var snappedX = Math.max(10, Math.round((currentX - 10) / 90) * 90 + 10);
-        var snappedY = Math.max(10, Math.round((currentY - 10) / 90) * 90 + 10);
-        currentIcon.style.left = snappedX + "px";
-        currentIcon.style.top = snappedY + "px";
+        // Only snap to the grid if the icon was actually moved
+        if (hasDraggedIcon) {
+            var currentX = currentIcon.offsetLeft;
+            var currentY = currentIcon.offsetTop;
+            var snappedX = Math.max(10, Math.round((currentX - 10) / 90) * 90 + 10);
+            var snappedY = Math.max(10, Math.round((currentY - 10) / 90) * 90 + 10);
+            currentIcon.style.left = snappedX + "px";
+            currentIcon.style.top = snappedY + "px";
+        }
     }
     
     isDraggingIcon = false; currentIcon = null;
