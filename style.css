@@ -160,6 +160,16 @@ canvas#paintCanvas { background: white; border: 2px inset white; cursor: crossha
     pointer-events: none;
 }
 
+#assistant-character {
+    width: 64px; /* Back to a much more reasonable desktop pet size */
+    height: 64px;
+    object-fit: contain; /* This makes sure Fluttershy doesn't stretch or squish */
+    pointer-events: auto;
+    cursor: pointer;
+    filter: drop-shadow(2px 2px 0px rgba(0,0,0,0.4));
+    transition: transform 0.1s ease-out;
+}
+
 /* --- SCARE BOUNCE ANIMATION --- */
 @keyframes scaredBounce {
     0% { transform: translateY(0) scale(1); }
@@ -227,3 +237,4 @@ canvas#paintCanvas { background: white; border: 2px inset white; cursor: crossha
     border-style: solid;
     border-color: #ffffe1 transparent transparent transparent;
 }
+
