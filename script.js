@@ -416,7 +416,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-/* --- SCREENSAVER LOGIC --- */
 let board = [];
 let rows, cols, minesCount;
 let gameOver = false;
@@ -432,23 +431,21 @@ function initMinesweeper(r, c, m) {
     field.innerHTML = '';
     board = [];
 
-    // 1. Create Board Array
     for (let rIdx = 0; rIdx < rows; rIdx++) {
         board[rIdx] = [];
         for (let cIdx = 0; cIdx < cols; cIdx++) {
             const cellElem = document.createElement('div');
             cellElem.classList.add('cell');
-            cellElem.addEventListener('click', () => revealCell(rIdx, cIdx));
-            cellElem.addEventListener('contextmenu', (e) => {
-                e.preventDefault();
-                toggleFlag(rIdx, cIdx);
+            cellElem.addEventListener('mousedown', (e) => {
+                if (e.button === 0) revealCell(rIdx, cIdx); // Left click
+                if (e.button === 2) toggleFlag(rIdx, cIdx); // Right click
             });
+            cellElem.addEventListener('contextmenu', e => e.preventDefault());
             field.appendChild(cellElem);
             board[rIdx][cIdx] = { mine: false, revealed: false, flagged: false, element: cellElem };
         }
     }
 
-    // 2. Randomize Mines
     let placed = 0;
     while (placed < minesCount) {
         let randR = Math.floor(Math.random() * rows);
@@ -466,17 +463,12 @@ function toggleFlag(r, c) {
     board[r][c].element.classList.toggle('flagged');
 }
 
-
-
 function countNeighbors(r, c) {
     let count = 0;
     for (let i = -1; i <= 1; i++) {
         for (let j = -1; j <= 1; j++) {
-            let nr = r + i;
-            let nc = c + j;
-            if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && board[nr][nc].mine) {
-                count++;
-            }
+            let nr = r + i, nc = c + j;
+            if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && board[nr][nc].mine) count++;
         }
     }
     return count;
@@ -484,7 +476,6 @@ function countNeighbors(r, c) {
 
 function revealCell(r, c) {
     if (gameOver || board[r][c].revealed || board[r][c].flagged) return;
-
     const cell = board[r][c];
     cell.revealed = true;
     cell.element.classList.add('revealed');
@@ -492,7 +483,7 @@ function revealCell(r, c) {
     if (cell.mine) {
         cell.element.classList.add('mine');
         gameOver = true;
-        alert("Game Over!");
+        alert("Boom! Game Over.");
         return;
     }
 
@@ -501,29 +492,12 @@ function revealCell(r, c) {
         cell.element.innerText = mines;
         cell.element.setAttribute('data-mines', mines);
     } else {
-        // Flood Fill: If 0 mines nearby, reveal neighbors
+        // This is the auto-clear/flood-fill logic
         for (let i = -1; i <= 1; i++) {
             for (let j = -1; j <= 1; j++) {
-                let nr = r + i;
-                let nc = c + j;
-                if (nr >= 0 && nr < rows && nc >= 0 && nc < cols) {
-                    revealCell(nr, nc);
-                }
+                let nr = r + i, nc = c + j;
+                if (nr >= 0 && nr < rows && nc >= 0 && nc < cols) revealCell(nr, nc);
             }
         }
-    }
-    checkWin();
-}
-
-function checkWin() {
-    let revealedCount = 0;
-    for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols; c++) {
-            if (board[r][c].revealed) revealedCount++;
-        }
-    }
-    if (revealedCount === (rows * cols) - minesCount) {
-        gameOver = true;
-        alert("You Win!");
     }
 }
