@@ -418,21 +418,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("DOMContentLoaded", () => {
     const img = document.getElementById('screensaver');
-    
-    if (!img) {
-        console.error("Screensaver image not found! Check your HTML.");
-        return; 
-    }
+    if (!img) return;
 
     let posX = Math.random() * (window.innerWidth - 100);
     let posY = Math.random() * (window.innerHeight - 100);
     
-    // I set the speed to 0.75 for you here
-    const baseSpeed = 0.75; 
+    const baseSpeed = 0.75; // Your preferred speed
     let velX = baseSpeed; 
     let velY = baseSpeed;
     const imgSize = 100; 
-    
     let isPaused = false;
 
     function update() {
@@ -444,7 +438,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 velX *= -1;
                 posX = Math.max(0, Math.min(posX, window.innerWidth - imgSize));
             }
-
             if (posY + imgSize >= window.innerHeight || posY <= 0) {
                 velY *= -1;
                 posY = Math.max(0, Math.min(posY, window.innerHeight - imgSize));
@@ -452,25 +445,20 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         img.style.transform = `translate(${posX}px, ${posY}px)`;
-        
-        const currentZ = typeof highestZ !== 'undefined' ? highestZ : 100;
-        img.style.zIndex = Math.max(0, currentZ - 1);
+        img.style.zIndex = Math.max(0, (window.highestZ || 100) - 1);
 
         requestAnimationFrame(update);
     }
 
-    // Freeze in place when hovered
-    img.addEventListener("mouseenter", () => {
-        isPaused = true;
-    });
+    // Use "mouseover" and "mouseout" for better stability
+    img.addEventListener("mouseover", () => { isPaused = true; });
+    img.addEventListener("mouseout", () => { isPaused = false; });
 
-    // Unfreeze when mouse leaves
-    img.addEventListener("mouseleave", () => {
-        isPaused = false;
-    });
-
-    // Scatter on click
-    img.addEventListener("mousedown", () => {
+    // Use "click" and stop propagation so the desktop selection box doesn't trigger
+    img.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation(); 
+        
         const randomAngle = Math.random() * Math.PI * 2;
         velX = Math.cos(randomAngle) * baseSpeed;
         velY = Math.sin(randomAngle) * baseSpeed;
