@@ -10,7 +10,7 @@ var selStartX, selStartY;
 var selBox;
 var isDraggingIcon = false;
 var currentIcon = null;
-var hasDraggedIcon = false; // The safety lock
+var hasDraggedIcon = false;
 
 /* --- SHUTDOWN --- */
 function tvShutdown() {
@@ -109,7 +109,7 @@ function startDrag(e, id) {
 function startIconDrag(e, id) {
     if (e.button !== 0) return;
     
-    hasDraggedIcon = false; // Reset the safety lock
+    hasDraggedIcon = false; 
     document.querySelectorAll('.icon').forEach(i => i.classList.remove('selected'));
     currentIcon = document.getElementById(id);
     currentIcon.classList.add('selected');
@@ -121,7 +121,6 @@ function startIconDrag(e, id) {
 }
 
 function handleIconClick(id) {
-    // If the safety lock wasn't triggered by dragging, open the window
     if (!hasDraggedIcon) {
         openWindow(id);
     }
@@ -129,7 +128,6 @@ function handleIconClick(id) {
 
 /* --- DESKTOP SELECTION BOX --- */
 document.addEventListener('mousedown', function(e) {
-    // Allows the marquee to start if you click the background or the icon container
     if (e.target.tagName.toLowerCase() === 'body' || e.target.classList.contains('desktop-icons') || e.target.id === 'selection-marquee') {
         isSelecting = true;
         selStartX = e.clientX;
@@ -155,7 +153,7 @@ document.addEventListener('mousemove', function(e) {
     
     if (isDraggingIcon && currentIcon) {
         e.preventDefault();
-        hasDraggedIcon = true; // Trigger the safety lock!
+        hasDraggedIcon = true; 
         currentIcon.style.left = (e.clientX - initialX) + "px";
         currentIcon.style.top = (e.clientY - initialY) + "px";
     }
@@ -190,6 +188,20 @@ document.addEventListener('mousemove', function(e) {
 document.addEventListener('mouseup', function() { 
     isDragging = false; 
     currentWindow = null; 
+    
+    // Grid Snapping Logic!
+    if (isDraggingIcon && currentIcon) {
+        var currentX = parseInt(currentIcon.style.left) || 0;
+        var currentY = parseInt(currentIcon.style.top) || 0;
+        
+        // Mathematically rounds the position to the nearest 90px cell, with a 10px offset margin
+        var snappedX = Math.max(10, Math.round((currentX - 10) / 90) * 90 + 10);
+        var snappedY = Math.max(10, Math.round((currentY - 10) / 90) * 90 + 10);
+        
+        currentIcon.style.left = snappedX + "px";
+        currentIcon.style.top = snappedY + "px";
+    }
+    
     isDraggingIcon = false;
     currentIcon = null;
     
