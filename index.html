@@ -244,30 +244,143 @@
 
             <div id="comms-content" style="display: none; flex-direction: column; flex: 1;">
                 <div class="tabs">
-                    <div class="tab active-tab" onclick="switchTab('tab-sketch', this)">Sketch</div>
-                    <div class="tab" onclick="switchTab('tab-flat', this)">Flat</div>
-                    <div class="tab" onclick="switchTab('tab-render', this)">Render</div>
+                    <div class="tab active-tab" onclick="switchTab('tab-headshot', this)">Headshot</div>
+                    <div class="tab" onclick="switchTab('tab-waistup', this)">Waist-up</div>
+                    <div class="tab" onclick="switchTab('tab-fullbody', this)">Fullbody</div>
+                    <div class="tab" onclick="switchTab('tab-other', this)">Other</div>
                 </div>
                 <div class="inset-box" style="height:250px; padding:10px;">
-                    <div id="tab-sketch" class="tab-content active-content">
-                        <h4>Sketches ($15-$25)</h4>
+                    
+                    <div id="tab-headshot" class="tab-content active-content">
+                        <h4 style="margin: 0 0 5px 0;">Sketch - $00</h4>
+                        <div style="font-size: 0.9em; opacity: 0.6; font-style: italic; margin-bottom: 5px;">Colorable for an additional $5</div>
                         <div class="gallery-grid">
-                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Sketch 1"></div>
-                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Sketch 2"></div>
-                            </div>
-                    </div>
-                    <div id="tab-flat" class="tab-content">
-                        <h4>Flat Color ($35-$45)</h4>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 1"></div>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 2"></div>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 3"></div>
+                        </div>
+
+                        <h4 style="margin: 15px 0 5px 0;">Flat - $00</h4>
                         <div class="gallery-grid">
-                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80/bbf" alt="Flat 1"></div>
-                            </div>
-                    </div>
-                    <div id="tab-render" class="tab-content">
-                        <h4>Full Render ($60+)</h4>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 1"></div>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 2"></div>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 3"></div>
+                        </div>
+
+                        <h4 style="margin: 15px 0 5px 0;">Shaded - $00</h4>
                         <div class="gallery-grid">
-                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80/fbb" alt="Render 1"></div>
-                            </div>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 1"></div>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 2"></div>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 3"></div>
+                        </div>
                     </div>
+
+                    <div id="tab-waistup" class="tab-content">
+                        <h4 style="margin: 0 0 5px 0;">Sketch - $00</h4>
+                        <div style="font-size: 0.9em; opacity: 0.6; font-style: italic; margin-bottom: 5px;">Colorable for an additional $5</div>
+                        <div class="gallery-grid">
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 1"></div>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 2"></div>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 3"></div>
+                        </div>
+
+                        <h4 style="margin: 15px 0 5px 0;">Flat - $00</h4>
+                        <div class="gallery-grid">
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 1"></div>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 2"></div>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 3"></div>
+                        </div>
+
+                        <h4 style="margin: 15px 0 5px 0;">Shaded - $00</h4>
+                        <div class="gallery-grid">
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 1"></div>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 2"></div>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 3"></div>
+                        </div>
+                    </div>
+
+                    <div id="tab-fullbody" class="tab-content">
+                        <h4 style="margin: 0 0 5px 0;">Sketch - $00</h4>
+                        <div style="font-size: 0.9em; opacity: 0.6; font-style: italic; margin-bottom: 5px;">Colorable for an additional $5</div>
+                        <div class="gallery-grid">
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 1"></div>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 2"></div>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 3"></div>
+                        </div>
+
+                        <h4 style="margin: 15px 0 5px 0;">Flat - $00</h4>
+                        <div class="gallery-grid">
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 1"></div>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 2"></div>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 3"></div>
+                        </div>
+
+                        <h4 style="margin: 15px 0 5px 0;">Shaded - $00</h4>
+                        <div class="gallery-grid">
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 1"></div>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 2"></div>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 3"></div>
+                        </div>
+                    </div>
+
+                    <div id="tab-other" class="tab-content">
+                        <h4 style="margin: 0 0 5px 0;">Simple Ref - $00</h4>
+                        <div class="gallery-grid">
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 1"></div>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 2"></div>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 3"></div>
+                        </div>
+
+                        <h4 style="margin: 15px 0 5px 0;">Detailed Ref - $00</h4>
+                        <div class="gallery-grid">
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 1"></div>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 2"></div>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 3"></div>
+                        </div>
+
+                        <h4 style="margin: 15px 0 5px 0;">Outfits Ref - $00</h4>
+                        <div class="gallery-grid">
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 1"></div>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 2"></div>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 3"></div>
+                        </div>
+
+                        <h4 style="margin: 15px 0 5px 0;">Customs / Redesigns - $00</h4>
+                        <div class="gallery-grid">
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 1"></div>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 2"></div>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 3"></div>
+                        </div>
+
+                        <h4 style="margin: 15px 0 5px 0;">Experimental - Price Varies</h4>
+                        <div class="gallery-grid">
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 1"></div>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 2"></div>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 3"></div>
+                        </div>
+
+                        <h4 style="margin: 15px 0 5px 0;">Doodle Page - $00</h4>
+                        <div class="gallery-grid">
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 1"></div>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 2"></div>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 3"></div>
+                        </div>
+
+                        <h4 style="margin: 15px 0 5px 0;">PNGtuber - $00</h4>
+                        <div class="gallery-grid">
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 1"></div>
+                        </div>
+
+                        <h4 style="margin: 15px 0 5px 0;">Roblox Clothing - $00</h4>
+                        <div class="gallery-grid">
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 1"></div>
+                            <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Img 2"></div>
+                        </div>
+
+                        <h4 style="margin: 15px 0 5px 0;">Roblox Faces - $00</h4>
+                        <p style="margin: 0; opacity: 0.6; font-style: italic;">no images :(</p>
+                    </div>
+
                 </div>
             </div>
 
