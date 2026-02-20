@@ -55,8 +55,8 @@ body {
 /* --- DESKTOP SELECTION MARQUEE --- */
 #selection-marquee {
     position: absolute;
-    border: 1px dotted white;
-    background: rgba(255, 255, 255, 0.2);
+    border: 1px dotted #78EBFF;
+    background: rgba(120, 235, 255, 0.2);
     z-index: 50;
     display: none;
     pointer-events: none;
