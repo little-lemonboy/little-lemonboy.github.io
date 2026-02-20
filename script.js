@@ -27,7 +27,6 @@ function openWindow(id) {
     
     win.style.display = 'flex';
     
-    // Safety check for taskbar button
     var taskBtn = document.getElementById('task-' + id);
     if (taskBtn) taskBtn.style.display = 'flex';
     
@@ -112,6 +111,15 @@ function setColor(color, element) {
 }
 function clearCanvas() { ctx.fillStyle = "white"; ctx.fillRect(0, 0, canvas.width, canvas.height); }
 
+/* --- EXPORT PAINTING --- */
+// This is the receiver for your Save button!
+function exportCanvas() {
+    var link = document.createElement('a');
+    link.download = 'c4tling_drawing.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+}
+
 /* --- INIT --- */
 window.onload = function() {
     canvas = document.getElementById('paintCanvas');
@@ -137,13 +145,19 @@ window.onload = function() {
         var now = new Date();
         document.getElementById('clock').innerText = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
     }, 1000);
+
+    // This makes clicking ANYWHERE on a window bring it to the front
+    document.querySelectorAll('.window').forEach(function(win) {
+        win.addEventListener('mousedown', function() {
+            bringToFront(this.id);
+        });
+    });
     
     if (document.getElementById('win-me')) openWindow('win-me');
 };
 
 /* --- TABS --- */
 function switchTab(tabId, tabElement) {
-    // Scoped tab swapping so it doesn't break other windows
     var windowBody = tabElement.closest('.window-body');
     if (!windowBody) return;
     
