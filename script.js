@@ -264,3 +264,92 @@ function switchTab(tabId, tabElement) {
     document.getElementById(tabId).classList.add('active-content');
     tabElement.classList.add('active-tab');
 }
+
+/* --- DIGITAL ASSISTANT LOGIC --- */
+document.addEventListener("DOMContentLoaded", () => {
+    const assistant = document.getElementById("assistant-character");
+    const bubble = document.getElementById("assistant-speech-bubble");
+    const dialogueBox = document.getElementById("assistant-dialogue");
+
+    // Put whatever phrases you want in here
+    const dialogues = [
+        "Are you lost?",
+        "Make sure you're organizing your files properly.",
+        "Stop dawdling and click something.",
+        "I'm keeping an eye on you.",
+        "Don't forget to check your links."
+    ];
+
+    let currentState = 1;
+    let interactionTimer = null;
+    let wiggleCount = 0;
+    let wiggleTimer = null;
+
+    // Changes the image based on the state number you provide
+    function setAssistantState(stateNum) {
+        if (currentState !== stateNum) {
+            currentState = stateNum;
+            assistant.src = `assets/assistant/state${stateNum}.png`;
+        }
+    }
+
+    // Temporarily overrides the state, then goes back to idle (state 1)
+    function triggerReaction(stateNum, duration = 2000) {
+        setAssistantState(stateNum);
+        clearTimeout(interactionTimer);
+        interactionTimer = setTimeout(() => {
+            setAssistantState(1);
+        }, duration);
+    }
+
+    // 1. Random Dialogue Every 30 Seconds
+    setInterval(() => {
+        const randomText = dialogues[Math.floor(Math.random() * dialogues.length)];
+        dialogueBox.innerText = randomText;
+        bubble.style.display = "block";
+        
+        // Hide the bubble after 6 seconds
+        setTimeout(() => {
+            bubble.style.display = "none";
+        }, 6000);
+    }, 30000);
+
+    // 2. Proximity Detection (State 2)
+    document.addEventListener("mousemove", (e) => {
+        // Don't interrupt click or wiggle reactions
+        if (currentState === 3 || currentState === 4) return; 
+
+        const rect = assistant.getBoundingClientRect();
+        const charX = rect.left + (rect.width / 2);
+        const charY = rect.top + (rect.height / 2);
+        
+        // Calculate distance between mouse and assistant
+        const distance = Math.hypot(e.clientX - charX, e.clientY - charY);
+
+        if (distance < 150) {
+            setAssistantState(2); // Close by
+        } else {
+            setAssistantState(1); // Idle
+        }
+    });
+
+    // 3. Click Detection (State 3)
+    assistant.addEventListener("click", () => {
+        triggerReaction(3, 2000);
+    });
+
+    // 4. Wiggle Detection (State 4)
+    assistant.addEventListener("mousemove", () => {
+        wiggleCount++;
+        
+        clearTimeout(wiggleTimer);
+        wiggleTimer = setTimeout(() => {
+            wiggleCount = 0; // Reset if you stop wiggling
+        }, 150);
+
+        if (wiggleCount > 10) {
+            triggerReaction(4, 3000);
+            wiggleCount = 0; // Reset count after triggering
+        }
+    });
+});
