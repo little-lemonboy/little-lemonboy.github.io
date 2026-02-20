@@ -161,8 +161,8 @@ canvas#paintCanvas { background: white; border: 2px inset white; cursor: crossha
 }
 
 #assistant-character {
-    width: 64px; /* Back to a much more reasonable desktop pet size */
-    height: 64px;
+    width: 150px; /* Back to a much more reasonable desktop pet size */
+    height: 150px;
     object-fit: contain; /* This makes sure Fluttershy doesn't stretch or squish */
     pointer-events: auto;
     cursor: pointer;
