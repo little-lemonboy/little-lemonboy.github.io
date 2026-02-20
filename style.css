@@ -151,38 +151,80 @@ canvas#paintCanvas { background: white; border: 2px inset white; cursor: crossha
 /* --- DIGITAL ASSISTANT --- */
 #digital-assistant {
     position: fixed;
-    bottom: 40px; /* Sits just above your taskbar */
+    bottom: 40px;
     right: 20px;
     z-index: 9000;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    pointer-events: none; /* Lets clicks pass through the container */
+    pointer-events: none;
 }
 
 #assistant-speech-bubble {
-    display: none; /* Hidden until spoken */
-    width: 180px;
-    margin-bottom: 10px;
+    /* display: none is handled inline/JS now so it starts hidden */
+    width: 200px;
+    margin-bottom: 15px;
     pointer-events: auto;
     position: relative;
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
 }
 
-/* Creating the little speech bubble pointer */
+/* The yellow body container */
+.window-body-yellow {
+    background-color: #ffffcc; /* Classic tooltip yellow */
+    color: black;
+    padding: 10px;
+    border: 2px solid;
+    /* Classic inset look for the text area */
+    border-color: #808080 #ffffff #ffffff #808080; 
+    margin: 2px;
+    font-size: 12px;
+}
+
+/* The speech pointer arrow (now yellow) */
 #assistant-speech-bubble::after {
     content: "";
     position: absolute;
     bottom: -10px;
-    right: 30px;
+    right: 40px;
     border-width: 10px 10px 0 0;
     border-style: solid;
+    /* Match the yellow background and gray border */
     border-color: var(--win-gray) transparent transparent transparent;
 }
+/* A second, smaller triangle to create the "inside" yellow part of the arrow */
+#assistant-speech-bubble::before {
+    content: "";
+    position: absolute;
+    bottom: -7px;
+    right: 42px;
+    z-index: 1;
+    border-width: 8px 8px 0 0;
+    border-style: solid;
+    border-color: #ffffcc transparent transparent transparent;
+}
 
+
+/* Window header adjustments for the bubble */
+#assistant-speech-bubble .window-header {
+    padding: 2px;
+    background: var(--win-gray); /* Keeps the header gray */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Make the assistant bigger */
 #assistant-character {
-    width: 64px; /* Adjust this if your images are a different size */
-    height: 64px;
+    width: 100px; /* Increased from 64px */
+    height: 100px;
     pointer-events: auto;
     cursor: pointer;
-    filter: drop-shadow(2px 2px 0px rgba(0,0,0,0.5));
+    filter: drop-shadow(3px 3px 0px rgba(0,0,0,0.4));
+    transition: transform 0.1s ease-out;
 }
+
+#assistant-character:active {
+    transform: translate(2px, 2px); /* Little click effect */
+}
+
