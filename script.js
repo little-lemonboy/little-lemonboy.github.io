@@ -420,43 +420,71 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
     const img = document.getElementById('screensaver');
     
-    // If you forgot to add the HTML, this will yell at you in the console instead of just breaking quietly.
     if (!img) {
         console.error("Screensaver image not found! Check your HTML.");
         return; 
     }
 
-    // Set initial position randomly within the window
     let posX = Math.random() * (window.innerWidth - 100);
     let posY = Math.random() * (window.innerHeight - 100);
-    let velX = .75; 
-    let velY = .75;
-    const imgSize = 100; // This must match your image width/height
+    
+    // Set your desired speed here. 
+    const baseSpeed = 1.5; 
+    let velX = baseSpeed; 
+    let velY = baseSpeed;
+    const imgSize = 100; 
+    
+    // Tracks if you are holding him still
+    let isPaused = false;
 
     function update() {
-        posX += velX;
-        posY += velY;
+        // Only move if not paused
+        if (!isPaused) {
+            posX += velX;
+            posY += velY;
 
-        // Bounce off right and left walls
-        if (posX + imgSize >= window.innerWidth || posX <= 0) {
-            velX *= -1;
-            posX = posX <= 0 ? 0 : window.innerWidth - imgSize;
-        }
+            // Bounce off right and left walls
+            if (posX + imgSize >= window.innerWidth || posX <= 0) {
+                velX *= -1;
+                posX = Math.max(0, Math.min(posX, window.innerWidth - imgSize));
+            }
 
-        // Bounce off top and bottom walls
-        if (posY + imgSize >= window.innerHeight || posY <= 0) {
-            velY *= -1;
-            posY = posY <= 0 ? 0 : window.innerHeight - imgSize;
+            // Bounce off top and bottom walls
+            if (posY + imgSize >= window.innerHeight || posY <= 0) {
+                velY *= -1;
+                posY = Math.max(0, Math.min(posY, window.innerHeight - imgSize));
+            }
         }
 
         // Apply movement visually
         img.style.transform = `translate(${posX}px, ${posY}px)`;
         
-        // Stay behind the active window using your existing system
-        img.style.zIndex = Math.max(0, highestZ - 1);
+        // Stay behind the active window
+        const currentZ = typeof highestZ !== 'undefined' ? highestZ : 100;
+        img.style.zIndex = Math.max(0, currentZ - 1);
 
         requestAnimationFrame(update);
     }
+
+    // 1. Freeze in place when you touch him
+    img.addEventListener("mouseenter", () => {
+        isPaused = true;
+    });
+
+    // Unfreeze when you let go
+    img.addEventListener("mouseleave", () => {
+        isPaused = false;
+    });
+
+    // 2. Scatter in a random direction when clicked
+    img.addEventListener("mousedown", () => {
+        // Pick a random angle in radians (a full circle is 2 * PI)
+        const randomAngle = Math.random() * Math.PI * 2;
+        
+        // Calculate new X and Y speeds based on that random angle
+        velX = Math.cos(randomAngle) * baseSpeed;
+        velY = Math.sin(randomAngle) * baseSpeed;
+    });
 
     // Start the loop
     update();
