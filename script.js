@@ -417,45 +417,47 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-// script.js
-
-(function initScreensaver() {
+document.addEventListener("DOMContentLoaded", () => {
     const img = document.getElementById('screensaver');
+    
+    // If you forgot to add the HTML, this will yell at you in the console instead of just breaking quietly.
+    if (!img) {
+        console.error("Screensaver image not found! Check your HTML.");
+        return; 
+    }
+
+    // Set initial position randomly within the window
     let posX = Math.random() * (window.innerWidth - 100);
     let posY = Math.random() * (window.innerHeight - 100);
-    let velX = 2; // Speed in X direction
-    let velY = 2; // Speed in Y direction
-    const imgWidth = 100;
-    const imgHeight = 100;
+    let velX = 2; 
+    let velY = 2;
+    const imgSize = 100; // This must match your image width/height
 
-    function move() {
-        // 1. Update Position
+    function update() {
         posX += velX;
         posY += velY;
 
-        // 2. Bounce logic for Screen Edges
-        if (posX + imgWidth >= window.innerWidth || posX <= 0) {
-            velX = -velX;
-        }
-        if (posY + imgHeight >= window.innerHeight || posY <= 0) {
-            velY = -velY;
+        // Bounce off right and left walls
+        if (posX + imgSize >= window.innerWidth || posX <= 0) {
+            velX *= -1;
+            posX = posX <= 0 ? 0 : window.innerWidth - imgSize;
         }
 
-        // 3. Update Visuals
+        // Bounce off top and bottom walls
+        if (posY + imgSize >= window.innerHeight || posY <= 0) {
+            velY *= -1;
+            posY = posY <= 0 ? 0 : window.innerHeight - imgSize;
+        }
+
+        // Apply movement visually
         img.style.transform = `translate(${posX}px, ${posY}px)`;
         
-        // 4. Stay behind the active window
-        // highestZ is the variable tracked in your script.js
-        img.style.zIndex = highestZ - 1;
+        // Stay behind the active window using your existing system
+        img.style.zIndex = Math.max(0, highestZ - 1);
 
-        requestAnimationFrame(move);
+        requestAnimationFrame(update);
     }
 
-    // Handle window resizing to prevent the image from getting stuck outside
-    window.addEventListener('resize', () => {
-        posX = Math.min(posX, window.innerWidth - imgWidth);
-        posY = Math.min(posY, window.innerHeight - imgHeight);
-    });
-
-    move();
-})();
+    // Start the loop
+    update();
+});
