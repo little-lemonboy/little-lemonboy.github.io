@@ -270,86 +270,130 @@ document.addEventListener("DOMContentLoaded", () => {
     const assistant = document.getElementById("assistant-character");
     const bubble = document.getElementById("assistant-speech-bubble");
     const dialogueBox = document.getElementById("assistant-dialogue");
+    const closeBtn = document.getElementById("bubble-close-btn");
 
-    // Put whatever phrases you want in here
     const dialogues = [
-        "Are you lost?",
-        "Make sure you're organizing your files properly.",
+        "Are you lost? Try the start menu.",
+        "It looks like you are trying to build a website.",
         "Stop dawdling and click something.",
-        "I'm keeping an eye on you.",
-        "Don't forget to check your links."
+        "I'm keeping an eye on your cursor.",
+        "Don't forget to bookmark this page!",
+        "Have you tried turning it off and on again?"
     ];
 
     let currentState = 1;
     let interactionTimer = null;
-    let wiggleCount = 0;
-    let wiggleTimer = null;
+    let speechTimer = null;
 
-    // Changes the image based on the state number you provide
+    // Wiggle Detection Variables
+    let lastX = 0;
+    let wiggleDirection = 0;
+    let wiggleCounter = 0;
+    let wiggleResetTimer = null;
+
+    // Helper: Change the image state
     function setAssistantState(stateNum) {
+        // Only change if it's a new state and we aren't currently in a reaction state (3 or 4)
         if (currentState !== stateNum) {
+             // Don't override click/wiggle reactions with proximity sensor
+            if((currentState === 3 || currentState === 4) && stateNum === 2) return;
+
             currentState = stateNum;
             assistant.src = `assets/assistant/state${stateNum}.png`;
         }
     }
 
-    // Temporarily overrides the state, then goes back to idle (state 1)
-    function triggerReaction(stateNum, duration = 2000) {
-        setAssistantState(stateNum);
-        clearTimeout(interactionTimer);
+    // Helper: Trigger a temporary reaction state, then return to idle
+    function triggerReaction(stateNum, duration = 2500) {
+        clearTimeout(interactionTimer); // Clear pending returns
+        currentState = stateNum;
+        assistant.src = `assets/assistant/state${stateNum}.png`;
+        
         interactionTimer = setTimeout(() => {
-            setAssistantState(1);
+            currentState = 1; // Reset state variable
+            setAssistantState(1); // Visually return to idle
         }, duration);
     }
 
-    // 1. Random Dialogue Every 30 Seconds
+    // Helper: Close dialogue
+    function closeDialogue() {
+         bubble.style.display = "none";
+         clearTimeout(speechTimer);
+    }
+
+    // --- Event Listeners ---
+
+    // 1. Close bubble on click
+    closeBtn.addEventListener("click", closeDialogue);
+
+    // 2. Random Dialogue Every 30 Seconds
     setInterval(() => {
+        if(bubble.style.display === 'block') return; // Don't interrupt if already talking
+
         const randomText = dialogues[Math.floor(Math.random() * dialogues.length)];
         dialogueBox.innerText = randomText;
         bubble.style.display = "block";
         
-        // Hide the bubble after 6 seconds
-        setTimeout(() => {
-            bubble.style.display = "none";
-        }, 6000);
+        // Auto-hide after 8 seconds if not manually closed
+        clearTimeout(speechTimer);
+        speechTimer = setTimeout(closeDialogue, 8000);
     }, 30000);
 
-    // 2. Proximity Detection (State 2)
+
+    // 3. Proximity Detection (State 2) on the DOCUMENT level
     document.addEventListener("mousemove", (e) => {
-        // Don't interrupt click or wiggle reactions
+        // If currently reacting (clicked or wiggled), ignore proximity
         if (currentState === 3 || currentState === 4) return; 
 
         const rect = assistant.getBoundingClientRect();
+        // Calculate center of assistant
         const charX = rect.left + (rect.width / 2);
         const charY = rect.top + (rect.height / 2);
         
-        // Calculate distance between mouse and assistant
+        // Distance formula
         const distance = Math.hypot(e.clientX - charX, e.clientY - charY);
-
-        if (distance < 150) {
+        // Increased distance threshold since character is bigger
+        if (distance < 180) {
             setAssistantState(2); // Close by
         } else {
             setAssistantState(1); // Idle
         }
     });
 
-    // 3. Click Detection (State 3)
+    // 4. Click Detection (State 3)
     assistant.addEventListener("click", () => {
-        triggerReaction(3, 2000);
+        triggerReaction(3, 2000); // State 3 for 2 seconds
     });
 
-    // 4. Wiggle Detection (State 4)
-    assistant.addEventListener("mousemove", () => {
-        wiggleCount++;
-        
-        clearTimeout(wiggleTimer);
-        wiggleTimer = setTimeout(() => {
-            wiggleCount = 0; // Reset if you stop wiggling
-        }, 150);
+    // 5. Improved Wiggle Detection (State 4) on the element level
+    assistant.addEventListener("mousemove", (e) => {
+        // Don't detect wiggles if already reacting to a wiggle or click
+        if (currentState === 3 || currentState === 4) return;
 
-        if (wiggleCount > 10) {
-            triggerReaction(4, 3000);
-            wiggleCount = 0; // Reset count after triggering
+        const currentX = e.clientX;
+        // Determine current direction (1 for right, -1 for left)
+        let newDirection = currentX > lastX ? 1 : -1;
+
+        // If direction changed since last move, increase counter
+        if (newDirection !== wiggleDirection && lastX !== 0) {
+            wiggleCounter++;
+        }
+        
+        // Update trackers
+        wiggleDirection = newDirection;
+        lastX = currentX;
+
+        // Reset wiggle counter if movement stops for a moment
+        clearTimeout(wiggleResetTimer);
+        wiggleResetTimer = setTimeout(() => {
+            wiggleCounter = 0;
+            lastX = 0; // Reset position tracker too
+        }, 250); // Stop wiggling for 250ms resets the count
+
+        // Trigger threshold (needs 6 direction changes quickly)
+        if (wiggleCounter >= 6) {
+            wiggleCounter = 0; // Reset counter immediately so it doesn't re-trigger
+            triggerReaction(4, 3000); // State 4 for 3 seconds
         }
     });
 });
