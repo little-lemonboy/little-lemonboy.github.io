@@ -416,53 +416,71 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+/* --- SCREENSAVER LOGIC --- */
 document.addEventListener("DOMContentLoaded", () => {
     const img = document.getElementById('screensaver');
     if (!img) return;
 
-    let posX = Math.random() * (window.innerWidth - 100);
-    let posY = Math.random() * (window.innerHeight - 100);
-    
-    const baseSpeed = 0.75; // Your preferred speed
-    let velX = baseSpeed; 
-    let velY = baseSpeed;
-    const imgSize = 100; 
+    // Configuration
+    const baseSpeed = 0.75;
+    const imgSize = 100;
+
+    // 1. Set Random Starting Position
+    let posX = Math.random() * (window.innerWidth - imgSize);
+    let posY = Math.random() * (window.innerHeight - imgSize);
+    let velX, velY;
     let isPaused = false;
+
+    // Function to calculate a new random trajectory
+    function setRandomDirection() {
+        const angle = Math.random() * Math.PI * 2;
+        velX = Math.cos(angle) * baseSpeed;
+        velY = Math.sin(angle) * baseSpeed;
+    }
+
+    // 2. Initialize: Move immediately on load
+    setRandomDirection();
 
     function update() {
         if (!isPaused) {
             posX += velX;
             posY += velY;
 
+            // Bounce logic for screen boundaries
             if (posX + imgSize >= window.innerWidth || posX <= 0) {
-                velX *= -1;
+                velX *= -1; // Reflect horizontal velocity
                 posX = Math.max(0, Math.min(posX, window.innerWidth - imgSize));
             }
             if (posY + imgSize >= window.innerHeight || posY <= 0) {
-                velY *= -1;
+                velY *= -1; // Reflect vertical velocity
                 posY = Math.max(0, Math.min(posY, window.innerHeight - imgSize));
             }
         }
 
+        // Apply movement
         img.style.transform = `translate(${posX}px, ${posY}px)`;
-        img.style.zIndex = Math.max(0, (window.highestZ || 100) - 1);
+        
+        // Z-Index: Stay exactly 1 level behind the focused window (highestZ)
+        const currentHighestZ = (typeof highestZ !== 'undefined') ? highestZ : 100;
+        img.style.zIndex = Math.max(0, currentHighestZ - 1);
 
         requestAnimationFrame(update);
     }
 
-    // Use "mouseover" and "mouseout" for better stability
-    img.addEventListener("mouseover", () => { isPaused = true; });
-    img.addEventListener("mouseout", () => { isPaused = false; });
-
-    // Use "click" and stop propagation so the desktop selection box doesn't trigger
-    img.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation(); 
-        
-        const randomAngle = Math.random() * Math.PI * 2;
-        velX = Math.cos(randomAngle) * baseSpeed;
-        velY = Math.sin(randomAngle) * baseSpeed;
+    // 3. Logic: Stop movement on hover
+    img.addEventListener("mouseover", () => {
+        isPaused = true;
     });
 
+    // 4. Logic: Resume movement AND change direction ONLY on click
+    img.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation(); // Prevents desktop interaction underneath
+        
+        isPaused = false; // Resumes movement
+        setRandomDirection(); // Sets a new random path
+    });
+
+    // Start the animation loop
     update();
 });
