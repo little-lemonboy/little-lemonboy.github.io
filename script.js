@@ -360,16 +360,26 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // 4. Click Detection (State 3) with dynamic bounce
+    // 4. Click Detection (State 3) with dynamic bounce and immediate reset
     assistant.addEventListener("click", () => {
-        triggerReaction(3, 2000); // State 3 for 2 seconds
+        // Clear any existing reaction timers so they don't overlap
+        clearTimeout(interactionTimer);
         
-        // Add the scared animation class
+        // Remember what state we were in (likely State 2, since your mouse is hovering)
+        const prevState = (currentState === 3 || currentState === 4) ? 1 : currentState;
+
+        // Immediately set the scared state
+        currentState = 3;
+        assistant.src = `assets/assistant/state3.png`;
+        
+        // Add the scared bounce animation class
         assistant.classList.add("scared");
         
-        // Remove the class after the animation finishes (600ms) so it can trigger again
-        setTimeout(() => {
+        // Exactly at 600ms (when the CSS bounce finishes), revert the class AND the state
+        interactionTimer = setTimeout(() => {
             assistant.classList.remove("scared");
+            currentState = prevState; 
+            assistant.src = `assets/assistant/state${prevState}.png`;
         }, 600);
     });
 
