@@ -238,3 +238,12 @@ canvas#paintCanvas { background: white; border: 2px inset white; cursor: crossha
     border-color: #ffffe1 transparent transparent transparent;
 }
 
+/* style.css */
+#screensaver {
+    position: fixed; /* Ensures it stays relative to the screen */
+    top: 0;
+    left: 0;
+    will-change: transform;
+    image-rendering: pixelated; /* Optional: keeps the retro look */
+    pointer-events: none; /* Allows you to click through it */
+}
