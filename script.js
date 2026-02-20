@@ -406,7 +406,7 @@ document.addEventListener("DOMContentLoaded", () => {
         wiggleResetTimer = setTimeout(() => {
             wiggleCounter = 0;
             lastX = 0; // Reset position tracker too
-        }, 250); // Stop wiggling for 250ms resets the count
+        }, 20); // Stop wiggling for 20ms resets the count
 
         // Trigger threshold (needs 6 direction changes quickly)
         if (wiggleCounter >= 6) {
