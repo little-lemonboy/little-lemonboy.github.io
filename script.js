@@ -416,15 +416,18 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-let board = [];
-let rows = 8, cols = 8, minesCount = 10;
-let gameOver = false;
+/* --- MINESWEEPER ENGINE --- */
+var board = [];
+var rows = 8, cols = 8, minesCount = 10;
+var gameOver = false;
 
 function initMinesweeper(r, c, m) {
     rows = r; cols = c; minesCount = m; gameOver = false;
     const field = document.getElementById('mine-field');
+    const resetBtn = document.getElementById('reset-btn');
     if (!field) return;
 
+    if (resetBtn) resetBtn.innerText = "🙂";
     field.style.gridTemplateColumns = `repeat(${cols}, 20px)`;
     field.innerHTML = '';
     board = [];
@@ -464,6 +467,7 @@ function revealCell(r, c) {
     if (cell.mine) {
         cell.element.classList.add('mine');
         gameOver = true;
+        document.getElementById('reset-btn').innerText = "😵";
         return;
     }
 
@@ -479,7 +483,7 @@ function revealCell(r, c) {
         cell.element.innerText = mines;
         cell.element.setAttribute('data-mines', mines);
     } else {
-        // Flood Fill: Auto-clear neighbors
+        // Correct Flood Fill / Auto-clear
         for (let i = -1; i <= 1; i++) {
             for (let j = -1; j <= 1; j++) {
                 let nr = r + i, nc = c + j;
@@ -487,10 +491,25 @@ function revealCell(r, c) {
             }
         }
     }
+    checkWin();
 }
 
 function toggleFlag(r, c) {
     if (gameOver || board[r][c].revealed) return;
     board[r][c].flagged = !board[r][c].flagged;
     board[r][c].element.classList.toggle('flagged');
+}
+
+function checkWin() {
+    let unrevealedSafe = 0;
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+            if (!board[r][c].mine && !board[r][c].revealed) unrevealedSafe++;
+        }
+    }
+    if (unrevealedSafe === 0) {
+        gameOver = true;
+        document.getElementById('reset-btn').innerText = "😎";
+        alert("You Win!");
+    }
 }
