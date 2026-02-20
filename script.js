@@ -353,7 +353,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Distance formula
         const distance = Math.hypot(e.clientX - charX, e.clientY - charY);
         // Increased distance threshold since character is bigger
-        if (distance < 180) {
+        if (distance < 300) {
             setAssistantState(2); // Close by
         } else {
             setAssistantState(1); // Idle
