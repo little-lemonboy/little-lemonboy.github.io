@@ -429,8 +429,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // Set initial position randomly within the window
     let posX = Math.random() * (window.innerWidth - 100);
     let posY = Math.random() * (window.innerHeight - 100);
-    let velX = 2; 
-    let velY = 2;
+    let velX = .75; 
+    let velY = .75;
     const imgSize = 100; // This must match your image width/height
 
     function update() {
