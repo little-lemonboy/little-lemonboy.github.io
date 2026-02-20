@@ -273,9 +273,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const closeBtn = document.getElementById("bubble-close-btn");
 
     const dialogues = [
-        "Are you lost? Try the start menu.",
+        "Hi, um... Are you lost? Try the, um, start menu.",
         "It looks like you are trying to build a website.",
-        "Stop dawdling and click something.",
+        "Stop dawdling and click something... if you don't mind.",
         "I'm keeping an eye on your cursor.",
         "Don't forget to bookmark this page!",
         "Have you tried turning it off and on again?"
