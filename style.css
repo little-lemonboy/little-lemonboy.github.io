@@ -244,14 +244,13 @@ canvas#paintCanvas { background: white; border: 2px inset white; cursor: crossha
     left: 0;
     width: 100px;
     height: 100px;
-    pointer-events: auto !important; /* Ensures the image is "hittable" by the mouse */
-    user-select: auto !important;    /* Overrides the body's select restriction */
-    -webkit-user-drag: none;        /* Prevents the browser from dragging the image itself */
+    pointer-events: auto !important; /* Ensures the image can detect the mouse */
+    user-select: auto !important;    /* Overrides global selection restrictions */
+    -webkit-user-drag: none;        /* Prevents browser-default image dragging */
     cursor: pointer;
-    z-index: 99;                    /* This is the starting depth; JS will update this */
+    z-index: 99;                    /* Initial depth; updated by JS */
     display: block;
 }
-
 
 /* --- MINESWEEPER STYLING --- */
 .mine-field {
