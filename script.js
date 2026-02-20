@@ -421,57 +421,34 @@ let rows, cols, minesCount;
 let gameOver = false;
 
 function initMinesweeper(r, c, m) {
-    rows = r;
-    cols = c;
-    minesCount = m;
-    gameOver = false;
-    
+    rows = r; cols = c; minesCount = m; gameOver = false;
     const field = document.getElementById('mine-field');
+    if (!field) return;
+
     field.style.gridTemplateColumns = `repeat(${cols}, 20px)`;
     field.innerHTML = '';
     board = [];
 
-    for (let rIdx = 0; rIdx < rows; rIdx++) {
-        board[rIdx] = [];
-        for (let cIdx = 0; cIdx < cols; cIdx++) {
-            const cellElem = document.createElement('div');
-            cellElem.classList.add('cell');
-            cellElem.addEventListener('mousedown', (e) => {
-                if (e.button === 0) revealCell(rIdx, cIdx); // Left click
-                if (e.button === 2) toggleFlag(rIdx, cIdx); // Right click
+    for (let i = 0; i < rows; i++) {
+        board[i] = [];
+        for (let j = 0; j < cols; j++) {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+            cell.addEventListener('mousedown', (e) => {
+                if (e.button === 0) revealCell(i, j);
+                if (e.button === 2) toggleFlag(i, j);
             });
-            cellElem.addEventListener('contextmenu', e => e.preventDefault());
-            field.appendChild(cellElem);
-            board[rIdx][cIdx] = { mine: false, revealed: false, flagged: false, element: cellElem };
+            cell.addEventListener('contextmenu', e => e.preventDefault());
+            field.appendChild(cell);
+            board[i][j] = { mine: false, revealed: false, flagged: false, element: cell };
         }
     }
 
     let placed = 0;
     while (placed < minesCount) {
-        let randR = Math.floor(Math.random() * rows);
-        let randC = Math.floor(Math.random() * cols);
-        if (!board[randR][randC].mine) {
-            board[randR][randC].mine = true;
-            placed++;
-        }
+        let rr = Math.floor(Math.random() * rows), cc = Math.floor(Math.random() * cols);
+        if (!board[rr][cc].mine) { board[rr][cc].mine = true; placed++; }
     }
-}
-
-function toggleFlag(r, c) {
-    if (gameOver || board[r][c].revealed) return;
-    board[r][c].flagged = !board[r][c].flagged;
-    board[r][c].element.classList.toggle('flagged');
-}
-
-function countNeighbors(r, c) {
-    let count = 0;
-    for (let i = -1; i <= 1; i++) {
-        for (let j = -1; j <= 1; j++) {
-            let nr = r + i, nc = c + j;
-            if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && board[nr][nc].mine) count++;
-        }
-    }
-    return count;
 }
 
 function revealCell(r, c) {
@@ -483,16 +460,23 @@ function revealCell(r, c) {
     if (cell.mine) {
         cell.element.classList.add('mine');
         gameOver = true;
-        alert("Boom! Game Over.");
+        setTimeout(() => alert("Game Over"), 10);
         return;
     }
 
-    const mines = countNeighbors(r, c);
+    let mines = 0;
+    for (let i = -1; i <= 1; i++) {
+        for (let j = -1; j <= 1; j++) {
+            let nr = r + i, nc = c + j;
+            if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && board[nr][nc].mine) mines++;
+        }
+    }
+
     if (mines > 0) {
         cell.element.innerText = mines;
         cell.element.setAttribute('data-mines', mines);
     } else {
-        // This is the auto-clear/flood-fill logic
+        // Correct Flood Fill Logic
         for (let i = -1; i <= 1; i++) {
             for (let j = -1; j <= 1; j++) {
                 let nr = r + i, nc = c + j;
@@ -500,4 +484,10 @@ function revealCell(r, c) {
             }
         }
     }
+}
+
+function toggleFlag(r, c) {
+    if (gameOver || board[r][c].revealed) return;
+    board[r][c].flagged = !board[r][c].flagged;
+    board[r][c].element.classList.toggle('flagged');
 }
