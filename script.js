@@ -427,7 +427,8 @@ function initMinesweeper(r, c, m) {
     const resetBtn = document.getElementById('reset-btn');
     if (!field) return;
 
-    if (resetBtn) resetBtn.innerText = "🙂";
+const resetFace = document.getElementById('reset-face');
+    if (resetFace) resetFace.src = "assets/smile.png";
     field.style.gridTemplateColumns = `repeat(${cols}, 20px)`;
     field.innerHTML = '';
     board = [];
@@ -467,7 +468,7 @@ function revealCell(r, c) {
     if (cell.mine) {
         cell.element.classList.add('mine');
         gameOver = true;
-        document.getElementById('reset-btn').innerText = "😵";
+        document.getElementById('reset-face').src = "assets/dead.png";
         return;
     }
 
@@ -509,7 +510,38 @@ function checkWin() {
     }
     if (unrevealedSafe === 0) {
         gameOver = true;
-        document.getElementById('reset-btn').innerText = "😎";
+        document.getElementById('reset-face').src = "assets/cool.png";
         alert("You Win!");
     }
+}
+
+/* --- SCREENSAVER BOUNCE ANIMATION --- */
+let ss = document.getElementById('screensaver');
+let ssX = 0, ssY = 0;
+let ssDX = 1.5, ssDY = 1.5; // Change these to make it move faster or slower
+
+if (ss) {
+    function animateScreensaver() {
+        let rect = ss.getBoundingClientRect();
+        
+        // Bounce off the right and left walls
+        if (ssX + rect.width >= window.innerWidth || ssX <= 0) {
+            ssDX *= -1;
+        }
+        // Bounce off the bottom and top walls
+        if (ssY + rect.height >= window.innerHeight || ssY <= 0) {
+            ssDY *= -1;
+        }
+        
+        ssX += ssDX;
+        ssY += ssDY;
+        
+        ss.style.left = ssX + 'px';
+        ss.style.top = ssY + 'px';
+        
+        requestAnimationFrame(animateScreensaver);
+    }
+    
+    // Start the animation
+    animateScreensaver();
 }
