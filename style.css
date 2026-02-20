@@ -1,5 +1,6 @@
 /* --- RESET & FONTS --- */
 :root {
+    color-scheme: light; /* Forces the browser to stop applying dark mode */
     --bg-teal: #008080;
     --win-gray: #c0c0c0;
     --win-text: #000000;
@@ -18,7 +19,8 @@ body {
     overflow: hidden;
     height: 100vh;
     font-size: 11px;
-    background-image: radial-gradient(#444 1px, transparent 1px);
+    /* Changed the #444 dots to solid black #000 for sharp contrast */
+    background-image: radial-gradient(#000 1px, transparent 1px);
     background-size: 20px 20px;
     user-select: none;
 }
@@ -151,7 +153,7 @@ body {
     overflow-y: auto;
 }
 
-/* --- COMMS TABS --- */
+/* --- TABS --- */
 .tabs { display: flex; margin-bottom: -2px; z-index: 1; }
 .tab {
     padding: 3px 8px;
@@ -227,25 +229,8 @@ canvas#paintCanvas { background: white; border: 2px inset white; cursor: crossha
     z-index: 2000;
 }
 
-.start-btn { 
-    display: flex; 
-    align-items: center; 
-    gap: 5px; 
-    font-weight: bold; 
-    padding: 2px 6px; 
-    margin-right: 5px; 
-    border: 2px solid;
-    border-color: white var(--win-darker-shadow) var(--win-darker-shadow) white;
-    background: var(--win-gray);
-    cursor: pointer;
-}
-
-/* The Pressed State for Start Button */
-.start-btn.active, .start-btn:active {
-    border-color: var(--win-dark-shadow) white white var(--win-dark-shadow) !important;
-    box-shadow: inset 1px 1px 0 black !important;
-    padding: 3px 5px 1px 7px !important; /* Shifts contents to look pressed */
-}
+.start-btn { display: flex; align-items: center; gap: 5px; font-weight: bold; padding: 2px 6px; margin-right: 5px; border: 2px solid; border-color: white var(--win-darker-shadow) var(--win-darker-shadow) white; background: var(--win-gray); cursor: pointer; }
+.start-btn.active, .start-btn:active { border-color: var(--win-dark-shadow) white white var(--win-dark-shadow) !important; box-shadow: inset 1px 1px 0 black !important; padding: 3px 5px 1px 7px !important; }
 
 .task-button {
     min-width: 120px;
@@ -259,16 +244,7 @@ canvas#paintCanvas { background: white; border: 2px inset white; cursor: crossha
     margin-right: 3px;
     cursor: pointer;
 }
-
-/* The Pressed State for Taskbar Buttons */
-.task-button.active { 
-    background: repeating-linear-gradient(45deg, #c0c0c0, #c0c0c0 2px, #fff 2px, #fff 4px); 
-    font-weight: bold; 
-    border-color: var(--win-dark-shadow) white white var(--win-dark-shadow) !important;
-    box-shadow: inset 1px 1px 0 black !important;
-    padding-top: 2px !important; 
-    padding-left: 6px !important;
-}
+.task-button.active { background: repeating-linear-gradient(45deg, #c0c0c0, #c0c0c0 2px, #fff 2px, #fff 4px); font-weight: bold; border-color: var(--win-dark-shadow) white white var(--win-dark-shadow) !important; box-shadow: inset 1px 1px 0 black !important; padding-top: 2px !important; padding-left: 6px !important; }
 
 /* --- START MENU --- */
 .start-menu {
@@ -283,23 +259,8 @@ canvas#paintCanvas { background: white; border: 2px inset white; cursor: crossha
     flex-direction: row;
     z-index: 2001;
 }
-.start-side {
-    width: 25px;
-    background: linear-gradient(to bottom, #000080, #1084d0);
-    position: relative;
-}
-.start-side span {
-    color: white;
-    transform: rotate(-90deg);
-    transform-origin: top left;
-    white-space: nowrap;
-    font-weight: bold;
-    font-size: 14px;
-    position: absolute;
-    left: 4px;
-    bottom: 5px;
-    width: 150px;
-}
+.start-side { width: 25px; background: linear-gradient(to bottom, #000080, #1084d0); position: relative; }
+.start-side span { color: white; transform: rotate(-90deg); transform-origin: top left; white-space: nowrap; font-weight: bold; font-size: 14px; position: absolute; left: 4px; bottom: 5px; width: 150px; }
 .start-items { flex: 1; display: flex; flex-direction: column; padding: 2px; }
 .start-item { display: flex; align-items: center; gap: 10px; padding: 5px 10px; cursor: pointer; color: black; }
 .start-item:hover { background: var(--win-title-blue); color: white; }
