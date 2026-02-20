@@ -37,6 +37,8 @@
         <div class="icon" id="icon-recycle" style="top: 10px; left: calc(100% - 75px);" onclick="handleIconClick('win-blacklist')" onmousedown="startIconDrag(event, 'icon-recycle')">
             <img src="https://win98icons.alexmeub.com/icons/png/recycle_bin_full-4.png"><span>Recycle Bin</span>
         </div>
+        <div class="icon" id="icon-minesweeper" style="top: 280px; left: 10px;" onclick="handleIconClick('win-minesweeper')"><img src="https://win98icons.alexmeub.com/icons/png/minesweeper-0.png"><span>Minesweeper</span>
+</div>
     </div>
 
     <div id="start-menu" class="start-menu">
@@ -503,8 +505,8 @@
         <div id="task-win-messenger" class="task-button" onclick="toggleWindow('win-messenger')"><img src="https://win98icons.alexmeub.com/icons/png/msn3-3.png" width="16" style="margin-right:5px;"> Messenger</div>
         <div id="task-win-comms" class="task-button" onclick="toggleWindow('win-comms')"><img src="https://win98icons.alexmeub.com/icons/png/paint_file-2.png" width="16" style="margin-right:5px;"> Comms</div>
         <div id="task-win-paint" class="task-button" onclick="toggleWindow('win-paint')"><img src="https://win98icons.alexmeub.com/icons/png/paint_old-0.png" width="16" style="margin-right:5px;"> Paint</div>
-        <div id="task-win-blacklist" class="task-button" onclick="toggleWindow('win-blacklist')"><img src="https://win98icons.alexmeub.com/icons/png/recycle_bin_full-4.png" width="16" style="margin-right:5px;"> Blacklist
-</div>
+        <div id="task-win-blacklist" class="task-button" onclick="toggleWindow('win-blacklist')"><img src="https://win98icons.alexmeub.com/icons/png/recycle_bin_full-4.png" width="16" style="margin-right:5px;"> Blacklist</div>
+        <div id="task-win-minesweeper" class="task-button" onclick="toggleWindow('win-minesweeper')"><img src="https://win98icons.alexmeub.com/icons/png/minesweeper-0.png" width="16" style="margin-right:5px;"> Minesweeper</div>
         <div class="tray" style="margin-left:auto; border:2px inset white; padding:2px 5px;"><span id="clock">12:00 PM</span></div>
     </div>
 
@@ -521,9 +523,28 @@
 </div>
 
     <img id="screensaver" src="https://f2.toyhou.se/file/f2-toyhou-se/images/103775742_iEFdlIHeHaeCP8G.gif" style="position: absolute; pointer-events: none; width: 100px; z-index: 99;">
-    
+
+
+    <div id="win-minesweeper" class="window" style="display:none; width:auto; min-width:200px;">
+    <div class="window-title" onmousedown="startWindowDrag(event, 'win-minesweeper')">
+        <div class="title-text">Minesweeper</div>
+        <div class="title-buttons">
+            <button class="win-btn" onclick="toggleWindow('win-minesweeper')">_</button>
+            <button class="win-btn" onclick="closeWindow('win-minesweeper')">X</button>
+        </div>
+    </div>
+    <div class="window-content">
+        <div class="game-controls" style="margin-bottom: 10px;">
+            <button onclick="initMinesweeper(8, 8, 10)">Easy</button>
+            <button onclick="initMinesweeper(12, 12, 20)">Medium</button>
+            <button onclick="initMinesweeper(16, 16, 40)">Hard</button>
+        </div>
+        <div id="mine-field" class="mine-field"></div>
+    </div>
+</div>
 </body>
 </html>
+
 
 
 
