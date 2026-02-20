@@ -9,91 +9,74 @@
 </head>
 <body>
 
-    <div id="shutdown-overlay" onclick="reboot()">
-        <div class="tv-line"></div>
-    </div>
-    
+    <div id="shutdown-overlay" onclick="reboot()"><div class="tv-line"></div></div>
     <div id="selection-marquee"></div>
 
     <div class="desktop-icons">
         <div class="icon" id="icon-me" style="top: 10px; left: 10px;" onclick="handleIconClick('win-me')" onmousedown="startIconDrag(event, 'icon-me')">
-            <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png" alt="My Computer">
-            <span>About Me</span>
+            <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png"><span>About Me</span>
         </div>
         <div class="icon" id="icon-tos" style="top: 100px; left: 10px;" onclick="handleIconClick('win-tos')" onmousedown="startIconDrag(event, 'icon-tos')">
-            <img src="https://win98icons.alexmeub.com/icons/png/notepad-5.png" alt="TOS">
-            <span>T.O.S.txt</span>
+            <img src="https://win98icons.alexmeub.com/icons/png/notepad-5.png"><span>T.O.S.txt</span>
         </div>
         <div class="icon" id="icon-comms" style="top: 190px; left: 10px;" onclick="handleIconClick('win-comms')" onmousedown="startIconDrag(event, 'icon-comms')">
-            <img src="https://win98icons.alexmeub.com/icons/png/paint_file-2.png" alt="Comms">
-            <span>Comms Info</span>
+            <img src="https://win98icons.alexmeub.com/icons/png/paint_file-2.png"><span>Comms Info</span>
         </div>
         <div class="icon" id="icon-links" style="top: 280px; left: 10px;" onclick="handleIconClick('win-links')" onmousedown="startIconDrag(event, 'icon-links')">
-            <img src="https://win98icons.alexmeub.com/icons/png/world-3.png" alt="Links">
-            <span>Links</span>
+            <img src="https://win98icons.alexmeub.com/icons/png/world-3.png"><span>Links</span>
         </div>
         <div class="icon" id="icon-messenger" style="top: 370px; left: 10px;" onclick="handleIconClick('win-messenger')" onmousedown="startIconDrag(event, 'icon-messenger')">
-            <img src="https://win98icons.alexmeub.com/icons/png/msn3-3.png" alt="Messenger">
-            <span>Messenger</span>
+            <img src="https://win98icons.alexmeub.com/icons/png/msn3-3.png"><span>Messenger</span>
         </div>
         <div class="icon" id="icon-paint" style="top: 460px; left: 10px;" onclick="handleIconClick('win-paint')" onmousedown="startIconDrag(event, 'icon-paint')">
-            <img src="https://win98icons.alexmeub.com/icons/png/paint_old-0.png" alt="Paint">
-            <span>Paint</span>
+            <img src="https://win98icons.alexmeub.com/icons/png/paint_old-0.png"><span>Paint</span>
         </div>
     </div>
 
     <div id="start-menu" class="start-menu">
-        <div class="start-side">
-            <span><strong>Windows</strong>98</span>
-        </div>
+        <div class="start-side"><span><strong>Windows</strong>98</span></div>
         <div class="start-items">
-            <div class="start-item" onclick="openWindow('win-me'); toggleStartMenu(event);">
-                <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png">
-                <span>About Me</span>
-            </div>
-            <div class="start-item" onclick="openWindow('win-tos'); toggleStartMenu(event);">
-                <img src="https://win98icons.alexmeub.com/icons/png/notepad-5.png">
-                <span>TOS</span>
-            </div>
-            <div class="start-item" onclick="openWindow('win-links'); toggleStartMenu(event);">
-                <img src="https://win98icons.alexmeub.com/icons/png/world-3.png">
-                <span>Links</span>
-            </div>
-            <div class="start-item" onclick="openWindow('win-paint'); toggleStartMenu(event);">
-                <img src="https://win98icons.alexmeub.com/icons/png/paint_old-0.png">
-                <span>Paint</span>
-            </div>
+            <div class="start-item" onclick="openWindow('win-me'); toggleStartMenu(event);"><img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png"><span>About Me</span></div>
+            <div class="start-item" onclick="openWindow('win-tos'); toggleStartMenu(event);"><img src="https://win98icons.alexmeub.com/icons/png/notepad-5.png"><span>TOS</span></div>
+            <div class="start-item" onclick="openWindow('win-links'); toggleStartMenu(event);"><img src="https://win98icons.alexmeub.com/icons/png/world-3.png"><span>Links</span></div>
+            <div class="start-item" onclick="openWindow('win-paint'); toggleStartMenu(event);"><img src="https://win98icons.alexmeub.com/icons/png/paint_old-0.png"><span>Paint</span></div>
             <div style="border-top:1px solid gray; margin: 2px 0;"></div>
-            <div class="start-item" onclick="tvShutdown()">
-                <img src="https://win98icons.alexmeub.com/icons/png/shut_down_cool-4.png">
-                <span>Shut Down...</span>
-            </div>
+            <div class="start-item" onclick="tvShutdown()"><img src="https://win98icons.alexmeub.com/icons/png/shut_down_cool-4.png"><span>Shut Down...</span></div>
         </div>
     </div>
 
-    <div id="win-me" class="window" style="top: 20%; left: 30%; width: 400px; display: flex; z-index: 20;">
-        <div class="title-bar active-bar" onmousedown="startDrag(event, 'win-me')">
+    <div id="win-preview" class="window" style="top: 15%; left: 30%; width: auto; min-width: 300px; max-width: 600px; display: none; z-index: 50;">
+        <div class="title-bar active-bar" onmousedown="startDrag(event, 'win-preview')">
+            <div class="title-bar-text">Image Viewer</div>
+            <div class="title-bar-controls">
+                <button onclick="closeWindow('win-preview')">X</button>
+            </div>
+        </div>
+        <div class="window-body" style="padding: 10px; text-align: center; background: #808080; display: flex; align-items: center; justify-content: center;">
+            <img id="preview-img" src="" style="max-width: 100%; max-height: 60vh; border: 2px inset white; background: white;">
+        </div>
+    </div>
+
+    <div id="win-me" class="window" style="top: 15%; left: 25%; width: 480px; display: flex; z-index: 20;">
+        <div class="title-bar" onmousedown="startDrag(event, 'win-me')">
             <div class="title-bar-text">Welcome to c4tling</div>
             <div class="title-bar-controls">
-                <button onclick="minimizeWindow('win-me')">_</button>
-                <button>□</button>
-                <button onclick="closeWindow('win-me')">X</button>
+                <button onclick="minimizeWindow('win-me')">_</button><button>□</button><button onclick="closeWindow('win-me')">X</button>
             </div>
         </div>
         <div class="window-body">
             <div style="display:flex; gap:10px;">
                 <img src="https://win98icons.alexmeub.com/icons/png/cat-0.png" style="width:80px; height:80px; border:2px inset white; background: white;">
-                <div>
-                    <h2 style="margin:0">c4tling</h2>
-                    <p>he/him • trans man</p>
-                </div>
+                <div><h2 style="margin:0">c4tling</h2><p>he/him • trans man</p></div>
             </div>
             <hr>
             <div class="tabs">
                 <div class="tab active-tab" onclick="switchTab('about-intro', this)">Intro</div>
-                <div class="tab" onclick="switchTab('about-details', this)">Details</div>
+                <div class="tab" onclick="switchTab('about-identity', this)">Identity</div>
+                <div class="tab" onclick="switchTab('about-interests', this)">Interests</div>
             </div>
-            <div style="padding: 15px 5px 5px 5px; min-height: 100px;">
+            <div style="padding: 15px 5px 5px 5px; min-height: 150px;">
+                
                 <div id="about-intro" class="tab-content active-content">
                     <div style="display: flex; gap: 15px; align-items: flex-start; margin-bottom: 20px;">
                         <img src="https://win98icons.alexmeub.com/icons/png/msg_information-0.png" width="32" height="32">
@@ -104,10 +87,58 @@
                         <button style="min-width: 80px;" onclick="openWindow('win-comms')">Prices</button>
                     </div>
                 </div>
-                <div id="about-details" class="tab-content">
-                    <p style="margin-top: 0;">im a cat and this is my website :3</p>
-                    <p>This space is loose and free of the white background. You can expand it as much as you need.</p>
+
+                <div id="about-identity" class="tab-content">
+                    <div style="display: flex; gap: 10px; align-items: stretch;">
+                        
+                        <div class="inset-box" style="flex: 1; padding: 10px; font-size: 10px;">
+                            <p style="margin-top:0;">im 22 years old and i am transmasculine nonbinary!</p>
+                            <p>i identify with xenogenders and use neopronouns :3</p>
+                            <p>i don't label my xenogenders beyond the things they're based on!!!</p>
+                            <p style="margin-bottom:2px;"><strong>literally me:</strong></p>
+                            <ul style="margin: 0; padding-left: 20px;">
+                                <li>cat</li><li>ghost</li><li>imp</li><li>moon</li><li>stars</li><li>zombie</li>
+                            </ul>
+                            <div style="margin-top: 15px; text-align: center;">
+                                <a href="https://pronouns.page/" target="_blank"><button>pronouns.page</button></a>
+                            </div>
+                        </div>
+
+                        <div class="inset-box stamp-grid" style="flex: 0.8; padding: 8px;">
+                            <img src="assets/about me/19c64824.gif" alt="stamp">
+                            <img src="assets/about me/4a0eeedc.gif" alt="stamp">
+                            <img src="assets/about me/677ba835.gif" alt="stamp">
+                            <img src="assets/about me/dff422eb.png" alt="stamp">
+                            <img src="assets/about me/ef44ceb8.gif" alt="stamp">
+                            <img src="assets/about me/fe30ee87.png" alt="stamp">
+                        </div>
+
+                    </div>
                 </div>
+
+                <div id="about-interests" class="tab-content">
+                    <div style="display: flex; gap: 10px; align-items: stretch; height: 100%;">
+                        <div class="inset-box" style="flex: 1; padding: 8px;">
+                            <h4 style="margin: 0 0 5px 0; border-bottom: 1px solid gray; padding-bottom: 2px;">Games</h4>
+                            <ul style="margin: 0; padding-left: 15px;">
+                                <li>Add games here</li>
+                            </ul>
+                        </div>
+                        <div class="inset-box" style="flex: 1; padding: 8px;">
+                            <h4 style="margin: 0 0 5px 0; border-bottom: 1px solid gray; padding-bottom: 2px;">Shows</h4>
+                            <ul style="margin: 0; padding-left: 15px;">
+                                <li>Add shows here</li>
+                            </ul>
+                        </div>
+                        <div class="inset-box" style="flex: 1; padding: 8px;">
+                            <h4 style="margin: 0 0 5px 0; border-bottom: 1px solid gray; padding-bottom: 2px;">Anime</h4>
+                            <ul style="margin: 0; padding-left: 15px;">
+                                <li>Add anime here</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -115,18 +146,10 @@
     <div id="win-tos" class="window" style="top: 80px; left: 150px; width: 500px; display: none; z-index: 10;">
         <div class="title-bar" onmousedown="startDrag(event, 'win-tos')">
             <div class="title-bar-text">T.O.S.txt - Notepad</div>
-            <div class="title-bar-controls">
-                <button onclick="minimizeWindow('win-tos')">_</button>
-                <button>□</button>
-                <button onclick="closeWindow('win-tos')">X</button>
-            </div>
+            <div class="title-bar-controls"><button onclick="minimizeWindow('win-tos')">_</button><button>□</button><button onclick="closeWindow('win-tos')">X</button></div>
         </div>
         <div class="window-body">
-            <ul class="menubar">
-                <li><u>F</u>ile</li>
-                <li><u>E</u>dit</li>
-                <li><u>H</u>elp</li>
-            </ul>
+            <ul class="menubar"><li><u>F</u>ile</li><li><u>E</u>dit</li><li><u>H</u>elp</li></ul>
             <div class="notepad-area inset-box" style="height:250px;">
                 <h3>COMMISSION TERMS OF SERVICE</h3>
                 <ul class="tos-list">
@@ -146,33 +169,16 @@
     <div id="win-links" class="window" style="top: 150px; left: 150px; width: 300px; display: none; z-index: 10;">
         <div class="title-bar" onmousedown="startDrag(event, 'win-links')">
             <div class="title-bar-text">Internet Explorer</div>
-            <div class="title-bar-controls">
-                <button onclick="minimizeWindow('win-links')">_</button>
-                <button>□</button>
-                <button onclick="closeWindow('win-links')">X</button>
-            </div>
+            <div class="title-bar-controls"><button onclick="minimizeWindow('win-links')">_</button><button>□</button><button onclick="closeWindow('win-links')">X</button></div>
         </div>
         <div class="window-body">
-            <div class="address-bar">
-                <span>Address:</span>
-                <input type="text" value="https://c4tl.ing/links" readonly>
-            </div>
+            <div class="address-bar"><span>Address:</span><input type="text" value="https://c4tl.ing/links" readonly></div>
             <div class="links-list inset-box">
-                <a href="https://twitter.com/c4tling_" class="link-item">
-                    <img src="https://win98icons.alexmeub.com/icons/png/world-3.png" width="16"> Twitter
-                </a>
-                <a href="https://discord.com/users/398451587061645312" class="link-item">
-                    <img src="https://win98icons.alexmeub.com/icons/png/msn3-0.png" width="16"> Discord @c4tling
-                </a>
-                <a href="https://ko-fi.com/c4tling" class="link-item">
-                    <img src="http://win98icons.alexmeub.com/icons/png/media_player_stream_sun4.png" width="16"> Ko-Fi
-                </a>
-                <a href="https://www.youtube.com/channel/UCN_L_gXpUurO3rQ1ENSzEww" class="link-item">
-                    <img src="https://win98icons.alexmeub.com/icons/png/camera3_vid-1.png" width="16"> YouTube
-                </a>
-                <a href="https://picarto.tv/c4tling/" class="link-item">
-                    <img src="https://win98icons.alexmeub.com/icons/png/laptop_infrared_2-0.png" width="16"> Picarto
-                </a>
+                <a href="https://twitter.com/c4tling_" class="link-item"><img src="https://win98icons.alexmeub.com/icons/png/world-3.png" width="16"> Twitter</a>
+                <a href="https://discord.com/users/398451587061645312" class="link-item"><img src="https://win98icons.alexmeub.com/icons/png/msn3-0.png" width="16"> Discord @c4tling</a>
+                <a href="https://ko-fi.com/c4tling" class="link-item"><img src="http://win98icons.alexmeub.com/icons/png/media_player_stream_sun4.png" width="16"> Ko-Fi</a>
+                <a href="https://www.youtube.com/channel/UCN_L_gXpUurO3rQ1ENSzEww" class="link-item"><img src="https://win98icons.alexmeub.com/icons/png/camera3_vid-1.png" width="16"> YouTube</a>
+                <a href="https://picarto.tv/c4tling/" class="link-item"><img src="https://win98icons.alexmeub.com/icons/png/laptop_infrared_2-0.png" width="16"> Picarto</a>
             </div>
         </div>
     </div>
@@ -180,50 +186,27 @@
     <div id="win-messenger" class="window" style="top: 100px; left: 400px; width: 250px; height: 400px; display: none; z-index: 10;">
         <div class="title-bar" onmousedown="startDrag(event, 'win-messenger')">
             <div class="title-bar-text">Messenger</div>
-            <div class="title-bar-controls">
-                <button onclick="minimizeWindow('win-messenger')">_</button>
-                <button>□</button>
-                <button onclick="closeWindow('win-messenger')">X</button>
-            </div>
+            <div class="title-bar-controls"><button onclick="minimizeWindow('win-messenger')">_</button><button>□</button><button onclick="closeWindow('win-messenger')">X</button></div>
         </div>
         <div class="window-body" style="background:#f0f0f0; padding:2px;">
             <div class="msn-header">
                 <img src="https://win98icons.alexmeub.com/icons/png/cat-0.png" class="msn-pfp">
-                <div>
-                    <strong>c4tling</strong><br>
-                    <span style="color:green; font-size: 0.9em;">(Online)</span>
-                </div>
+                <div><strong>c4tling</strong><br><span style="color:green; font-size: 0.9em;">(Online)</span></div>
             </div>
             <div class="messenger-body inset-box">
                 <div class="friend-group">▼ Favorites</div>
-                <div class="friend-item">
-                    <div class="status-dot"></div>
-                    <img src="https://win98icons.alexmeub.com/icons/png/key_padlock.png" class="friend-pfp">
-                    <span>Bestie One</span>
-                </div>
-                <div class="friend-item">
-                    <div class="status-dot status-busy"></div>
-                    <img src="https://win98icons.alexmeub.com/icons/png/heart-0.png" class="friend-pfp">
-                    <span>Partner (Busy)</span>
-                </div>
+                <div class="friend-item"><div class="status-dot"></div><img src="https://win98icons.alexmeub.com/icons/png/key_padlock.png" class="friend-pfp"><span>Bestie One</span></div>
+                <div class="friend-item"><div class="status-dot status-busy"></div><img src="https://win98icons.alexmeub.com/icons/png/heart-0.png" class="friend-pfp"><span>Partner (Busy)</span></div>
                 <div class="friend-group">▼ Friends</div>
-                <div class="friend-item">
-                    <div class="status-dot status-away"></div>
-                    <img src="https://win98icons.alexmeub.com/icons/png/paint_file-2.png" class="friend-pfp">
-                    <span>Cool Artist</span>
-                </div>
+                <div class="friend-item"><div class="status-dot status-away"></div><img src="https://win98icons.alexmeub.com/icons/png/paint_file-2.png" class="friend-pfp"><span>Cool Artist</span></div>
             </div>
         </div>
     </div>
 
-    <div id="win-comms" class="window" style="top: 100px; left: 100px; width: 500px; display: none; z-index: 10;">
+    <div id="win-comms" class="window" style="top: 80px; left: 80px; width: 520px; display: none; z-index: 10;">
         <div class="title-bar" onmousedown="startDrag(event, 'win-comms')">
             <div class="title-bar-text">Comms Info - Gallery</div>
-            <div class="title-bar-controls">
-                <button onclick="minimizeWindow('win-comms')">_</button>
-                <button>□</button>
-                <button onclick="closeWindow('win-comms')">X</button>
-            </div>
+            <div class="title-bar-controls"><button onclick="minimizeWindow('win-comms')">_</button><button>□</button><button onclick="closeWindow('win-comms')">X</button></div>
         </div>
         <div class="window-body" style="min-height: 250px; display: flex; flex-direction: column;">
             
@@ -249,29 +232,27 @@
                     <div class="tab" onclick="switchTab('tab-fullbody', this)">Fullbody</div>
                     <div class="tab" onclick="switchTab('tab-other', this)">Other</div>
                 </div>
-                <div class="inset-box" style="height:250px; padding:10px;">
+                <div class="inset-box" style="height:280px; padding:10px;">
                     
                     <div id="tab-headshot" class="tab-content active-content">
                         <h4 style="margin: 0 0 5px 0;">Sketch - $00</h4>
                         <div style="font-size: 0.9em; opacity: 0.6; font-style: italic; margin-bottom: 5px;">Colorable for an additional $5</div>
                         <div class="gallery-grid">
-                            <div class="gallery-item"><img src="assets/comm examples/headshots/ex1.jpg"></div>
-                            <div class="gallery-item"><img src="assets/comm examples/headshots/ex2.jpg"></div>
-                            <div class="gallery-item"><img src="assets/comm examples/headshots/ex3.jpg"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/headshots/ex1.png" onclick="openImagePreview(this.src)"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/headshots/ex2.png" onclick="openImagePreview(this.src)"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/headshots/ex3.png" onclick="openImagePreview(this.src)"></div>
                         </div>
-
                         <h4 style="margin: 15px 0 5px 0;">Flat - $00</h4>
                         <div class="gallery-grid">
-                            <div class="gallery-item"><img src="assets/comm examples/headshots/ex4.jpg"></div>
-                            <div class="gallery-item"><img src="assets/comm examples/headshots/ex5.jpg"></div>
-                            <div class="gallery-item"><img src="assets/comm examples/headshots/ex6.jpg"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/headshots/ex4.png" onclick="openImagePreview(this.src)"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/headshots/ex5.png" onclick="openImagePreview(this.src)"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/headshots/ex6.png" onclick="openImagePreview(this.src)"></div>
                         </div>
-
                         <h4 style="margin: 15px 0 5px 0;">Shaded - $00</h4>
                         <div class="gallery-grid">
-                            <div class="gallery-item"><img src="assets/comm examples/headshots/ex7.jpg"></div>
-                            <div class="gallery-item"><img src="assets/comm examples/headshots/ex8.jpg"></div>
-                            <div class="gallery-item"><img src="assets/comm examples/headshots/ex9.jpg"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/headshots/ex7.png" onclick="openImagePreview(this.src)"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/headshots/ex8.png" onclick="openImagePreview(this.src)"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/headshots/ex9.png" onclick="openImagePreview(this.src)"></div>
                         </div>
                     </div>
 
@@ -279,23 +260,21 @@
                         <h4 style="margin: 0 0 5px 0;">Sketch - $00</h4>
                         <div style="font-size: 0.9em; opacity: 0.6; font-style: italic; margin-bottom: 5px;">Colorable for an additional $5</div>
                         <div class="gallery-grid">
-                            <div class="gallery-item"><img src="assets/comm examples/waistup/ex1.jpg"></div>
-                            <div class="gallery-item"><img src="assets/comm examples/waistup/ex2.jpg"></div>
-                            <div class="gallery-item"><img src="assets/comm examples/waistup/ex3.jpg"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/waistup/ex1.png" onclick="openImagePreview(this.src)"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/waistup/ex2.png" onclick="openImagePreview(this.src)"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/waistup/ex3.png" onclick="openImagePreview(this.src)"></div>
                         </div>
-
                         <h4 style="margin: 15px 0 5px 0;">Flat - $00</h4>
                         <div class="gallery-grid">
-                            <div class="gallery-item"><img src="assets/comm examples/waistup/ex4.jpg"></div>
-                            <div class="gallery-item"><img src="assets/comm examples/waistup/ex5.jpg"></div>
-                            <div class="gallery-item"><img src="assets/comm examples/waistup/ex6.jpg"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/waistup/ex4.png" onclick="openImagePreview(this.src)"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/waistup/ex5.png" onclick="openImagePreview(this.src)"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/waistup/ex6.png" onclick="openImagePreview(this.src)"></div>
                         </div>
-
                         <h4 style="margin: 15px 0 5px 0;">Shaded - $00</h4>
                         <div class="gallery-grid">
-                            <div class="gallery-item"><img src="assets/comm examples/waistup/ex7.jpg"></div>
-                            <div class="gallery-item"><img src="assets/comm examples/waistup/ex8.jpg"></div>
-                            <div class="gallery-item"><img src="assets/comm examples/waistup/ex9.jpg"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/waistup/ex7.png" onclick="openImagePreview(this.src)"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/waistup/ex8.png" onclick="openImagePreview(this.src)"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/waistup/ex9.png" onclick="openImagePreview(this.src)"></div>
                         </div>
                     </div>
 
@@ -303,98 +282,83 @@
                         <h4 style="margin: 0 0 5px 0;">Sketch - $00</h4>
                         <div style="font-size: 0.9em; opacity: 0.6; font-style: italic; margin-bottom: 5px;">Colorable for an additional $5</div>
                         <div class="gallery-grid">
-                            <div class="gallery-item"><img src="assets/comm examples/fullbodies/ex1.jpg"></div>
-                            <div class="gallery-item"><img src="assets/comm examples/fullbodies/ex2.jpg"></div>
-                            <div class="gallery-item"><img src="assets/comm examples/fullbodies/ex3.jpg"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/fullbodies/ex1.png" onclick="openImagePreview(this.src)"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/fullbodies/ex2.png" onclick="openImagePreview(this.src)"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/fullbodies/ex3.png" onclick="openImagePreview(this.src)"></div>
                         </div>
-
                         <h4 style="margin: 15px 0 5px 0;">Flat - $00</h4>
                         <div class="gallery-grid">
-                            <div class="gallery-item"><img src="assets/comm examples/fullbodies/ex4.jpg"></div>
-                            <div class="gallery-item"><img src="assets/comm examples/fullbodies/ex5.jpg"></div>
-                            <div class="gallery-item"><img src="assets/comm examples/fullbodies/ex6.png"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/fullbodies/ex4.png" onclick="openImagePreview(this.src)"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/fullbodies/ex5.png" onclick="openImagePreview(this.src)"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/fullbodies/ex6.png" onclick="openImagePreview(this.src)"></div>
                         </div>
-
                         <h4 style="margin: 15px 0 5px 0;">Shaded - $00</h4>
                         <div class="gallery-grid">
-                            <div class="gallery-item"><img src="assets/comm examples/fullbodies/ex7.jpg"></div>
-                            <div class="gallery-item"><img src="assets/comm examples/fullbodies/ex8.jpg"></div>
-                            <div class="gallery-item"><img src="assets/comm examples/fullbodies/ex9.jpg"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/fullbodies/ex7.png" onclick="openImagePreview(this.src)"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/fullbodies/ex8.png" onclick="openImagePreview(this.src)"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/fullbodies/ex9.png" onclick="openImagePreview(this.src)"></div>
                         </div>
                     </div>
 
                     <div id="tab-other" class="tab-content">
                         <h4 style="margin: 0 0 5px 0;">Simple Ref - $00</h4>
                         <div class="gallery-grid">
-                            <div class="gallery-item"><img src="assets/comm examples/other/ex1.jpg"></div>
-                            <div class="gallery-item"><img src="assets/comm examples/other/ex2.jpg"></div>
-                            <div class="gallery-item"><img src="assets/comm examples/other/ex3.jpg"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/other/ex1.png" onclick="openImagePreview(this.src)"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/other/ex2.png" onclick="openImagePreview(this.src)"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/other/ex3.png" onclick="openImagePreview(this.src)"></div>
                         </div>
-
                         <h4 style="margin: 15px 0 5px 0;">Detailed Ref - $00</h4>
                         <div class="gallery-grid">
-                            <div class="gallery-item"><img src="assets/comm examples/other/ex4.jpg"></div>
-                            <div class="gallery-item"><img src="assets/comm examples/other/ex5.jpg"></div>
-                            <div class="gallery-item"><img src="assets/comm examples/other/ex6.jpg"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/other/ex4.png" onclick="openImagePreview(this.src)"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/other/ex5.png" onclick="openImagePreview(this.src)"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/other/ex6.png" onclick="openImagePreview(this.src)"></div>
                         </div>
-
                         <h4 style="margin: 15px 0 5px 0;">Outfits Ref - $00</h4>
                         <div class="gallery-grid">
-                            <div class="gallery-item"><img src="assets/comm examples/other/ex7.png"></div>
-                            <div class="gallery-item"><img src="assets/comm examples/other/ex8.jpg"></div>
-                            <div class="gallery-item"><img src="assets/comm examples/other/ex9.jpg"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/other/ex7.png" onclick="openImagePreview(this.src)"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/other/ex8.png" onclick="openImagePreview(this.src)"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/other/ex9.png" onclick="openImagePreview(this.src)"></div>
                         </div>
-
                         <h4 style="margin: 15px 0 5px 0;">Customs / Redesigns - $00</h4>
                         <div class="gallery-grid">
-                            <div class="gallery-item"><img src="assets/comm examples/other/ex10.jpg"></div>
-                            <div class="gallery-item"><img src="assets/comm examples/other/ex11.png"></div>
-                            <div class="gallery-item"><img src="assets/comm examples/other/ex12.jpg"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/other/ex10.png" onclick="openImagePreview(this.src)"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/other/ex11.png" onclick="openImagePreview(this.src)"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/other/ex12.png" onclick="openImagePreview(this.src)"></div>
                         </div>
-
                         <h4 style="margin: 15px 0 5px 0;">Experimental - Price Varies</h4>
                         <div class="gallery-grid">
-                            <div class="gallery-item"><img src="assets/comm examples/other/ex13.jpg"></div>
-                            <div class="gallery-item"><img src="assets/comm examples/other/ex14.jpg"></div>
-                            <div class="gallery-item"><img src="assets/comm examples/other/ex15.jpg"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/other/ex13.png" onclick="openImagePreview(this.src)"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/other/ex14.png" onclick="openImagePreview(this.src)"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/other/ex15.png" onclick="openImagePreview(this.src)"></div>
                         </div>
-
                         <h4 style="margin: 15px 0 5px 0;">Doodle Page - $00</h4>
                         <div class="gallery-grid">
-                            <div class="gallery-item"><img src="assets/comm examples/other/ex16.jpg"></div>
-                            <div class="gallery-item"><img src="assets/comm examples/other/ex17.jpg"></div>
-                            <div class="gallery-item"><img src="assets/comm examples/other/ex18.jpg"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/other/ex16.png" onclick="openImagePreview(this.src)"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/other/ex17.png" onclick="openImagePreview(this.src)"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/other/ex18.png" onclick="openImagePreview(this.src)"></div>
                         </div>
-
                         <h4 style="margin: 15px 0 5px 0;">PNGtuber - $00</h4>
                         <div class="gallery-grid">
-                            <div class="gallery-item"><img src="assets/comm examples/other/ex19.gif"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/other/ex19.png" onclick="openImagePreview(this.src)"></div>
                         </div>
-
                         <h4 style="margin: 15px 0 5px 0;">Roblox Clothing - $00</h4>
                         <div class="gallery-grid">
-                            <div class="gallery-item"><img src="assets/comm examples/other/ex20.jpg"></div>
-                            <div class="gallery-item"><img src="assets/comm examples/other/ex21.jpg"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/other/ex20.png" onclick="openImagePreview(this.src)"></div>
+                            <div class="gallery-item"><img src="assets/comm examples/other/ex21.png" onclick="openImagePreview(this.src)"></div>
                         </div>
-
                         <h4 style="margin: 15px 0 5px 0;">Roblox Faces - $00</h4>
                         <p style="margin: 0; opacity: 0.6; font-style: italic;">no images :(</p>
                     </div>
 
                 </div>
             </div>
-
         </div>
     </div>
 
     <div id="win-paint" class="window" style="top: 20%; left: 20%; width: 520px; display: none; z-index: 10;">
         <div class="title-bar" onmousedown="startDrag(event, 'win-paint')">
             <div class="title-bar-text">untitled - Paint</div>
-            <div class="title-bar-controls">
-                <button onclick="minimizeWindow('win-paint')">_</button>
-                <button>□</button>
-                <button onclick="closeWindow('win-paint')">X</button>
-            </div>
+            <div class="title-bar-controls"><button onclick="minimizeWindow('win-paint')">_</button><button>□</button><button onclick="closeWindow('win-paint')">X</button></div>
         </div>
         <div class="window-body" style="padding:0;">
             <div class="paint-toolbar" style="padding:5px;">
@@ -417,37 +381,16 @@
     </div>
 
     <div class="taskbar">
-        <button id="start-btn" class="start-btn" onclick="toggleStartMenu(event)">
-            <img src="https://win98icons.alexmeub.com/icons/png/windows-0.png" width="16">
-            <b>Start</b>
-        </button>
-        <div id="task-win-me" class="task-button" onclick="toggleWindow('win-me')">
-            <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png" width="16" style="margin-right:5px;"> About Me
-        </div>
-        <div id="task-win-tos" class="task-button" onclick="toggleWindow('win-tos')">
-            <img src="https://win98icons.alexmeub.com/icons/png/notepad-5.png" width="16" style="margin-right:5px;"> T.O.S.
-        </div>
-        <div id="task-win-links" class="task-button" onclick="toggleWindow('win-links')">
-            <img src="https://win98icons.alexmeub.com/icons/png/world-3.png" width="16" style="margin-right:5px;"> Links
-        </div>
-        <div id="task-win-messenger" class="task-button" onclick="toggleWindow('win-messenger')">
-            <img src="https://win98icons.alexmeub.com/icons/png/msn3-3.png" width="16" style="margin-right:5px;"> Messenger
-        </div>
-        <div id="task-win-comms" class="task-button" onclick="toggleWindow('win-comms')">
-            <img src="https://win98icons.alexmeub.com/icons/png/paint_file-2.png" width="16" style="margin-right:5px;"> Comms
-        </div>
-        <div id="task-win-paint" class="task-button" onclick="toggleWindow('win-paint')">
-            <img src="https://win98icons.alexmeub.com/icons/png/paint_old-0.png" width="16" style="margin-right:5px;"> Paint
-        </div>
-        
-        <div class="tray" style="margin-left:auto; border:2px inset white; padding:2px 5px;">
-            <span id="clock">12:00 PM</span>
-        </div>
+        <button id="start-btn" class="start-btn" onclick="toggleStartMenu(event)"><img src="https://win98icons.alexmeub.com/icons/png/windows-0.png" width="16"><b>Start</b></button>
+        <div id="task-win-me" class="task-button" onclick="toggleWindow('win-me')"><img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png" width="16" style="margin-right:5px;"> About Me</div>
+        <div id="task-win-tos" class="task-button" onclick="toggleWindow('win-tos')"><img src="https://win98icons.alexmeub.com/icons/png/notepad-5.png" width="16" style="margin-right:5px;"> T.O.S.</div>
+        <div id="task-win-links" class="task-button" onclick="toggleWindow('win-links')"><img src="https://win98icons.alexmeub.com/icons/png/world-3.png" width="16" style="margin-right:5px;"> Links</div>
+        <div id="task-win-messenger" class="task-button" onclick="toggleWindow('win-messenger')"><img src="https://win98icons.alexmeub.com/icons/png/msn3-3.png" width="16" style="margin-right:5px;"> Messenger</div>
+        <div id="task-win-comms" class="task-button" onclick="toggleWindow('win-comms')"><img src="https://win98icons.alexmeub.com/icons/png/paint_file-2.png" width="16" style="margin-right:5px;"> Comms</div>
+        <div id="task-win-paint" class="task-button" onclick="toggleWindow('win-paint')"><img src="https://win98icons.alexmeub.com/icons/png/paint_old-0.png" width="16" style="margin-right:5px;"> Paint</div>
+        <div class="tray" style="margin-left:auto; border:2px inset white; padding:2px 5px;"><span id="clock">12:00 PM</span></div>
     </div>
 
     <script src="script.js"></script>
 </body>
 </html>
-
-
-
