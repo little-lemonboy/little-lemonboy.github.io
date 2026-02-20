@@ -415,3 +415,47 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+
+// script.js
+
+(function initScreensaver() {
+    const img = document.getElementById('screensaver');
+    let posX = Math.random() * (window.innerWidth - 100);
+    let posY = Math.random() * (window.innerHeight - 100);
+    let velX = 2; // Speed in X direction
+    let velY = 2; // Speed in Y direction
+    const imgWidth = 100;
+    const imgHeight = 100;
+
+    function move() {
+        // 1. Update Position
+        posX += velX;
+        posY += velY;
+
+        // 2. Bounce logic for Screen Edges
+        if (posX + imgWidth >= window.innerWidth || posX <= 0) {
+            velX = -velX;
+        }
+        if (posY + imgHeight >= window.innerHeight || posY <= 0) {
+            velY = -velY;
+        }
+
+        // 3. Update Visuals
+        img.style.transform = `translate(${posX}px, ${posY}px)`;
+        
+        // 4. Stay behind the active window
+        // highestZ is the variable tracked in your script.js
+        img.style.zIndex = highestZ - 1;
+
+        requestAnimationFrame(move);
+    }
+
+    // Handle window resizing to prevent the image from getting stuck outside
+    window.addEventListener('resize', () => {
+        posX = Math.min(posX, window.innerWidth - imgWidth);
+        posY = Math.min(posY, window.innerHeight - imgHeight);
+    });
+
+    move();
+})();
