@@ -528,7 +528,7 @@
     <img id="screensaver" src="https://f2.toyhou.se/file/f2-toyhou-se/images/103775742_iEFdlIHeHaeCP8G.gif" style="position: absolute; pointer-events: none; width: 100px; z-index: 99;">
 
 
-<div id="win-minesweeper" class="window" style="display:none; width:auto;">
+<div id="win-minesweeper" class="window draggable" style="display:none; width:auto; z-index:100;" onmousedown="focusWindow('win-minesweeper')">
     <div class="window-title" onmousedown="startWindowDrag(event, 'win-minesweeper')">
         <div class="title-text">Minesweeper</div>
         <div class="title-buttons">
@@ -536,7 +536,7 @@
             <button class="win-btn" onclick="closeWindow('win-minesweeper')">X</button>
         </div>
     </div>
-    <div class="window-content" style="background: #c0c0c0; padding: 10px; display: flex; flex-direction: column; align-items: center;">
+    <div class="window-content" style="background: var(--win-gray); padding: 10px; display: flex; flex-direction: column; align-items: center;">
         <div class="game-controls" style="display: flex; gap: 5px; margin-bottom: 10px; border-bottom: 2px groove #fff; padding-bottom: 10px; width: 100%; justify-content: center;">
             <button class="win-btn" style="width: auto; padding: 2px 8px;" onclick="initMinesweeper(8, 8, 10)">Easy</button>
             <button class="win-btn" style="width: auto; padding: 2px 8px;" onclick="initMinesweeper(12, 12, 20)">Med</button>
@@ -547,6 +547,7 @@
 </div>
 </body>
 </html>
+
 
 
 
