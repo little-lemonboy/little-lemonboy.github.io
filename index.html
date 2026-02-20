@@ -12,29 +12,31 @@
     <div id="shutdown-overlay" onclick="reboot()">
         <div class="tv-line"></div>
     </div>
+    
+    <div id="selection-marquee"></div>
 
     <div class="desktop-icons">
-        <div class="icon" onclick="openWindow('win-me')">
+        <div class="icon" id="icon-me" style="top: 10px; left: 10px;" ondblclick="openWindow('win-me')" onmousedown="startIconDrag(event, 'icon-me')">
             <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png" alt="My Computer">
             <span>About Me</span>
         </div>
-        <div class="icon" onclick="openWindow('win-tos')">
+        <div class="icon" id="icon-tos" style="top: 100px; left: 10px;" ondblclick="openWindow('win-tos')" onmousedown="startIconDrag(event, 'icon-tos')">
             <img src="https://win98icons.alexmeub.com/icons/png/notepad-5.png" alt="TOS">
             <span>T.O.S.txt</span>
         </div>
-        <div class="icon" onclick="openWindow('win-comms')">
+        <div class="icon" id="icon-comms" style="top: 190px; left: 10px;" ondblclick="openWindow('win-comms')" onmousedown="startIconDrag(event, 'icon-comms')">
             <img src="https://win98icons.alexmeub.com/icons/png/paint_file-2.png" alt="Comms">
             <span>Comms Info</span>
         </div>
-        <div class="icon" onclick="openWindow('win-links')">
+        <div class="icon" id="icon-links" style="top: 280px; left: 10px;" ondblclick="openWindow('win-links')" onmousedown="startIconDrag(event, 'icon-links')">
             <img src="https://win98icons.alexmeub.com/icons/png/world-3.png" alt="Links">
             <span>Links</span>
         </div>
-        <div class="icon" onclick="openWindow('win-messenger')">
+        <div class="icon" id="icon-messenger" style="top: 370px; left: 10px;" ondblclick="openWindow('win-messenger')" onmousedown="startIconDrag(event, 'icon-messenger')">
             <img src="https://win98icons.alexmeub.com/icons/png/msn3-3.png" alt="Messenger">
             <span>Messenger</span>
         </div>
-        <div class="icon" onclick="openWindow('win-paint')">
+        <div class="icon" id="icon-paint" style="top: 460px; left: 10px;" ondblclick="openWindow('win-paint')" onmousedown="startIconDrag(event, 'icon-paint')">
             <img src="https://win98icons.alexmeub.com/icons/png/paint_old-0.png" alt="Paint">
             <span>Paint</span>
         </div>
