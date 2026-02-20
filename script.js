@@ -42,7 +42,6 @@ function closeWindow(id) {
 
 function minimizeWindow(id) { 
     document.getElementById(id).style.display = 'none'; 
-    // Un-press the taskbar button
     var taskBtn = document.getElementById('task-' + id);
     if (taskBtn) taskBtn.classList.remove('active');
 }
@@ -52,7 +51,6 @@ function toggleWindow(id) {
     if (win.style.display === 'none') { 
         openWindow(id); 
     } else {
-        // If it's already active, minimize it. Otherwise, bring it to the front.
         var titleBar = win.querySelector('.title-bar');
         if (titleBar && titleBar.classList.contains('active-bar')) {
             minimizeWindow(id);
@@ -68,15 +66,11 @@ function bringToFront(id) {
     if (win) {
         win.style.zIndex = highestZ;
         
-        // Remove active state from ALL title bars
         document.querySelectorAll('.title-bar').forEach(tb => tb.classList.remove('active-bar'));
-        // Add active state to THIS title bar
         var titleBar = win.querySelector('.title-bar');
         if (titleBar) titleBar.classList.add('active-bar');
 
-        // Remove active state from ALL taskbar buttons
         document.querySelectorAll('.task-button').forEach(btn => btn.classList.remove('active'));
-        // Add active state to THIS taskbar button
         var taskBtn = document.getElementById('task-' + id);
         if (taskBtn) taskBtn.classList.add('active');
     }
@@ -87,7 +81,6 @@ function startDrag(e, id) {
     bringToFront(id);
     currentWindow = document.getElementById(id);
     
-    // Lock in the exact current pixel position and kill the transform BEFORE calculating offsets
     var rect = currentWindow.getBoundingClientRect();
     currentWindow.style.transform = "none";
     currentWindow.style.left = rect.left + "px";
@@ -100,7 +93,7 @@ function startDrag(e, id) {
 
 document.addEventListener('mousemove', function(e) {
     if (isDragging && currentWindow) {
-        e.preventDefault(); // Stops text from highlighting while you drag
+        e.preventDefault(); 
         currentWindow.style.left = (e.clientX - initialX) + "px";
         currentWindow.style.top = (e.clientY - initialY) + "px";
     }
@@ -137,7 +130,7 @@ window.onload = function() {
             }
         };
         canvas.onmouseup = function() { painting = false; };
-        canvas.onmouseleave = function() { painting = false; }; // Stops drawing if mouse leaves canvas
+        canvas.onmouseleave = function() { painting = false; };
     }
 
     setInterval(function() {
@@ -145,13 +138,18 @@ window.onload = function() {
         document.getElementById('clock').innerText = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
     }, 1000);
     
-    // Open default window
     if (document.getElementById('win-me')) openWindow('win-me');
 };
 
+/* --- TABS --- */
 function switchTab(tabId, tabElement) {
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active-content'));
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active-tab'));
+    // Scoped tab swapping so it doesn't break other windows
+    var windowBody = tabElement.closest('.window-body');
+    if (!windowBody) return;
+    
+    windowBody.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active-content'));
+    windowBody.querySelectorAll('.tab').forEach(t => t.classList.remove('active-tab'));
+    
     document.getElementById(tabId).classList.add('active-content');
     tabElement.classList.add('active-tab');
 }
