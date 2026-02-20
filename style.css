@@ -244,10 +244,10 @@ canvas#paintCanvas { background: white; border: 2px inset white; cursor: crossha
     left: 0;
     width: 100px;
     height: 100px;
-    pointer-events: auto !important; /* Force it */
-    cursor: pointer !important;
-    z-index: 99;
+    pointer-events: auto !important; /* Ensures the image is "hittable" by the mouse */
+    user-select: auto !important;    /* Overrides the body's select restriction */
+    -webkit-user-drag: none;        /* Prevents the browser from dragging the image itself */
+    cursor: pointer;
+    z-index: 99;                    /* This is the starting depth; JS will update this */
     display: block;
-    user-select: auto !important;   /* Override the body setting */
-    -webkit-user-drag: none;        /* Prevents you from accidentally dragging the ghost image */
 }
