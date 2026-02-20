@@ -238,12 +238,14 @@ canvas#paintCanvas { background: white; border: 2px inset white; cursor: crossha
     border-color: #ffffe1 transparent transparent transparent;
 }
 
-/* style.css */
 #screensaver {
-    position: fixed; /* Ensures it stays relative to the screen */
+    position: fixed;
     top: 0;
     left: 0;
-    will-change: transform;
-    image-rendering: pixelated; /* Optional: keeps the retro look */
-    pointer-events: none; /* Allows you to click through it */
+    width: 100px;
+    height: 100px;
+    pointer-events: auto; /* Changed this so he can be touched */
+    cursor: pointer;      /* Gives you a clickable hand icon */
+    z-index: 99;
+    display: block;
 }
