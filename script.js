@@ -421,13 +421,43 @@ var board = [];
 var rows = 8, cols = 8, minesCount = 10;
 var gameOver = false;
 
+// New variables for timer and counters
+var minesLeft = 0;
+var timerInterval = null;
+var timeElapsed = 0;
+var firstClick = false;
+
+// Audio objects (Make sure you have these files in your assets folder!)
+var winSound = new Audio('assets/tada.wav'); 
+var loseSound = new Audio('assets/chord.wav'); 
+
+// Helper to keep the classic 3-digit counter look (e.g., "010" or "-05")
+function updateDisplay(id, value) {
+    let valStr = value.toString();
+    if (value >= 0) {
+        document.getElementById(id).innerText = valStr.padStart(3, '0');
+    } else {
+        document.getElementById(id).innerText = "-" + Math.abs(value).toString().padStart(2, '0');
+    }
+}
+
 function initMinesweeper(r, c, m) {
     rows = r; cols = c; minesCount = m; gameOver = false;
+    
+    // Reset our timer and flag counters
+    minesLeft = m;
+    timeElapsed = 0;
+    firstClick = true;
+    clearInterval(timerInterval);
+    
+    updateDisplay('mine-count', minesLeft);
+    updateDisplay('timer', timeElapsed);
+
     const field = document.getElementById('mine-field');
     const resetBtn = document.getElementById('reset-btn');
     if (!field) return;
 
-const resetFace = document.getElementById('reset-face');
+    const resetFace = document.getElementById('reset-face');
     if (resetFace) resetFace.src = "assets/smile.png";
     field.style.gridTemplateColumns = `repeat(${cols}, 20px)`;
     field.innerHTML = '';
@@ -461,14 +491,30 @@ const resetFace = document.getElementById('reset-face');
 
 function revealCell(r, c) {
     if (gameOver || board[r][c].revealed || board[r][c].flagged) return;
+    
+    // Start the timer on the very first click
+    if (firstClick) {
+        firstClick = false;
+        timerInterval = setInterval(() => {
+            timeElapsed++;
+            updateDisplay('timer', Math.min(timeElapsed, 999));
+        }, 1000);
+    }
+
     const cell = board[r][c];
     cell.revealed = true;
     cell.element.classList.add('revealed');
 
+    // Uh oh, you hit a mine!
     if (cell.mine) {
         cell.element.classList.add('mine');
         gameOver = true;
+        clearInterval(timerInterval); // Stop the clock
         document.getElementById('reset-face').src = "assets/dead.png";
+        
+        // Play the lose sound (catch prevents errors if user hasn't interacted with page yet)
+        loseSound.currentTime = 0;
+        loseSound.play().catch(e => console.log("Audio play blocked by browser:", e)); 
         return;
     }
 
@@ -484,7 +530,7 @@ function revealCell(r, c) {
         cell.element.innerText = mines;
         cell.element.setAttribute('data-mines', mines);
     } else {
-        // Correct Flood Fill / Auto-clear
+        // Flood fill empty spaces
         for (let i = -1; i <= 1; i++) {
             for (let j = -1; j <= 1; j++) {
                 let nr = r + i, nc = c + j;
@@ -497,8 +543,26 @@ function revealCell(r, c) {
 
 function toggleFlag(r, c) {
     if (gameOver || board[r][c].revealed) return;
+    
+    // Start timer if user's first action is placing a flag
+    if (firstClick) {
+        firstClick = false;
+        timerInterval = setInterval(() => {
+            timeElapsed++;
+            updateDisplay('timer', Math.min(timeElapsed, 999));
+        }, 1000);
+    }
+
     board[r][c].flagged = !board[r][c].flagged;
     board[r][c].element.classList.toggle('flagged');
+    
+    // Math to update the counter when you place/remove a flag
+    if (board[r][c].flagged) {
+        minesLeft--;
+    } else {
+        minesLeft++;
+    }
+    updateDisplay('mine-count', minesLeft);
 }
 
 function checkWin() {
@@ -510,8 +574,14 @@ function checkWin() {
     }
     if (unrevealedSafe === 0) {
         gameOver = true;
+        clearInterval(timerInterval); // Stop the clock!
         document.getElementById('reset-face').src = "assets/cool.png";
-        alert("You Win!");
+        
+        winSound.currentTime = 0;
+        winSound.play().catch(e => console.log("Audio play blocked by browser:", e));
+        
+        // A slight delay before the alert so the sound and face update can happen first
+        setTimeout(() => alert("You Win!"), 100); 
     }
 }
 
