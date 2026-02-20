@@ -360,9 +360,17 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // 4. Click Detection (State 3)
+    // 4. Click Detection (State 3) with dynamic bounce
     assistant.addEventListener("click", () => {
         triggerReaction(3, 2000); // State 3 for 2 seconds
+        
+        // Add the scared animation class
+        assistant.classList.add("scared");
+        
+        // Remove the class after the animation finishes (600ms) so it can trigger again
+        setTimeout(() => {
+            assistant.classList.remove("scared");
+        }, 600);
     });
 
     // 5. Improved Wiggle Detection (State 4) on the element level
