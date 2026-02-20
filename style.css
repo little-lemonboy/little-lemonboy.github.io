@@ -284,3 +284,36 @@ canvas#paintCanvas { background: white; border: 2px inset white; cursor: crossha
 .cell.mine {
     background-color: red;
 }
+
+/* Cell Number Colors */
+.cell[data-mines="1"] { color: blue; }
+.cell[data-mines="2"] { color: green; }
+.cell[data-mines="3"] { color: red; }
+.cell[data-mines="4"] { color: darkblue; }
+.cell[data-mines="5"] { color: maroon; }
+.cell[data-mines="6"] { color: turquoise; }
+.cell[data-mines="7"] { color: black; }
+.cell[data-mines="8"] { color: gray; }
+
+.cell.flagged::after {
+    content: "🚩";
+    font-size: 12px;
+}
+
+.cell.mine::after {
+    content: "💣";
+    font-size: 12px;
+}
+
+.game-controls button {
+    font-family: 'MS Sans Serif', sans-serif;
+    font-size: 11px;
+    padding: 2px 10px;
+    background: var(--win-gray);
+    border: 2px outset #fff;
+    cursor: pointer;
+}
+
+.game-controls button:active {
+    border-style: inset;
+}
