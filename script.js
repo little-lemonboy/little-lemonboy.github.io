@@ -490,3 +490,52 @@ document.addEventListener("DOMContentLoaded", () => {
     // Start the animation loop
     update();
 });
+
+let board = [];
+function initMinesweeper(rows, cols, mines) {
+    const field = document.getElementById('mine-field');
+    field.style.gridTemplateColumns = `repeat(${cols}, 20px)`;
+    field.innerHTML = '';
+    board = [];
+
+    // Create Board Array
+    for (let r = 0; r < rows; r++) {
+        board[r] = [];
+        for (let c = 0; c < cols; c++) {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+            cell.dataset.row = r;
+            cell.dataset.col = c;
+            cell.addEventListener('click', () => revealCell(r, c));
+            field.appendChild(cell);
+            board[r][c] = { mine: false, revealed: false, element: cell };
+        }
+    }
+
+    // Randomize Mines
+    let placed = 0;
+    while (placed < mines) {
+        let r = Math.floor(Math.random() * rows);
+        let c = Math.floor(Math.random() * cols);
+        if (!board[r][c].mine) {
+            board[r][c].mine = true;
+            placed++;
+        }
+    }
+}
+
+function revealCell(r, c) {
+    const cell = board[r][c];
+    if (cell.revealed) return;
+    
+    cell.revealed = true;
+    cell.element.classList.add('revealed');
+    
+    if (cell.mine) {
+        cell.element.classList.add('mine');
+        alert("Game Over");
+        return;
+    }
+    
+    // Logic for counting neighbors and flood-fill empty cells would go here
+}
