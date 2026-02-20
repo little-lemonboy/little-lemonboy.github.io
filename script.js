@@ -417,7 +417,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 let board = [];
-let rows, cols, minesCount;
+let rows = 8, cols = 8, minesCount = 10;
 let gameOver = false;
 
 function initMinesweeper(r, c, m) {
@@ -432,22 +432,26 @@ function initMinesweeper(r, c, m) {
     for (let i = 0; i < rows; i++) {
         board[i] = [];
         for (let j = 0; j < cols; j++) {
-            const cell = document.createElement('div');
-            cell.classList.add('cell');
-            cell.addEventListener('mousedown', (e) => {
+            const cellElem = document.createElement('div');
+            cellElem.classList.add('cell');
+            cellElem.addEventListener('mousedown', (e) => {
                 if (e.button === 0) revealCell(i, j);
                 if (e.button === 2) toggleFlag(i, j);
             });
-            cell.addEventListener('contextmenu', e => e.preventDefault());
-            field.appendChild(cell);
-            board[i][j] = { mine: false, revealed: false, flagged: false, element: cell };
+            cellElem.addEventListener('contextmenu', e => e.preventDefault());
+            field.appendChild(cellElem);
+            board[i][j] = { mine: false, revealed: false, flagged: false, element: cellElem };
         }
     }
 
     let placed = 0;
     while (placed < minesCount) {
-        let rr = Math.floor(Math.random() * rows), cc = Math.floor(Math.random() * cols);
-        if (!board[rr][cc].mine) { board[rr][cc].mine = true; placed++; }
+        let rr = Math.floor(Math.random() * rows);
+        let cc = Math.floor(Math.random() * cols);
+        if (!board[rr][cc].mine) {
+            board[rr][cc].mine = true;
+            placed++;
+        }
     }
 }
 
@@ -460,7 +464,6 @@ function revealCell(r, c) {
     if (cell.mine) {
         cell.element.classList.add('mine');
         gameOver = true;
-        setTimeout(() => alert("Game Over"), 10);
         return;
     }
 
@@ -476,7 +479,7 @@ function revealCell(r, c) {
         cell.element.innerText = mines;
         cell.element.setAttribute('data-mines', mines);
     } else {
-        // Correct Flood Fill Logic
+        // Flood Fill: Auto-clear neighbors
         for (let i = -1; i <= 1; i++) {
             for (let j = -1; j <= 1; j++) {
                 let nr = r + i, nc = c + j;
