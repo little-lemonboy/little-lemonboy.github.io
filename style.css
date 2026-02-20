@@ -224,7 +224,16 @@ canvas#paintCanvas { background: white; border: 2px inset white; cursor: crossha
     transition: transform 0.1s ease-out;
 }
 
-#assistant-character:active {
-    transform: translate(2px, 2px); /* Little click effect */
+/* --- SCARE BOUNCE ANIMATION --- */
+@keyframes scaredBounce {
+    0% { transform: translateY(0) scale(1); }
+    15% { transform: translateY(-40px) scale(1.1); } /* Jumps up and slightly expands */
+    35% { transform: translateY(0) scale(1); } /* Hits the ground */
+    60% { transform: translateY(-15px) scale(1.05); } /* Smaller secondary bounce */
+    85% { transform: translateY(0) scale(1); }
+    100% { transform: translateY(0) scale(1); }
 }
 
+.scared {
+    animation: scaredBounce 0.6s ease-in-out;
+}
