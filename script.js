@@ -10,6 +10,7 @@ var selStartX, selStartY;
 var selBox;
 var isDraggingIcon = false;
 var currentIcon = null;
+var hasDraggedIcon = false; // The safety lock
 
 /* --- SHUTDOWN --- */
 function tvShutdown() {
@@ -26,7 +27,6 @@ function toggleStartMenu(event) {
 }
 function closeStartMenu() { document.getElementById('start-menu').style.display = 'none'; }
 document.addEventListener('click', function(e) { 
-    // Close start menu if clicked outside
     var menu = document.getElementById('start-menu');
     var btn = document.getElementById('start-btn');
     if (menu.style.display === 'flex' && !menu.contains(e.target) && !btn.contains(e.target)) {
@@ -44,9 +44,7 @@ function openWindow(id) {
     var taskBtn = document.getElementById('task-' + id);
     if (taskBtn) taskBtn.style.display = 'flex';
     
-    // Clear desktop selections when opening a window
     document.querySelectorAll('.icon').forEach(i => i.classList.remove('selected'));
-    
     bringToFront(id);
 }
 
@@ -109,10 +107,9 @@ function startDrag(e, id) {
 
 /* --- DRAG ICONS --- */
 function startIconDrag(e, id) {
-    // Only drag on left click
     if (e.button !== 0) return;
     
-    // Deselect all others, select this one
+    hasDraggedIcon = false; // Reset the safety lock
     document.querySelectorAll('.icon').forEach(i => i.classList.remove('selected'));
     currentIcon = document.getElementById(id);
     currentIcon.classList.add('selected');
@@ -123,10 +120,17 @@ function startIconDrag(e, id) {
     isDraggingIcon = true;
 }
 
+function handleIconClick(id) {
+    // If the safety lock wasn't triggered by dragging, open the window
+    if (!hasDraggedIcon) {
+        openWindow(id);
+    }
+}
+
 /* --- DESKTOP SELECTION BOX --- */
 document.addEventListener('mousedown', function(e) {
-    // Start marquee only if clicking directly on the body background
-    if (e.target.tagName.toLowerCase() === 'body' || e.target.className === 'desktop-icons') {
+    // Allows the marquee to start if you click the background or the icon container
+    if (e.target.tagName.toLowerCase() === 'body' || e.target.classList.contains('desktop-icons') || e.target.id === 'selection-marquee') {
         isSelecting = true;
         selStartX = e.clientX;
         selStartY = e.clientY;
@@ -137,30 +141,27 @@ document.addEventListener('mousedown', function(e) {
         selBox.style.height = '0px';
         selBox.style.display = 'block';
 
-        // Clear previous icon selections
         document.querySelectorAll('.icon').forEach(icon => icon.classList.remove('selected'));
     }
 });
 
 /* --- GLOBAL MOUSE MOVE --- */
 document.addEventListener('mousemove', function(e) {
-    // Drag Window
     if (isDragging && currentWindow) {
         e.preventDefault(); 
         currentWindow.style.left = (e.clientX - initialX) + "px";
         currentWindow.style.top = (e.clientY - initialY) + "px";
     }
     
-    // Drag Icon
     if (isDraggingIcon && currentIcon) {
         e.preventDefault();
+        hasDraggedIcon = true; // Trigger the safety lock!
         currentIcon.style.left = (e.clientX - initialX) + "px";
         currentIcon.style.top = (e.clientY - initialY) + "px";
     }
 
-    // Draw Selection Box
     if (isSelecting) {
-        e.preventDefault(); // Stop default highlight behavior
+        e.preventDefault(); 
         var currentX = e.clientX;
         var currentY = e.clientY;
         
@@ -174,10 +175,8 @@ document.addEventListener('mousemove', function(e) {
         selBox.style.width = width + 'px';
         selBox.style.height = height + 'px';
 
-        // Highlight icons caught in the box
         document.querySelectorAll('.icon').forEach(icon => {
             var rect = icon.getBoundingClientRect();
-            // Check intersection
             if (rect.left < left + width && rect.right > left && rect.top < top + height && rect.bottom > top) {
                 icon.classList.add('selected');
             } else {
@@ -217,7 +216,6 @@ function exportCanvas() {
 
 /* --- INIT --- */
 window.onload = function() {
-    // Grab the selection marquee from HTML
     selBox = document.getElementById('selection-marquee');
 
     canvas = document.getElementById('paintCanvas');
@@ -244,7 +242,6 @@ window.onload = function() {
         document.getElementById('clock').innerText = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
     }, 1000);
 
-    // Clicking anywhere on a window focuses it
     document.querySelectorAll('.window').forEach(function(win) {
         win.addEventListener('mousedown', function(e) {
             bringToFront(this.id);
