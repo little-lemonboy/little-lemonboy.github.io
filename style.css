@@ -147,3 +147,42 @@ canvas#paintCanvas { background: white; border: 2px inset white; cursor: crossha
 .start-item { display: flex; align-items: center; gap: 10px; padding: 5px 10px; cursor: pointer; color: black; }
 .start-item:hover { background: var(--win-title-blue); color: white; }
 .start-item img { width: 24px; height: 24px; }
+
+/* --- DIGITAL ASSISTANT --- */
+#digital-assistant {
+    position: fixed;
+    bottom: 40px; /* Sits just above your taskbar */
+    right: 20px;
+    z-index: 9000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    pointer-events: none; /* Lets clicks pass through the container */
+}
+
+#assistant-speech-bubble {
+    display: none; /* Hidden until spoken */
+    width: 180px;
+    margin-bottom: 10px;
+    pointer-events: auto;
+    position: relative;
+}
+
+/* Creating the little speech bubble pointer */
+#assistant-speech-bubble::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    right: 30px;
+    border-width: 10px 10px 0 0;
+    border-style: solid;
+    border-color: var(--win-gray) transparent transparent transparent;
+}
+
+#assistant-character {
+    width: 64px; /* Adjust this if your images are a different size */
+    height: 64px;
+    pointer-events: auto;
+    cursor: pointer;
+    filter: drop-shadow(2px 2px 0px rgba(0,0,0,0.5));
+}
