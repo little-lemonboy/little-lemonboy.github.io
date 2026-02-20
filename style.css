@@ -244,8 +244,10 @@ canvas#paintCanvas { background: white; border: 2px inset white; cursor: crossha
     left: 0;
     width: 100px;
     height: 100px;
-    pointer-events: auto; /* THIS MUST BE 'AUTO', NOT 'NONE' */
-    cursor: pointer;
+    pointer-events: auto !important; /* Force it */
+    cursor: pointer !important;
     z-index: 99;
     display: block;
+    user-select: auto !important;   /* Override the body setting */
+    -webkit-user-drag: none;        /* Prevents you from accidentally dragging the ghost image */
 }
