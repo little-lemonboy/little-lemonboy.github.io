@@ -4,7 +4,6 @@ var currentWindow = null;
 var initialX, initialY;
 var canvas, ctx, painting = false, currentColor = 'black';
 
-// Desktop Selection & Icon Dragging Vars
 var isSelecting = false;
 var selStartX, selStartY;
 var selBox;
@@ -40,7 +39,6 @@ function openWindow(id) {
     if (!win) return;
     
     win.style.display = 'flex';
-    
     var taskBtn = document.getElementById('task-' + id);
     if (taskBtn) taskBtn.style.display = 'flex';
     
@@ -79,7 +77,6 @@ function bringToFront(id) {
     var win = document.getElementById(id);
     if (win) {
         win.style.zIndex = highestZ;
-        
         document.querySelectorAll('.title-bar').forEach(tb => tb.classList.remove('active-bar'));
         var titleBar = win.querySelector('.title-bar');
         if (titleBar) titleBar.classList.add('active-bar');
@@ -94,12 +91,10 @@ function bringToFront(id) {
 function startDrag(e, id) {
     bringToFront(id);
     currentWindow = document.getElementById(id);
-    
     var rect = currentWindow.getBoundingClientRect();
     currentWindow.style.transform = "none";
     currentWindow.style.left = rect.left + "px";
     currentWindow.style.top = rect.top + "px";
-
     initialX = e.clientX - rect.left;
     initialY = e.clientY - rect.top;
     isDragging = true;
@@ -108,12 +103,10 @@ function startDrag(e, id) {
 /* --- DRAG ICONS --- */
 function startIconDrag(e, id) {
     if (e.button !== 0) return;
-    
     hasDraggedIcon = false; 
     document.querySelectorAll('.icon').forEach(i => i.classList.remove('selected'));
     currentIcon = document.getElementById(id);
     currentIcon.classList.add('selected');
-
     var rect = currentIcon.getBoundingClientRect();
     initialX = e.clientX - rect.left;
     initialY = e.clientY - rect.top;
@@ -121,9 +114,7 @@ function startIconDrag(e, id) {
 }
 
 function handleIconClick(id) {
-    if (!hasDraggedIcon) {
-        openWindow(id);
-    }
+    if (!hasDraggedIcon) openWindow(id);
 }
 
 /* --- DESKTOP SELECTION BOX --- */
@@ -132,13 +123,11 @@ document.addEventListener('mousedown', function(e) {
         isSelecting = true;
         selStartX = e.clientX;
         selStartY = e.clientY;
-        
         selBox.style.left = selStartX + 'px';
         selBox.style.top = selStartY + 'px';
         selBox.style.width = '0px';
         selBox.style.height = '0px';
         selBox.style.display = 'block';
-
         document.querySelectorAll('.icon').forEach(icon => icon.classList.remove('selected'));
     }
 });
@@ -162,7 +151,6 @@ document.addEventListener('mousemove', function(e) {
         e.preventDefault(); 
         var currentX = e.clientX;
         var currentY = e.clientY;
-        
         var left = Math.min(selStartX, currentX);
         var top = Math.min(selStartY, currentY);
         var width = Math.abs(selStartX - currentX);
@@ -186,33 +174,31 @@ document.addEventListener('mousemove', function(e) {
 
 /* --- GLOBAL MOUSE UP --- */
 document.addEventListener('mouseup', function() { 
-    isDragging = false; 
-    currentWindow = null; 
+    isDragging = false; currentWindow = null; 
     
     if (isDraggingIcon && currentIcon) {
         var currentX = parseInt(currentIcon.style.left) || 0;
         var currentY = parseInt(currentIcon.style.top) || 0;
-        
         var snappedX = Math.max(10, Math.round((currentX - 10) / 90) * 90 + 10);
         var snappedY = Math.max(10, Math.round((currentY - 10) / 90) * 90 + 10);
-        
         currentIcon.style.left = snappedX + "px";
         currentIcon.style.top = snappedY + "px";
     }
     
-    isDraggingIcon = false;
-    currentIcon = null;
-    
-    if (isSelecting) {
-        isSelecting = false;
-        selBox.style.display = 'none';
-    }
+    isDraggingIcon = false; currentIcon = null;
+    if (isSelecting) { isSelecting = false; selBox.style.display = 'none'; }
 });
 
 /* --- COMMS GATEKEEPER --- */
 function acceptCommsWarning() {
     document.getElementById('comms-warning').style.display = 'none';
     document.getElementById('comms-content').style.display = 'flex';
+}
+
+/* --- IMAGE VIEWER --- */
+function openImagePreview(src) {
+    document.getElementById('preview-img').src = src;
+    openWindow('win-preview');
 }
 
 /* --- PAINT --- */
@@ -240,7 +226,6 @@ window.onload = function() {
         clearCanvas();
         ctx.lineWidth = 3;
         ctx.lineCap = 'round';
-
         canvas.onmousedown = function(e) { painting = true; ctx.beginPath(); ctx.moveTo(e.clientX - canvas.getBoundingClientRect().left, e.clientY - canvas.getBoundingClientRect().top); };
         canvas.onmousemove = function(e) {
             if (painting) {
@@ -259,9 +244,7 @@ window.onload = function() {
     }, 1000);
 
     document.querySelectorAll('.window').forEach(function(win) {
-        win.addEventListener('mousedown', function(e) {
-            bringToFront(this.id);
-        });
+        win.addEventListener('mousedown', function(e) { bringToFront(this.id); });
     });
     
     if (document.getElementById('win-me')) openWindow('win-me');
