@@ -160,70 +160,6 @@ canvas#paintCanvas { background: white; border: 2px inset white; cursor: crossha
     pointer-events: none;
 }
 
-#assistant-speech-bubble {
-    /* display: none is handled inline/JS now so it starts hidden */
-    width: 200px;
-    margin-bottom: 15px;
-    pointer-events: auto;
-    position: relative;
-    box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
-}
-
-/* The yellow body container */
-.window-body-yellow {
-    background-color: #ffffcc; /* Classic tooltip yellow */
-    color: black;
-    padding: 10px;
-    border: 2px solid;
-    /* Classic inset look for the text area */
-    border-color: #808080 #ffffff #ffffff #808080; 
-    margin: 2px;
-    font-size: 12px;
-}
-
-/* The speech pointer arrow (now yellow) */
-#assistant-speech-bubble::after {
-    content: "";
-    position: absolute;
-    bottom: -10px;
-    right: 40px;
-    border-width: 10px 10px 0 0;
-    border-style: solid;
-    /* Match the yellow background and gray border */
-    border-color: var(--win-gray) transparent transparent transparent;
-}
-/* A second, smaller triangle to create the "inside" yellow part of the arrow */
-#assistant-speech-bubble::before {
-    content: "";
-    position: absolute;
-    bottom: -7px;
-    right: 42px;
-    z-index: 1;
-    border-width: 8px 8px 0 0;
-    border-style: solid;
-    border-color: #ffffcc transparent transparent transparent;
-}
-
-
-/* Window header adjustments for the bubble */
-#assistant-speech-bubble .window-header {
-    padding: 2px;
-    background: var(--win-gray); /* Keeps the header gray */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* Make the assistant bigger */
-#assistant-character {
-    width: 100px; /* Increased from 64px */
-    height: 100px;
-    pointer-events: auto;
-    cursor: pointer;
-    filter: drop-shadow(3px 3px 0px rgba(0,0,0,0.4));
-    transition: transform 0.1s ease-out;
-}
-
 /* --- SCARE BOUNCE ANIMATION --- */
 @keyframes scaredBounce {
     0% { transform: translateY(0) scale(1); }
@@ -236,4 +172,58 @@ canvas#paintCanvas { background: white; border: 2px inset white; cursor: crossha
 
 .scared {
     animation: scaredBounce 0.6s ease-in-out;
+}
+
+
+/* --- NEW BALLOON TIP BUBBLE --- */
+#assistant-speech-bubble {
+    width: 180px;
+    margin-bottom: 25px; /* Extra room for the tail */
+    pointer-events: auto;
+    position: relative;
+    background-color: #ffffe1; /* Classic pale tooltip yellow */
+    border: 1px solid #000000;
+    border-radius: 8px; /* Smooth rounded corners */
+    box-shadow: 3px 3px 0 rgba(0,0,0,0.2);
+    padding: 12px 15px 12px 12px;
+    color: #000000;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+/* The subtle close button in the corner */
+#bubble-close-btn {
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    cursor: pointer;
+    font-size: 10px;
+    color: #808080;
+    font-family: sans-serif;
+}
+
+#bubble-close-btn:hover {
+    color: #000000;
+}
+
+/* The black outline of the pointer tail */
+#assistant-speech-bubble::before {
+    content: "";
+    position: absolute;
+    bottom: -20px;
+    right: 40px;
+    border-width: 20px 20px 0 0;
+    border-style: solid;
+    border-color: #000000 transparent transparent transparent;
+}
+
+/* The inner yellow part of the pointer tail */
+#assistant-speech-bubble::after {
+    content: "";
+    position: absolute;
+    bottom: -18px;
+    right: 41px; /* Offset slightly to let the black border show */
+    border-width: 19px 18px 0 0;
+    border-style: solid;
+    border-color: #ffffe1 transparent transparent transparent;
 }
