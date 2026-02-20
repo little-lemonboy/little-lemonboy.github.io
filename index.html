@@ -37,9 +37,9 @@
         <div class="icon" id="icon-recycle" style="top: 10px; left: calc(100% - 75px);" onclick="handleIconClick('win-blacklist')" onmousedown="startIconDrag(event, 'icon-recycle')">
             <img src="https://win98icons.alexmeub.com/icons/png/recycle_bin_full-4.png"><span>Recycle Bin</span>
         </div>
-        <div class="icon" id="icon-minesweeper" style="top: 280px; left: 10px;" onclick="handleIconClick('win-minesweeper')" onmousedown="startIconDrag(event, 'icon-minesweeper')">
-    <img src="https://win98icons.alexmeub.com/icons/png/minesweeper-0.png"><span>Minesweeper</span>
-</div>
+        <div class="icon" id="icon-minesweeper" style="top: 550px; left: 10px;" onclick="handleIconClick('win-minesweeper')" onmousedown="startIconDrag(event, 'icon-minesweeper')">
+            <img src="https://win98icons.alexmeub.com/icons/png/minesweeper-0.png"><span>Minesweeper</span>
+        </div>
 </div>
     </div>
 
@@ -528,54 +528,27 @@
     <img id="screensaver" src="https://f2.toyhou.se/file/f2-toyhou-se/images/103775742_iEFdlIHeHaeCP8G.gif" style="position: absolute; pointer-events: none; width: 100px; z-index: 99;">
 
 
-<div id="win-minesweeper" class="window draggable" style="display:none; width:auto; z-index:100;" onmousedown="focusWindow('win-minesweeper')">
-    <div class="window-title" onmousedown="startWindowDrag(event, 'win-minesweeper')">
-        <div class="title-text">Minesweeper</div>
-        <div class="title-buttons">
-            <button class="win-btn" onclick="toggleWindow('win-minesweeper')">_</button>
-            <button class="win-btn" onclick="closeWindow('win-minesweeper')">X</button>
+<div id="win-minesweeper" class="window" style="top: 20%; left: 30%; width: auto; display: none; z-index: 10;">
+    <div class="title-bar" onmousedown="startDrag(event, 'win-minesweeper')">
+        <div class="title-bar-text">Minesweeper</div>
+        <div class="title-bar-controls">
+            <button onclick="minimizeWindow('win-minesweeper')">_</button><button>□</button><button onclick="closeWindow('win-minesweeper')">X</button>
         </div>
     </div>
-    <div class="window-content" style="background: var(--win-gray); padding: 5px; display: flex; flex-direction: column; align-items: center;">
+    <div class="window-body" style="background: var(--win-gray); padding: 5px; display: flex; flex-direction: column; align-items: center;">
         <div class="game-header" style="display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 5px; border: 2px inset white; margin-bottom: 5px; box-sizing: border-box;">
             <div id="mine-count" style="background: black; color: red; font-family: 'Courier New', monospace; padding: 2px 5px; font-weight: bold; border: 1px inset gray; min-width: 30px; text-align: center;">010</div>
-            <button id="reset-btn" class="win-btn" style="padding: 2px; font-size: 14px; width: 26px; height: 26px;" onclick="initMinesweeper(rows, cols, minesCount)">🙂</button>
+            
+            <button id="reset-btn" style="padding: 2px; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center;" onclick="initMinesweeper(rows, cols, minesCount)">
+                <img id="reset-face" src="assets/smile.png" style="width: 16px; height: 16px; pointer-events: none;">
+            </button>
+            
             <div id="timer" style="background: black; color: red; font-family: 'Courier New', monospace; padding: 2px 5px; font-weight: bold; border: 1px inset gray; min-width: 30px; text-align: center;">000</div>
         </div>
         <div class="game-controls" style="display: flex; gap: 5px; margin-bottom: 5px;">
-            <button class="win-btn" style="width: auto; padding: 1px 6px;" onclick="initMinesweeper(8, 8, 10)">Beginner</button>
-            <button class="win-btn" style="width: auto; padding: 1px 6px;" onclick="initMinesweeper(16, 16, 40)">Expert</button>
+            <button style="width: auto; padding: 1px 6px;" onclick="initMinesweeper(8, 8, 10)">Beginner</button>
+            <button style="width: auto; padding: 1px 6px;" onclick="initMinesweeper(16, 16, 40)">Expert</button>
         </div>
         <div id="mine-field" class="mine-field"></div>
     </div>
 </div>
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
