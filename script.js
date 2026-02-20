@@ -516,32 +516,76 @@ function checkWin() {
 }
 
 /* --- SCREENSAVER BOUNCE ANIMATION --- */
-let ss = document.getElementById('screensaver');
-let ssX = 0, ssY = 0;
-let ssDX = 1.5, ssDY = 1.5; // Change these to make it move faster or slower
+document.addEventListener("DOMContentLoaded", () => {
+    const img = document.getElementById('screensaver');
+    if (!img) return;
 
-if (ss) {
-    function animateScreensaver() {
-        let rect = ss.getBoundingClientRect();
-        
-        // Bounce off the right and left walls
-        if (ssX + rect.width >= window.innerWidth || ssX <= 0) {
-            ssDX *= -1;
-        }
-        // Bounce off the bottom and top walls
-        if (ssY + rect.height >= window.innerHeight || ssY <= 0) {
-            ssDY *= -1;
-        }
-        
-        ssX += ssDX;
-        ssY += ssDY;
-        
-        ss.style.left = ssX + 'px';
-        ss.style.top = ssY + 'px';
-        
-        requestAnimationFrame(animateScreensaver);
+    const baseSpeed = 0.75; // Adjust this for overall speed
+    const imgSize = 100;
+
+    // 1. Initialize Random Position
+    let posX = Math.random() * (window.innerWidth - imgSize);
+    let posY = Math.random() * (window.innerHeight - imgSize);
+    let velX, velY;
+    let isPaused = false;
+
+    // Helper function to set a random movement angle
+    function randomizeDirection() {
+        const angle = Math.random() * Math.PI * 2;
+        velX = Math.cos(angle) * baseSpeed;
+        velY = Math.sin(angle) * baseSpeed;
     }
+
+    // 2. Start Moving Immediately
+    randomizeDirection();
+
+    function update() {
+        if (!isPaused) {
+            posX += velX;
+            posY += velY;
+
+            // Bounce logic for screen edges
+            if (posX + imgSize >= window.innerWidth || posX <= 0) {
+                velX *= -1; // Reflect horizontally
+                posX = Math.max(0, Math.min(posX, window.innerWidth - imgSize));
+            }
+            if (posY + imgSize >= window.innerHeight || posY <= 0) {
+                velY *= -1; // Reflect vertically
+                posY = Math.max(0, Math.min(posY, window.innerHeight - imgSize));
+            }
+        }
+
+        // Apply coordinates via transform
+        img.style.transform = `translate(${posX}px, ${posY}px)`;
+        
+        // Z-Index: Stay exactly 1 level behind the focused window
+        const currentHighestZ = (typeof highestZ !== 'undefined') ? highestZ : 100;
+        img.style.zIndex = Math.max(0, currentHighestZ - 1);
+
+        requestAnimationFrame(update);
+    }
+
+    // 3. Interaction Listeners
     
-    // Start the animation
-    animateScreensaver();
-}
+    // Pause on hover
+    img.addEventListener("mouseover", () => {
+        isPaused = true;
+    });
+
+    // Resume on unhover
+    img.addEventListener("mouseout", () => {
+        isPaused = false;
+    });
+
+    // Resume AND change direction on click
+    img.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation(); // Prevents desktop selection marquee from appearing
+        
+        isPaused = false; // Forces resume if currently hovering
+        randomizeDirection(); // Pick a new path
+    });
+
+    // Start the animation loop
+    update();
+});
