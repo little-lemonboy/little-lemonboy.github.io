@@ -244,8 +244,8 @@ canvas#paintCanvas { background: white; border: 2px inset white; cursor: crossha
     left: 0;
     width: 100px;
     height: 100px;
-    pointer-events: auto; /* Changed this so he can be touched */
-    cursor: pointer;      /* Gives you a clickable hand icon */
+    pointer-events: auto; /* THIS MUST BE 'AUTO', NOT 'NONE' */
+    cursor: pointer;
     z-index: 99;
     display: block;
 }
