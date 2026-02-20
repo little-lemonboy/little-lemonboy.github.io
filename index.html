@@ -16,27 +16,27 @@
     <div id="selection-marquee"></div>
 
     <div class="desktop-icons">
-        <div class="icon" id="icon-me" style="top: 10px; left: 10px;" ondblclick="openWindow('win-me')" onmousedown="startIconDrag(event, 'icon-me')">
+        <div class="icon" id="icon-me" style="top: 10px; left: 10px;" onclick="handleIconClick('win-me')" onmousedown="startIconDrag(event, 'icon-me')">
             <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png" alt="My Computer">
             <span>About Me</span>
         </div>
-        <div class="icon" id="icon-tos" style="top: 100px; left: 10px;" ondblclick="openWindow('win-tos')" onmousedown="startIconDrag(event, 'icon-tos')">
+        <div class="icon" id="icon-tos" style="top: 100px; left: 10px;" onclick="handleIconClick('win-tos')" onmousedown="startIconDrag(event, 'icon-tos')">
             <img src="https://win98icons.alexmeub.com/icons/png/notepad-5.png" alt="TOS">
             <span>T.O.S.txt</span>
         </div>
-        <div class="icon" id="icon-comms" style="top: 190px; left: 10px;" ondblclick="openWindow('win-comms')" onmousedown="startIconDrag(event, 'icon-comms')">
+        <div class="icon" id="icon-comms" style="top: 190px; left: 10px;" onclick="handleIconClick('win-comms')" onmousedown="startIconDrag(event, 'icon-comms')">
             <img src="https://win98icons.alexmeub.com/icons/png/paint_file-2.png" alt="Comms">
             <span>Comms Info</span>
         </div>
-        <div class="icon" id="icon-links" style="top: 280px; left: 10px;" ondblclick="openWindow('win-links')" onmousedown="startIconDrag(event, 'icon-links')">
+        <div class="icon" id="icon-links" style="top: 280px; left: 10px;" onclick="handleIconClick('win-links')" onmousedown="startIconDrag(event, 'icon-links')">
             <img src="https://win98icons.alexmeub.com/icons/png/world-3.png" alt="Links">
             <span>Links</span>
         </div>
-        <div class="icon" id="icon-messenger" style="top: 370px; left: 10px;" ondblclick="openWindow('win-messenger')" onmousedown="startIconDrag(event, 'icon-messenger')">
+        <div class="icon" id="icon-messenger" style="top: 370px; left: 10px;" onclick="handleIconClick('win-messenger')" onmousedown="startIconDrag(event, 'icon-messenger')">
             <img src="https://win98icons.alexmeub.com/icons/png/msn3-3.png" alt="Messenger">
             <span>Messenger</span>
         </div>
-        <div class="icon" id="icon-paint" style="top: 460px; left: 10px;" ondblclick="openWindow('win-paint')" onmousedown="startIconDrag(event, 'icon-paint')">
+        <div class="icon" id="icon-paint" style="top: 460px; left: 10px;" onclick="handleIconClick('win-paint')" onmousedown="startIconDrag(event, 'icon-paint')">
             <img src="https://win98icons.alexmeub.com/icons/png/paint_old-0.png" alt="Paint">
             <span>Paint</span>
         </div>
@@ -82,7 +82,6 @@
         </div>
         <div class="window-body">
             <div style="display:flex; gap:10px;">
-                
                 <img src="https://win98icons.alexmeub.com/icons/png/cat-0.png" style="width:80px; height:80px; border:2px inset white; background: white;" alt="PFP">
                 <div>
                     <h2 style="margin:0">c4tling</h2>
@@ -90,12 +89,10 @@
                 </div>
             </div>
             <hr>
-            
             <div class="tabs">
                 <div class="tab active-tab" onclick="switchTab('about-intro', this)">Intro</div>
                 <div class="tab" onclick="switchTab('about-details', this)">Details</div>
             </div>
-            
             <div style="padding: 15px 5px 5px 5px; min-height: 100px;">
                 <div id="about-intro" class="tab-content active-content">
                     <div style="display: flex; gap: 15px; align-items: flex-start; margin-bottom: 20px;">
@@ -107,7 +104,6 @@
                         <button style="min-width: 80px;" onclick="openWindow('win-comms')">Prices</button>
                     </div>
                 </div>
-
                 <div id="about-details" class="tab-content">
                     <p style="margin-top: 0;">im a cat and this is my website :3</p>
                     <p>This space is loose and free of the white background. You can expand it as much as you need.</p>
@@ -192,32 +188,31 @@
         </div>
         <div class="window-body" style="background:#f0f0f0; padding:2px;">
             <div class="msn-header">
-                
                 <img src="https://win98icons.alexmeub.com/icons/png/cat-0.png" class="msn-pfp" alt="PFP">
                 <div>
                     <strong>c4tling</strong><br>
                     <span style="color:green; font-size: 0.9em;">(Online)</span>
                 </div>
             </div>
-            
             <div class="messenger-body inset-box">
                 <div class="friend-group">▼ Favorites</div>
-                
                 <div class="friend-item">
-                    <div class="status-dot"></div> <img src="https://win98icons.alexmeub.com/icons/png/key_padlock.png" class="friend-pfp">
+                    <div class="status-dot"></div>
+                    <img src="https://win98icons.alexmeub.com/icons/png/key_padlock.png" class="friend-pfp">
                     <span>Bestie One</span>
                 </div>
                 <div class="friend-item">
-                    <div class="status-dot status-busy"></div> <img src="https://win98icons.alexmeub.com/icons/png/heart-0.png" class="friend-pfp">
+                    <div class="status-dot status-busy"></div>
+                    <img src="https://win98icons.alexmeub.com/icons/png/heart-0.png" class="friend-pfp">
                     <span>Partner (Busy)</span>
                 </div>
                 <div class="friend-group">▼ Friends</div>
-                
                 <div class="friend-item">
-                    <div class="status-dot status-away"></div> <img src="https://win98icons.alexmeub.com/icons/png/paint_file-2.png" class="friend-pfp">
+                    <div class="status-dot status-away"></div>
+                    <img src="https://win98icons.alexmeub.com/icons/png/paint_file-2.png" class="friend-pfp">
                     <span>Cool Artist</span>
                 </div>
-                </div>
+            </div>
         </div>
     </div>
 
@@ -237,40 +232,25 @@
                 <div class="tab" onclick="switchTab('tab-render', this)">Render</div>
             </div>
             <div class="inset-box" style="height:250px; padding:10px;">
-                
                 <div id="tab-sketch" class="tab-content active-content">
                     <h4>Sketches ($15-$25)</h4>
                     <div class="gallery-grid">
-                        
-                        <div class="gallery-item">
-                            <img src="https://via.placeholder.com/80x80" alt="Sketch Example 1">
-                        </div>
-                        <div class="gallery-item">
-                            <img src="https://via.placeholder.com/80x80" alt="Sketch Example 2">
-                        </div>
+                        <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Sketch 1"></div>
+                        <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Sketch 2"></div>
                         </div>
                 </div>
-
                 <div id="tab-flat" class="tab-content">
                     <h4>Flat Color ($35-$45)</h4>
                     <div class="gallery-grid">
-                        
-                        <div class="gallery-item">
-                            <img src="https://via.placeholder.com/80x80/bbf" alt="Flat Example 1">
-                        </div>
+                        <div class="gallery-item"><img src="https://via.placeholder.com/80x80/bbf" alt="Flat 1"></div>
                         </div>
                 </div>
-
                 <div id="tab-render" class="tab-content">
                     <h4>Full Render ($60+)</h4>
                     <div class="gallery-grid">
-                        
-                        <div class="gallery-item">
-                            <img src="https://via.placeholder.com/80x80/fbb" alt="Render Example 1">
-                        </div>
+                        <div class="gallery-item"><img src="https://via.placeholder.com/80x80/fbb" alt="Render 1"></div>
                         </div>
                 </div>
-
             </div>
         </div>
     </div>
