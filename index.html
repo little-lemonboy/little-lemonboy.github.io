@@ -227,12 +227,25 @@
         </div>
         <div class="window-body">
             <div class="tabs">
-                <div class="tab active-tab" onclick="switchTab('tab-sketch', this)">Sketch</div>
+                <div class="tab active-tab" onclick="switchTab('tab-intro', this)">Intro</div>
+                <div class="tab" onclick="switchTab('tab-sketch', this)">Sketch</div>
                 <div class="tab" onclick="switchTab('tab-flat', this)">Flat</div>
                 <div class="tab" onclick="switchTab('tab-render', this)">Render</div>
             </div>
             <div class="inset-box" style="height:250px; padding:10px;">
-                <div id="tab-sketch" class="tab-content active-content">
+                
+                <div id="tab-intro" class="tab-content active-content">
+                    <div style="display: flex; gap: 15px; align-items: flex-start;">
+                        <img src="https://win98icons.alexmeub.com/icons/png/msg_warning-0.png" width="32" height="32" alt="warning">
+                        <div style="line-height: 1.4;">
+                            <p style="margin-top:0;"><strong>Commissioning me means you inherently agree to my TOS.</strong></p>
+                            <p>If a boundary is crossed, you will be directed to the TOS to fix the issue. Refusal to correct a violation will result in a permanent block and placement on my public blacklist.</p>
+                            <p>Listed prices are starting estimates. Highly detailed characters or complex requests will cost more. The final price will always be discussed and agreed upon before you pay. No hidden fees, ever.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-sketch" class="tab-content">
                     <h4>Sketches ($15-$25)</h4>
                     <div class="gallery-grid">
                         <div class="gallery-item"><img src="https://via.placeholder.com/80x80" alt="Sketch 1"></div>
