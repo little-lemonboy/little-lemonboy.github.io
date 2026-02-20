@@ -528,7 +528,7 @@
     <img id="screensaver" src="https://f2.toyhou.se/file/f2-toyhou-se/images/103775742_iEFdlIHeHaeCP8G.gif" style="position: absolute; pointer-events: none; width: 100px; z-index: 99;">
 
 
-<div id="win-minesweeper" class="window" style="display:none; width:auto; z-index:100;" onmousedown="focusWindow('win-minesweeper')">
+<div id="win-minesweeper" class="window draggable" style="display:none; width:auto; z-index:100;" onmousedown="focusWindow('win-minesweeper')">
     <div class="window-title" onmousedown="startWindowDrag(event, 'win-minesweeper')">
         <div class="title-text">Minesweeper</div>
         <div class="title-buttons">
@@ -537,10 +537,10 @@
         </div>
     </div>
     <div class="window-content" style="background: var(--win-gray); padding: 5px; display: flex; flex-direction: column; align-items: center;">
-        <div class="game-header" style="display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 5px; border: 2px inset white; margin-bottom: 5px;">
-            <div style="background: black; color: red; font-family: 'Courier New', monospace; padding: 2px 5px; font-weight: bold; border: 1px inset gray;">010</div>
-            <button class="win-btn" style="padding: 2px; font-size: 14px;" onclick="initMinesweeper(rows || 8, cols || 8, minesCount || 10)">🙂</button>
-            <div style="background: black; color: red; font-family: 'Courier New', monospace; padding: 2px 5px; font-weight: bold; border: 1px inset gray;">000</div>
+        <div class="game-header" style="display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 5px; border: 2px inset white; margin-bottom: 5px; box-sizing: border-box;">
+            <div id="mine-count" style="background: black; color: red; font-family: 'Courier New', monospace; padding: 2px 5px; font-weight: bold; border: 1px inset gray; min-width: 30px; text-align: center;">010</div>
+            <button id="reset-btn" class="win-btn" style="padding: 2px; font-size: 14px; width: 26px; height: 26px;" onclick="initMinesweeper(rows, cols, minesCount)">🙂</button>
+            <div id="timer" style="background: black; color: red; font-family: 'Courier New', monospace; padding: 2px 5px; font-weight: bold; border: 1px inset gray; min-width: 30px; text-align: center;">000</div>
         </div>
         <div class="game-controls" style="display: flex; gap: 5px; margin-bottom: 5px;">
             <button class="win-btn" style="width: auto; padding: 1px 6px;" onclick="initMinesweeper(8, 8, 10)">Beginner</button>
@@ -551,6 +551,7 @@
 </div>
 </body>
 </html>
+
 
 
 
