@@ -416,7 +416,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-
 document.addEventListener("DOMContentLoaded", () => {
     const img = document.getElementById('screensaver');
     
@@ -428,64 +427,54 @@ document.addEventListener("DOMContentLoaded", () => {
     let posX = Math.random() * (window.innerWidth - 100);
     let posY = Math.random() * (window.innerHeight - 100);
     
-    // Set your desired speed here. 
-    const baseSpeed = 1.5; 
+    // I set the speed to 0.75 for you here
+    const baseSpeed = 0.75; 
     let velX = baseSpeed; 
     let velY = baseSpeed;
     const imgSize = 100; 
     
-    // Tracks if you are holding him still
     let isPaused = false;
 
     function update() {
-        // Only move if not paused
         if (!isPaused) {
             posX += velX;
             posY += velY;
 
-            // Bounce off right and left walls
             if (posX + imgSize >= window.innerWidth || posX <= 0) {
                 velX *= -1;
                 posX = Math.max(0, Math.min(posX, window.innerWidth - imgSize));
             }
 
-            // Bounce off top and bottom walls
             if (posY + imgSize >= window.innerHeight || posY <= 0) {
                 velY *= -1;
                 posY = Math.max(0, Math.min(posY, window.innerHeight - imgSize));
             }
         }
 
-        // Apply movement visually
         img.style.transform = `translate(${posX}px, ${posY}px)`;
         
-        // Stay behind the active window
         const currentZ = typeof highestZ !== 'undefined' ? highestZ : 100;
         img.style.zIndex = Math.max(0, currentZ - 1);
 
         requestAnimationFrame(update);
     }
 
-    // 1. Freeze in place when you touch him
+    // Freeze in place when hovered
     img.addEventListener("mouseenter", () => {
         isPaused = true;
     });
 
-    // Unfreeze when you let go
+    // Unfreeze when mouse leaves
     img.addEventListener("mouseleave", () => {
         isPaused = false;
     });
 
-    // 2. Scatter in a random direction when clicked
+    // Scatter on click
     img.addEventListener("mousedown", () => {
-        // Pick a random angle in radians (a full circle is 2 * PI)
         const randomAngle = Math.random() * Math.PI * 2;
-        
-        // Calculate new X and Y speeds based on that random angle
         velX = Math.cos(randomAngle) * baseSpeed;
         velY = Math.sin(randomAngle) * baseSpeed;
     });
 
-    // Start the loop
     update();
 });
