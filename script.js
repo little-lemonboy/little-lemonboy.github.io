@@ -417,125 +417,113 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* --- SCREENSAVER LOGIC --- */
-document.addEventListener("DOMContentLoaded", () => {
-    const img = document.getElementById('screensaver');
-    if (!img) return;
-
-    const baseSpeed = 0.75; // Adjust this for overall speed
-    const imgSize = 100;
-
-    // 1. Initialize Random Position
-    let posX = Math.random() * (window.innerWidth - imgSize);
-    let posY = Math.random() * (window.innerHeight - imgSize);
-    let velX, velY;
-    let isPaused = false;
-
-    // Helper function to set a random movement angle
-    function randomizeDirection() {
-        const angle = Math.random() * Math.PI * 2;
-        velX = Math.cos(angle) * baseSpeed;
-        velY = Math.sin(angle) * baseSpeed;
-    }
-
-    // 2. Start Moving Immediately
-    randomizeDirection();
-
-    function update() {
-        if (!isPaused) {
-            posX += velX;
-            posY += velY;
-
-            // Bounce logic for screen edges
-            if (posX + imgSize >= window.innerWidth || posX <= 0) {
-                velX *= -1; // Reflect horizontally
-                posX = Math.max(0, Math.min(posX, window.innerWidth - imgSize));
-            }
-            if (posY + imgSize >= window.innerHeight || posY <= 0) {
-                velY *= -1; // Reflect vertically
-                posY = Math.max(0, Math.min(posY, window.innerHeight - imgSize));
-            }
-        }
-
-        // Apply coordinates via transform
-        img.style.transform = `translate(${posX}px, ${posY}px)`;
-        
-        // Z-Index: Stay exactly 1 level behind the focused window
-        const currentHighestZ = (typeof highestZ !== 'undefined') ? highestZ : 100;
-        img.style.zIndex = Math.max(0, currentHighestZ - 1);
-
-        requestAnimationFrame(update);
-    }
-
-    // 3. Interaction Listeners
-    
-    // Pause on hover
-    img.addEventListener("mouseover", () => {
-        isPaused = true;
-    });
-
-    // Resume on unhover
-    img.addEventListener("mouseout", () => {
-        isPaused = false;
-    });
-
-    // Resume AND change direction on click
-    img.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation(); // Prevents desktop selection marquee from appearing
-        
-        isPaused = false; // Forces resume if currently hovering
-        randomizeDirection(); // Pick a new path
-    });
-
-    // Start the animation loop
-    update();
-});
-
 let board = [];
-function initMinesweeper(rows, cols, mines) {
+let rows, cols, minesCount;
+let gameOver = false;
+
+function initMinesweeper(r, c, m) {
+    rows = r;
+    cols = c;
+    minesCount = m;
+    gameOver = false;
+    
     const field = document.getElementById('mine-field');
     field.style.gridTemplateColumns = `repeat(${cols}, 20px)`;
     field.innerHTML = '';
     board = [];
 
-    // Create Board Array
-    for (let r = 0; r < rows; r++) {
-        board[r] = [];
-        for (let c = 0; c < cols; c++) {
-            const cell = document.createElement('div');
-            cell.classList.add('cell');
-            cell.dataset.row = r;
-            cell.dataset.col = c;
-            cell.addEventListener('click', () => revealCell(r, c));
-            field.appendChild(cell);
-            board[r][c] = { mine: false, revealed: false, element: cell };
+    // 1. Create Board Array
+    for (let rIdx = 0; rIdx < rows; rIdx++) {
+        board[rIdx] = [];
+        for (let cIdx = 0; cIdx < cols; cIdx++) {
+            const cellElem = document.createElement('div');
+            cellElem.classList.add('cell');
+            cellElem.addEventListener('click', () => revealCell(rIdx, cIdx));
+            cellElem.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+                toggleFlag(rIdx, cIdx);
+            });
+            field.appendChild(cellElem);
+            board[rIdx][cIdx] = { mine: false, revealed: false, flagged: false, element: cellElem };
         }
     }
 
-    // Randomize Mines
+    // 2. Randomize Mines
     let placed = 0;
-    while (placed < mines) {
-        let r = Math.floor(Math.random() * rows);
-        let c = Math.floor(Math.random() * cols);
-        if (!board[r][c].mine) {
-            board[r][c].mine = true;
+    while (placed < minesCount) {
+        let randR = Math.floor(Math.random() * rows);
+        let randC = Math.floor(Math.random() * cols);
+        if (!board[randR][randC].mine) {
+            board[randR][randC].mine = true;
             placed++;
         }
     }
 }
 
+function toggleFlag(r, c) {
+    if (gameOver || board[r][c].revealed) return;
+    board[r][c].flagged = !board[r][c].flagged;
+    board[r][c].element.classList.toggle('flagged');
+}
+
+
+
+function countNeighbors(r, c) {
+    let count = 0;
+    for (let i = -1; i <= 1; i++) {
+        for (let j = -1; j <= 1; j++) {
+            let nr = r + i;
+            let nc = c + j;
+            if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && board[nr][nc].mine) {
+                count++;
+            }
+        }
+    }
+    return count;
+}
+
 function revealCell(r, c) {
+    if (gameOver || board[r][c].revealed || board[r][c].flagged) return;
+
     const cell = board[r][c];
-    if (cell.revealed) return;
-    
     cell.revealed = true;
     cell.element.classList.add('revealed');
-    
+
     if (cell.mine) {
         cell.element.classList.add('mine');
-        alert("Game Over");
+        gameOver = true;
+        alert("Game Over!");
         return;
     }
-    
-    // Logic for counting neighbors and flood-fill empty cells would go here
+
+    const mines = countNeighbors(r, c);
+    if (mines > 0) {
+        cell.element.innerText = mines;
+        cell.element.setAttribute('data-mines', mines);
+    } else {
+        // Flood Fill: If 0 mines nearby, reveal neighbors
+        for (let i = -1; i <= 1; i++) {
+            for (let j = -1; j <= 1; j++) {
+                let nr = r + i;
+                let nc = c + j;
+                if (nr >= 0 && nr < rows && nc >= 0 && nc < cols) {
+                    revealCell(nr, nc);
+                }
+            }
+        }
+    }
+    checkWin();
+}
+
+function checkWin() {
+    let revealedCount = 0;
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+            if (board[r][c].revealed) revealedCount++;
+        }
+    }
+    if (revealedCount === (rows * cols) - minesCount) {
+        gameOver = true;
+        alert("You Win!");
+    }
 }
