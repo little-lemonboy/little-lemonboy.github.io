@@ -659,3 +659,20 @@ document.addEventListener("DOMContentLoaded", () => {
     // Start the animation loop
     update();
 });
+
+
+  //auto opens comms if in the link
+document.addEventListener("DOMContentLoaded", () => {
+    // 1. Get the current URL of the page
+    const currentUrl = window.location.href.toLowerCase();
+
+    // 2. Check if the URL contains "comms" (e.g., /comms, /#comms, or /?p=comms)
+    if (currentUrl.includes("comms")) {
+        
+        // 3. Trigger the exact same functions your desktop icons use
+        if (typeof openWindow === "function") {
+            openWindow('win-comms'); // Opens the Commissions Gallery
+            openWindow('win-tos');   // Opens the TOS Notepad
+        }
+    }
+});
